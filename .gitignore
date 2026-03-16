@@ -32,6 +32,7 @@ Thumbs.db
 /logo-avecenabasuni.png
 /screenshot-*.png
 /screeenshot-*.png
+/app-bootstrap-temp/
 
 # debug
 npm-debug.log*
