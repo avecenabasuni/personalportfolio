@@ -23,6 +23,15 @@
 # misc
 .DS_Store
 *.pem
+Thumbs.db
+
+# local root artifacts (real assets are kept under /public)
+/Avecena-Basuni-CV.pdf
+/color-palette.png
+/foto-avecenabasuni.jpg
+/logo-avecenabasuni.png
+/screenshot-*.png
+/screeenshot-*.png
 
 # debug
 npm-debug.log*
