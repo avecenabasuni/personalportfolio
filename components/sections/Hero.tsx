@@ -16,7 +16,7 @@ export default function Hero() {
   ];
 
   return (
-    <section id="home" className="radix-surface radix-arcs relative flex min-h-[100vh] items-center overflow-hidden bg-[#0d1218] px-4 py-14 md:px-6 md:py-16 lg:px-8 xl:px-10 2xl:px-12">
+    <section id="home" className="radix-surface radix-arcs relative flex min-h-[100vh] items-center overflow-hidden bg-[#0d1218] px-4 pt-28 pb-14 md:px-6 md:pt-16 md:pb-16 lg:px-8 xl:px-10 2xl:px-12">
       <div
         aria-hidden
         className="hero-grid pointer-events-none absolute inset-0 opacity-40"
@@ -88,7 +88,7 @@ export default function Hero() {
           </motion.div>
 
           <motion.div
-            className="relative mx-auto mt-1 w-full max-w-[19rem] self-center overflow-hidden sm:max-w-[21rem] lg:mt-2 lg:w-[26rem] lg:max-w-none xl:w-[27rem] lg:justify-self-end"
+            className="relative w-full self-center overflow-hidden lg:mt-2 lg:w-[26rem] lg:max-w-none xl:w-[27rem] lg:justify-self-end"
             initial={{ opacity: 0, y: 22 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.21, 0.47, 0.32, 0.98], delay: 0.2 }}
