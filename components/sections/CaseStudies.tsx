@@ -78,6 +78,9 @@ export default function CaseStudies({
             >
               <Link
                 href={`/case-studies/${cs.id}`}
+                data-track-event="case_study_open"
+                data-track-section="case-studies"
+                data-track-label={cs.title}
                 className="block rounded-[1.6rem] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
               >
                 <motion.article

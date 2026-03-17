@@ -54,45 +54,51 @@ export default function Certifications() {
           list by issuer.
         </p>
 
-        <div className="mb-8 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02]">
-          {featuredCerts.map((cert, i) => (
-            <motion.button
-              key={cert.id}
-              type="button"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, margin: "-60px" }}
-              whileHover={{
-                y: -2,
-                transition: { type: "spring", stiffness: 300, damping: 20 },
-              }}
-              transition={{
-                duration: 0.45,
-                ease: [0.21, 0.47, 0.32, 0.98],
-                delay: i * 0.07,
-              }}
-              onClick={() => openCertDetail(cert)}
-              className="flex w-full items-center justify-between gap-4 border-b border-white/8 px-5 py-4 text-left transition-colors hover:bg-white/[0.04] last:border-b-0"
-            >
-              <div className="flex min-w-0 items-center gap-3">
-                <span className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-white/12 bg-white/[0.03] font-mono text-[10px] uppercase text-muted-foreground/80">
-                  {cert.issuer.charAt(0)}
-                </span>
-                <div className="min-w-0">
-                  <p className="truncate font-sans text-sm font-normal leading-snug text-foreground">
-                    {cert.name}
-                  </p>
-                  <p className="mt-1 font-sans text-xs text-muted-foreground/70">
-                    {cert.issuer}
-                  </p>
+        {featuredCerts.length ? (
+          <div className="mb-8 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02]">
+            {featuredCerts.map((cert, i) => (
+              <motion.button
+                key={cert.id}
+                type="button"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false, margin: "-60px" }}
+                whileHover={{
+                  y: -2,
+                  transition: { type: "spring", stiffness: 300, damping: 20 },
+                }}
+                transition={{
+                  duration: 0.45,
+                  ease: [0.21, 0.47, 0.32, 0.98],
+                  delay: i * 0.07,
+                }}
+                onClick={() => openCertDetail(cert)}
+                className="flex w-full items-center justify-between gap-4 border-b border-white/8 px-5 py-4 text-left transition-colors hover:bg-white/[0.04] last:border-b-0"
+              >
+                <div className="flex min-w-0 items-center gap-3">
+                  <span className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-white/12 bg-white/[0.03] font-mono text-[10px] uppercase text-muted-foreground/80">
+                    {cert.issuer.charAt(0)}
+                  </span>
+                  <div className="min-w-0">
+                    <p className="truncate font-sans text-sm font-normal leading-snug text-foreground">
+                      {cert.name}
+                    </p>
+                    <p className="mt-1 font-sans text-xs text-muted-foreground/70">
+                      {cert.issuer}
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <span className="shrink-0 font-mono text-[11px] text-muted-foreground/60">
-                {cert.issuedOn}
-              </span>
-            </motion.button>
-          ))}
-        </div>
+                <span className="shrink-0 font-mono text-[11px] text-muted-foreground/60">
+                  {cert.issuedOn}
+                </span>
+              </motion.button>
+            ))}
+          </div>
+        ) : (
+          <div className="mb-8 rounded-2xl border border-white/10 bg-white/[0.02] px-5 py-4 font-sans text-sm text-muted-foreground">
+            Featured certifications are being refreshed. Open the full list to browse the complete issuer catalog.
+          </div>
+        )}
 
         <button
           type="button"
@@ -100,6 +106,7 @@ export default function Certifications() {
             setSelectedCert(selectedCert ?? featuredCerts[0] ?? certifications[0] ?? null);
             setIsListOpen(true);
           }}
+          disabled={!certifications.length}
           className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.02] px-5 py-2.5 font-sans text-sm font-medium text-muted-foreground transition-colors duration-200 hover:border-white/20 hover:text-foreground md:px-6 md:py-3"
         >
           See all certifications
@@ -136,6 +143,11 @@ export default function Certifications() {
             >
               <div className="modal-dark-scrollbar max-h-[38%] min-h-0 overflow-y-auto overscroll-contain border-b border-white/8 px-4 py-4 md:max-h-none md:border-b-0 md:border-r md:px-7 md:py-6">
                 <div className="space-y-7">
+                  {!groupedByIssuer.length ? (
+                    <p className="rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 font-sans text-sm text-muted-foreground">
+                      No certifications available right now.
+                    </p>
+                  ) : null}
                   {groupedByIssuer.map(([issuer, certs]) => (
                     <div key={issuer}>
                       <p className="mb-3 font-mono text-xs uppercase tracking-[0.16em] text-muted-foreground/62">

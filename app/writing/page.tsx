@@ -1,7 +1,27 @@
+import type { Metadata } from "next";
 import Navigation from "@/components/layout/Navigation";
 import Footer from "@/components/layout/Footer";
 import MediumWritingList from "@/components/writing/MediumWritingList";
 import BackPageLink from "@/components/ui/BackPageLink";
+
+export const metadata: Metadata = {
+  title: "Writing | Avecena Basuni",
+  description:
+    "Notes on observability, cloud infrastructure, and production reliability from real-world implementations.",
+  openGraph: {
+    title: "Writing | Avecena Basuni",
+    description:
+      "Notes on observability, cloud infrastructure, and production reliability from real-world implementations.",
+    images: ["/writing/opengraph-image"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Writing | Avecena Basuni",
+    description:
+      "Notes on observability, cloud infrastructure, and production reliability from real-world implementations.",
+    images: ["/writing/opengraph-image"],
+  },
+};
 
 export default function WritingPage() {
   return (

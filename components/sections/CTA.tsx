@@ -139,7 +139,12 @@ export default function CTA() {
                   <ArrowRightIcon size={14} />
                 </motion.a>
                 <Dialog>
-                  <DialogTrigger className="inline-flex h-11 items-center gap-2 rounded-full border border-border px-5 font-sans text-sm font-medium text-muted-foreground transition-colors hover:border-foreground/30 hover:text-foreground">
+                  <DialogTrigger
+                    data-track-event="resume_open"
+                    data-track-section="contact"
+                    data-track-label="Resume Preview"
+                    className="inline-flex h-11 items-center gap-2 rounded-full border border-border px-5 font-sans text-sm font-medium text-muted-foreground transition-colors hover:border-foreground/30 hover:text-foreground"
+                  >
                     <FileTextIcon size={14} />
                     View Resume
                   </DialogTrigger>

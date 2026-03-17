@@ -26,6 +26,17 @@ export async function generateMetadata({
   return {
     title: `${caseStudy.title} | Avecena Basuni`,
     description: caseStudy.summary,
+    openGraph: {
+      title: `${caseStudy.title} | Avecena Basuni`,
+      description: caseStudy.summary,
+      images: [`/case-studies/${caseStudy.id}/opengraph-image`],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${caseStudy.title} | Avecena Basuni`,
+      description: caseStudy.summary,
+      images: [`/case-studies/${caseStudy.id}/opengraph-image`],
+    },
   };
 }
 

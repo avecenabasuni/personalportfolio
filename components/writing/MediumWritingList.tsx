@@ -12,6 +12,11 @@ type MediumArticle = {
   tags: string[];
 };
 
+type WritingFetchMeta = {
+  fetchedAt: string;
+  source: "medium" | "fallback";
+};
+
 function formatDate(dateString: string) {
   if (!dateString) {
     return "";
@@ -33,9 +38,11 @@ function HomeSkeleton() {
   return (
     <ul className="w-full space-y-2">
       {[0, 1, 2].map((key) => (
-        <li key={key} className="rounded-2xl border border-white/8 px-5 py-4">
-          <div className="h-5 w-4/5 animate-pulse rounded bg-white/10" />
-          <div className="mt-2 h-3 w-1/3 animate-pulse rounded bg-white/8" />
+        <li key={key} className="rounded-2xl border border-white/8 bg-white/[0.02] px-5 py-4">
+          <div className="h-4 w-24 animate-pulse rounded bg-white/8" />
+          <div className="mt-3 h-5 w-4/5 animate-pulse rounded bg-white/12" />
+          <div className="mt-3 h-3 w-full animate-pulse rounded bg-white/8" />
+          <div className="mt-2 h-3 w-4/6 animate-pulse rounded bg-white/7" />
         </li>
       ))}
     </ul>
@@ -46,9 +53,11 @@ function PageSkeleton() {
   return (
     <div className="grid gap-3">
       {[0, 1, 2, 3, 4, 5].map((key) => (
-        <div key={key} className="rounded-2xl border border-white/8 px-5 py-5">
-          <div className="h-6 w-3/4 animate-pulse rounded bg-white/10" />
-          <div className="mt-2 h-3 w-1/4 animate-pulse rounded bg-white/8" />
+        <div key={key} className="rounded-2xl border border-white/8 bg-white/[0.02] px-5 py-5">
+          <div className="h-4 w-24 animate-pulse rounded bg-white/8" />
+          <div className="mt-3 h-6 w-3/4 animate-pulse rounded bg-white/12" />
+          <div className="mt-3 h-3 w-full animate-pulse rounded bg-white/8" />
+          <div className="mt-2 h-3 w-2/3 animate-pulse rounded bg-white/7" />
         </div>
       ))}
     </div>
@@ -58,9 +67,13 @@ function PageSkeleton() {
 export default function MediumWritingList({
   limit,
   mode,
+  refreshKey = 0,
+  onMetaChange,
 }: {
   limit?: number;
   mode: "home" | "page";
+  refreshKey?: number;
+  onMetaChange?: (meta: WritingFetchMeta) => void;
 }) {
   const [items, setItems] = useState<MediumArticle[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -73,18 +86,39 @@ export default function MediumWritingList({
       setIsLoading(true);
       setHasError(false);
       try {
-        const query = typeof limit === "number" ? `?limit=${limit}` : "";
-        const response = await fetch(`/api/writing${query}`);
+        const params = new URLSearchParams();
+        if (typeof limit === "number") {
+          params.set("limit", String(limit));
+        }
+        if (refreshKey > 0) {
+          params.set("refresh", "1");
+          params.set("_", String(Date.now()));
+        }
+
+        const query = params.toString();
+        const response = await fetch(`/api/writing${query ? `?${query}` : ""}`);
         if (!response.ok) {
           throw new Error("Failed to fetch articles");
         }
-        const data = (await response.json()) as { items?: MediumArticle[] };
+        const data = (await response.json()) as {
+          items?: MediumArticle[];
+          fetchedAt?: string;
+          source?: "medium" | "fallback";
+        };
         if (!cancelled) {
           setItems(data.items ?? []);
+          onMetaChange?.({
+            fetchedAt: data.fetchedAt ?? new Date().toISOString(),
+            source: data.source ?? "fallback",
+          });
         }
       } catch {
         if (!cancelled) {
           setHasError(true);
+          onMetaChange?.({
+            fetchedAt: new Date().toISOString(),
+            source: "fallback",
+          });
         }
       } finally {
         if (!cancelled) {
@@ -97,13 +131,13 @@ export default function MediumWritingList({
     return () => {
       cancelled = true;
     };
-  }, [limit]);
+  }, [limit, onMetaChange, refreshKey]);
 
   const emptyMessage = useMemo(() => {
     if (hasError) {
-      return "Unable to load articles right now. Please try again later.";
+      return "Unable to load writing feed right now. You can still open archived posts from my Medium profile.";
     }
-    return "No published articles found yet.";
+    return "No published articles detected yet. New notes will appear here once they are live on Medium.";
   }, [hasError]);
 
   if (isLoading) {
@@ -127,6 +161,9 @@ export default function MediumWritingList({
               href={article.link}
               target="_blank"
               rel="noopener noreferrer"
+              data-track-event="writing_open"
+              data-track-section="writing"
+              data-track-label={article.title}
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, margin: "-60px" }}
@@ -177,6 +214,9 @@ export default function MediumWritingList({
           href={article.link}
           target="_blank"
           rel="noopener noreferrer"
+          data-track-event="writing_open"
+          data-track-section="writing"
+          data-track-label={article.title}
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, margin: "-60px" }}

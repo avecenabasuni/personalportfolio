@@ -81,6 +81,7 @@ function truncateDescription(input: string, maxLength = 120) {
 
 export async function GET(request: NextRequest) {
   const limitParam = request.nextUrl.searchParams.get("limit");
+  const refresh = request.nextUrl.searchParams.get("refresh") === "1";
   const limit = limitParam ? Number(limitParam) : undefined;
 
   const applyLimit = <T,>(items: T[]) =>
@@ -93,11 +94,15 @@ export async function GET(request: NextRequest) {
       headers: {
         Accept: "application/rss+xml, application/xml, text/xml",
       },
-      next: { revalidate: 300 },
+      ...(refresh ? { cache: "no-store" as const } : { next: { revalidate: 300 } }),
     });
 
     if (!response.ok) {
-      return NextResponse.json({ items: applyLimit(buildFallbackItems()) });
+      return NextResponse.json({
+        items: applyLimit(buildFallbackItems()),
+        fetchedAt: new Date().toISOString(),
+        source: "fallback",
+      });
     }
 
     const rawXml = await response.text();
@@ -137,8 +142,16 @@ export async function GET(request: NextRequest) {
       thumbnail: "",
     }));
 
-    return NextResponse.json({ items: applyLimit(items) });
+    return NextResponse.json({
+      items: applyLimit(items),
+      fetchedAt: new Date().toISOString(),
+      source: "medium",
+    });
   } catch {
-    return NextResponse.json({ items: applyLimit(buildFallbackItems()) });
+    return NextResponse.json({
+      items: applyLimit(buildFallbackItems()),
+      fetchedAt: new Date().toISOString(),
+      source: "fallback",
+    });
   }
 }

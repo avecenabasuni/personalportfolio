@@ -40,6 +40,9 @@ export default function Education() {
                 href="https://lib.ui.ac.id/detail?id=9999920516718&lokasi=lokal"
                 target="_blank"
                 rel="noopener noreferrer"
+                data-track-event="thesis_open"
+                data-track-section="education"
+                data-track-label="Bachelor Thesis"
                 className="mt-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 font-sans text-sm text-muted-foreground transition-colors hover:border-white/20 hover:text-foreground"
               >
                 This is my Bachelor Thesis

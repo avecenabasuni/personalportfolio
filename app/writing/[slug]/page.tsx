@@ -1,6 +1,39 @@
+import type { Metadata } from "next";
 import Navigation from "@/components/layout/Navigation";
 import Footer from "@/components/layout/Footer";
 import BackPageLink from "@/components/ui/BackPageLink";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const readableTitle = slug
+    .split("-")
+    .filter(Boolean)
+    .map((part) => part[0].toUpperCase() + part.slice(1))
+    .join(" ");
+
+  return {
+    title: `${readableTitle || "Writing"} | Avecena Basuni`,
+    description:
+      "Article preview route for writing metadata and social sharing in the portfolio.",
+    openGraph: {
+      title: `${readableTitle || "Writing"} | Avecena Basuni`,
+      description:
+        "Article preview route for writing metadata and social sharing in the portfolio.",
+      images: [`/writing/${slug}/opengraph-image`],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${readableTitle || "Writing"} | Avecena Basuni`,
+      description:
+        "Article preview route for writing metadata and social sharing in the portfolio.",
+      images: [`/writing/${slug}/opengraph-image`],
+    },
+  };
+}
 
 export default function WritingArticlePage() {
   return (
