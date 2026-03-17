@@ -141,7 +141,12 @@ export default function Certifications() {
               </div>
             </div>
 
-            <div className="grid min-h-0 flex-1 overflow-hidden md:grid-cols-[minmax(0,40%)_minmax(0,60%)]">
+            <motion.div
+              className="grid min-h-0 flex-1 overflow-hidden md:grid-cols-[minmax(0,40%)_minmax(0,60%)]"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, ease: [0.21, 0.47, 0.32, 0.98] }}
+            >
               <div className="modal-dark-scrollbar min-h-0 overflow-y-auto overscroll-contain border-b border-white/8 px-6 py-5 md:border-b-0 md:border-r md:px-7 md:py-6">
                 <div className="space-y-7">
                   {groupedByIssuer.map(([issuer, certs]) => (
@@ -181,9 +186,14 @@ export default function Certifications() {
               </div>
               <div className="modal-dark-scrollbar min-h-0 overflow-y-auto overflow-x-hidden overscroll-contain px-6 py-5 md:px-7 md:py-6 [white-space:normal] [word-break:keep-all] [overflow-wrap:break-word]">
                 {selectedCert ? (
-                  <div>
+                  <motion.div
+                    key={selectedCert.id}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.28, ease: [0.21, 0.47, 0.32, 0.98] }}
+                  >
                     {selectedCert.badgeImage ? (
-                      <div className="mb-5 flex justify-start rounded-2xl border border-white/8 bg-white/[0.02] p-3">
+                      <div className="mb-5 flex justify-center rounded-2xl border border-white/8 bg-white/[0.02] p-3">
                         <Image
                           src={selectedCert.badgeImage}
                           alt={`${selectedCert.name} badge`}
@@ -243,10 +253,10 @@ export default function Certifications() {
                       </p>
                     </div>
                   </div>
-                  </div>
+                  </motion.div>
                 ) : null}
               </div>
-            </div>
+            </motion.div>
           </DialogContent>
         </Dialog>
       </div>

@@ -7,7 +7,7 @@ export default function CurrentlyWorkingOn() {
   return (
     <section
       id="currently-building"
-      className="px-4 py-14 md:px-6 md:py-16 lg:px-8 xl:px-10 2xl:px-12"
+      className="px-4 pt-6 pb-14 md:px-6 md:pt-8 md:pb-16 lg:px-8 xl:px-10 2xl:px-12"
     >
       <div className="w-full">
         <div className="grid gap-6 md:grid-cols-[8.5rem_minmax(0,1fr)] md:gap-8 lg:grid-cols-[9.5rem_minmax(0,1fr)] lg:gap-10">

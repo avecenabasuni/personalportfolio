@@ -17,12 +17,49 @@ type Rss2JsonItem = {
   categories?: string[];
 };
 
+function normalizePublishedAt(pubDate?: string) {
+  if (!pubDate) {
+    return "";
+  }
+
+  const directDate = new Date(pubDate);
+  if (!Number.isNaN(directDate.getTime())) {
+    return directDate.toISOString();
+  }
+
+  const match = pubDate
+    .trim()
+    .match(/^(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2})(?::(\d{2}))?$/);
+
+  if (!match) {
+    return "";
+  }
+
+  const [, year, month, day, hour, minute, second = "0"] = match;
+  const normalized = new Date(
+    Date.UTC(
+      Number(year),
+      Number(month) - 1,
+      Number(day),
+      Number(hour),
+      Number(minute),
+      Number(second),
+    ),
+  );
+
+  if (Number.isNaN(normalized.getTime())) {
+    return "";
+  }
+
+  return normalized.toISOString();
+}
+
 function buildFallbackItems() {
   return articles.map((article) => ({
     title: article.title,
     link: article.url,
     publishedAt: "",
-    description: "Read this article on Medium.",
+    description: "",
     tags: [],
     thumbnail: "",
   }));
@@ -67,7 +104,7 @@ export async function GET(request: NextRequest) {
     const items = (data.items ?? []).map((item) => ({
       title: item.title ?? "Untitled article",
       link: item.link ?? "#",
-      publishedAt: item.pubDate ?? "",
+      publishedAt: normalizePublishedAt(item.pubDate),
       description: truncateDescription(stripHtml(item.description ?? "")),
       tags: item.categories ?? [],
       thumbnail: item.thumbnail ?? "",

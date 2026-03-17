@@ -13,11 +13,16 @@ type MediumArticle = {
 };
 
 function formatDate(dateString: string) {
+  if (!dateString) {
+    return "";
+  }
+
   const date = new Date(dateString);
   if (Number.isNaN(date.getTime())) {
-    return "Unknown date";
+    return "";
   }
-  return date.toLocaleDateString(undefined, {
+
+  return date.toLocaleDateString("en-US", {
     year: "numeric",
     month: "short",
     day: "numeric",
@@ -31,7 +36,6 @@ function HomeSkeleton() {
         <li key={key} className="rounded-2xl border border-white/8 px-5 py-4">
           <div className="h-5 w-4/5 animate-pulse rounded bg-white/10" />
           <div className="mt-2 h-3 w-1/3 animate-pulse rounded bg-white/8" />
-          <div className="mt-3 h-3 w-full animate-pulse rounded bg-white/8" />
         </li>
       ))}
     </ul>
@@ -45,8 +49,6 @@ function PageSkeleton() {
         <div key={key} className="rounded-2xl border border-white/8 px-5 py-5">
           <div className="h-6 w-3/4 animate-pulse rounded bg-white/10" />
           <div className="mt-2 h-3 w-1/4 animate-pulse rounded bg-white/8" />
-          <div className="mt-4 h-3 w-full animate-pulse rounded bg-white/8" />
-          <div className="mt-2 h-3 w-5/6 animate-pulse rounded bg-white/8" />
         </div>
       ))}
     </div>
@@ -145,12 +147,11 @@ export default function MediumWritingList({
                 <span className="font-sans text-base leading-snug text-muted-foreground transition-colors group-hover:text-foreground">
                   {article.title}
                 </span>
-                <p className="mt-2 font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground/60">
-                  {formatDate(article.publishedAt)}
-                </p>
-                <p className="mt-2 line-clamp-2 font-sans text-sm leading-relaxed text-muted-foreground/85">
-                  {article.description}
-                </p>
+                {formatDate(article.publishedAt) ? (
+                  <p className="mt-2 font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground/60">
+                    {formatDate(article.publishedAt)}
+                  </p>
+                ) : null}
               </div>
               <ArrowUpRightIcon
                 size={14}
@@ -190,23 +191,10 @@ export default function MediumWritingList({
               className="mt-1 shrink-0 text-muted-foreground/55"
             />
           </div>
-          <p className="mt-2 font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground/60">
-            {formatDate(article.publishedAt)}
-          </p>
-          <p className="mt-3 font-sans text-base leading-relaxed text-muted-foreground">
-            {article.description}
-          </p>
-          {article.tags.length ? (
-            <div className="mt-4 flex flex-wrap gap-2">
-              {article.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="rounded-full border border-white/10 bg-white/[0.03] px-2.5 py-1 font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
+          {formatDate(article.publishedAt) ? (
+            <p className="mt-2 font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground/60">
+              {formatDate(article.publishedAt)}
+            </p>
           ) : null}
         </motion.a>
       ))}

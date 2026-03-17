@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { motion } from "framer-motion";
 import { XIcon } from "lucide-react";
 import { vaultEntries } from "@/lib/data";
@@ -12,6 +12,36 @@ import {
   DialogDescription,
   DialogTitle,
 } from "@/components/ui/dialog";
+
+function renderInlineCode(paragraph: string) {
+  const segments = paragraph.split(/(`[^`]+`)/g);
+
+  return segments.map((segment, index) => {
+    if (segment.startsWith("`") && segment.endsWith("`")) {
+      return (
+        <code
+          key={`${segment}-${index}`}
+          className="rounded-md border border-white/12 bg-black/30 px-1.5 py-0.5 font-mono text-[0.92em] text-foreground/95"
+        >
+          {segment.slice(1, -1)}
+        </code>
+      );
+    }
+
+    return <span key={`${segment}-${index}`}>{segment}</span>;
+  });
+}
+
+function renderBody(body: string): ReactNode {
+  return body.split(/\n\n+/).map((paragraph, index) => (
+    <p
+      key={`paragraph-${index}`}
+      className="font-mono text-sm leading-relaxed text-muted-foreground"
+    >
+      {renderInlineCode(paragraph)}
+    </p>
+  ));
+}
 
 export default function Vault() {
   const [activeEntry, setActiveEntry] = useState<VaultEntry | null>(null);
@@ -74,10 +104,15 @@ export default function Vault() {
         >
           <DialogContent
             showCloseButton={false}
-            className="flex h-[min(90dvh,56rem)] w-[min(96vw,72rem)] flex-col overflow-hidden rounded-[1.5rem] border border-white/10 bg-[#10141b]/94 p-0 text-left shadow-2xl backdrop-blur-2xl"
+            className="flex h-auto max-h-[80vh] w-[min(96vw,72rem)] flex-col overflow-y-auto rounded-[1.5rem] border border-white/10 bg-[#10141b]/94 p-0 text-left shadow-2xl backdrop-blur-2xl"
           >
             {activeEntry ? (
-              <>
+              <motion.div
+                key={activeEntry.id}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.28, ease: [0.21, 0.47, 0.32, 0.98] }}
+              >
                 <div className="shrink-0 border-b border-white/8 bg-[#10141b]/96 px-6 py-5 md:px-7 md:py-6">
                   <div className="flex items-start justify-between gap-4">
                     <div>
@@ -87,9 +122,10 @@ export default function Vault() {
                       <DialogTitle className="mt-3 max-w-[24ch] font-display text-2xl leading-[1.08] text-foreground md:text-3xl">
                         {activeEntry.title}
                       </DialogTitle>
-                      <DialogDescription className="mt-3 font-sans text-base leading-relaxed text-muted-foreground">
-                        {activeEntry.tldr}
+                      <DialogDescription className="mt-3 font-sans text-sm italic leading-relaxed text-muted-foreground/78">
+                        TL;DR - {activeEntry.tldr}
                       </DialogDescription>
+                      <div className="mt-4 h-px w-full bg-white/8" />
                     </div>
                     <DialogClose className="rounded-full border border-white/10 p-2 text-muted-foreground transition-colors hover:text-foreground">
                       <XIcon size={16} />
@@ -98,12 +134,10 @@ export default function Vault() {
                   </div>
                 </div>
 
-                <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-6 py-5 md:px-7 md:py-6">
-                  <pre className="whitespace-pre-wrap break-words font-mono text-sm leading-relaxed text-muted-foreground">
-                    {activeEntry.body}
-                  </pre>
+                <div className="space-y-4 px-6 py-5 md:px-7 md:py-6">
+                  {renderBody(activeEntry.body)}
                 </div>
-              </>
+              </motion.div>
             ) : null}
           </DialogContent>
         </Dialog>

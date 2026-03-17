@@ -8,17 +8,15 @@ export default function About() {
       className="px-4 pt-10 pb-14 md:px-6 md:pt-12 md:pb-16 lg:px-8 xl:px-10 2xl:px-12"
     >
       <div className="w-full">
-        <div className="grid gap-5 md:grid-cols-[8.25rem_minmax(0,1fr)] md:gap-6 lg:grid-cols-[9rem_minmax(0,1fr)] lg:gap-8">
-          {/* Label col */}
-          <div>
-            <p className="font-mono text-xs tracking-[0.18em] text-muted-foreground uppercase">
-              About
-            </p>
-          </div>
+        <FadeIn className="w-full">
+          <p className="mb-3 font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
+            About
+          </p>
+          <h2 className="mb-4 font-display text-[clamp(2.35rem,3.5vw,3.9rem)] font-normal leading-[1.04] tracking-[-0.03em] text-foreground">
+            A bit about me.
+          </h2>
 
-          {/* Content col */}
-          <FadeIn className="w-full">
-            <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_26rem] lg:gap-8">
+          <div className="grid items-center gap-6 lg:grid-cols-[minmax(0,1fr)_26rem] lg:gap-8">
               <div className="space-y-5">
                 <p className="font-sans text-base leading-relaxed text-muted-foreground">
                   I'm Avecena, an Electrical Engineer from Universitas Indonesia who
@@ -111,8 +109,7 @@ export default function About() {
                 </div>
               </div>
             </div>
-          </FadeIn>
-        </div>
+        </FadeIn>
       </div>
     </section>
   );
