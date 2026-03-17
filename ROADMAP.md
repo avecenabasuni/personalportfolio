@@ -1,77 +1,62 @@
 # Roadmap
 
-## Phase 1 Delivery (Completed)
+## Phase 4 — Reliability & UX Intelligence
 
-- Writing feed freshness:
-  - ✅ Added "Last updated" timestamp beside Writing heading.
-  - ✅ Added manual refresh trigger for dev/testing mode.
-- Loading and empty-state polish:
-  - ✅ Unified skeleton style and spacing for Writing home/page lists.
-  - ✅ Improved fallback copy for writing and certifications.
-- Asset hygiene:
-  - ✅ Added automated asset audit (`npm run audit:assets`) to verify `/images` and `/documents` references.
-  - 🔄 Optional cleanup of orphan files can be done incrementally after content freeze.
+### CI / Automation
+- ⏳ Add `.github/workflows/ci.yml` wiring `quality:check` on every push to master and on PRs.
+- ⏳ Add Lighthouse CI budget check for mobile performance regressions (LCP, TBT, CLS thresholds).
+- ⏳ Add automated broken-link scan for internal anchors and outbound references.
 
-## Phase 2 Delivery (Partially Completed)
+### Testing
+- ⏳ Add Playwright E2E smoke tests for hash navigation (`#home`, `#contact`, `#case-studies`) and modal keyboard flow.
+- ⏳ Add unit tests for date/description formatting helpers in `MediumWritingList` and `CTA`.
 
-- Navigation and in-page UX hardening:
-  - ✅ Added regression smoke check for anchor offset (`npm run test:smoke`).
-  - ⏳ Full browser E2E hash-navigation coverage still pending.
-- Performance and rendering:
-  - ✅ Writing API now supports explicit refresh/no-store mode for debug validation.
-  - ⏳ Additional responsive image sizing optimization pass still pending.
-- Accessibility pass:
-  - ✅ Key interactive controls in nav/modal/contact remain mobile-tap safe.
-  - ⏳ Formal keyboard + heading hierarchy audit checklist still pending.
+### SEO & Structured Data
+- ⏳ Add JSON-LD `Project` schema to case study detail pages (`app/case-studies/[slug]/page.tsx`).
+- ⏳ Add JSON-LD `Article` schema to writing detail pages (`app/writing/[slug]/page.tsx`).
 
-## Phase 3 Delivery (Partially Completed)
+### Analytics
+- ⏳ Add New Relic NRQL snippet file (`docs/newrelic-queries.md`) for `PortfolioInteraction` funnel queries.
+- ⏳ Instrument remaining missing interactions: vault entry open, certifications modal open, education accordion expand.
 
-- Analytics and observability:
-  - ✅ Implemented interaction taxonomy capture via New Relic (`portfolio_interaction` and `PortfolioInteraction`).
-  - ✅ Instrumented case studies, writing links, resume open, and thesis open actions.
-  - ⏳ Dashboard query presets in New Relic still pending.
-- Content workflow:
-  - ✅ Started modularized section copy in `lib/content.ts` and integrated into About + Writing.
-  - ⏳ Extend structured content coverage to remaining sections.
-- SEO depth:
-  - ✅ Added generated social cards using Next.js `ImageResponse`:
-    - `/opengraph-image`, `/twitter-image`
-    - `/case-studies/[slug]/opengraph-image`
-    - `/writing/opengraph-image`
-    - `/writing/[slug]/opengraph-image`
-  - ✅ Expanded page metadata for writing and case study routes.
+### Content Modularization
+- ⏳ Extend `lib/content.ts` to cover CTA, Experience, CurrentlyWorkingOn, and TechnicalSkills section copy.
 
-## Engineering Quality
+---
 
-- Testing:
-  - ⏳ Unit tests for writing date/description formatting helpers.
-  - ⏳ Component tests for dialogs, navbar menu, and section rendering.
-- CI gates:
-  - ✅ Added `typecheck`, `test:smoke`, and `audit:assets` scripts.
-  - ✅ Added aggregate quality script: `npm run quality:check`.
-  - ⏳ Wire these scripts into CI workflow file.
-- Release discipline:
-  - Keep concise release notes per UX/content change.
+## Phase 5 — Content & Presentation Polish
 
-## Next Phase (Proposed)
+### Writing Page
+- ⏳ Add tag filter chips to `/writing` page to filter articles by Medium tag.
+- ⏳ Show estimated read time per article (derive from description word count as proxy).
 
-- Phase 4 (Reliability + UX intelligence):
-  - Add Playwright E2E coverage for hash navigation and modal keyboard flow.
-  - Add New Relic dashboard JSON templates and NRQL snippets for interaction funnel.
-  - Add per-page JSON-LD for case study detail pages (Project/Article schema).
-  - Add Lighthouse CI budget checks for mobile performance regressions.
-  - Add automated broken-link scan for internal anchors + outbound references.
+### Case Studies
+- ⏳ Add a "Related case studies" row at the bottom of each case study detail page.
+- ⏳ Add breadcrumb navigation on case study and writing detail pages.
 
-## Completed
+### Vault
+- ⏳ Add search/filter input to the Vault section for quick lookup of entries.
+- ⏳ Support categorized Vault entries (e.g. SRE, Cloud, Code) via a tag field in `lib/data.ts`.
 
-- March 2026 responsiveness and navigation fixes:
-  - Mobile touch targets increased to 44px for key controls.
-  - Hero trace widget made full-width on mobile.
-  - Mobile modal usability improved (height, panel split, close controls).
-  - Sticky contact safe-area spacing added for iOS.
-  - Anchor navigation offset fixed globally using scroll-padding-top and scroll-margin-top.
-- March 2026 roadmap execution pass:
-  - Writing freshness UX implemented end-to-end.
-  - Analytics interaction tracking wired to New Relic browser API.
-  - Dynamic OG/Twitter card routes added for core pages.
-  - Asset + anchor offset smoke checks automated.
+### Hero
+- ⏳ Make trace widget service names and durations data-driven from `lib/data.ts` instead of hardcoded in `Hero.tsx`.
+
+### General UX
+- ⏳ Add `prefers-reduced-motion` guard to Framer Motion animations across all sections.
+- ⏳ Add a print stylesheet or print-optimized layout for `/case-studies/[slug]` (useful when sharing with recruiters).
+
+---
+
+## Phase 6 — Infrastructure & Observability
+
+### Cloudflare
+- ⏳ Add `_headers` file in `public/` for security headers (`X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`).
+- ⏳ Add `_redirects` for any legacy URL aliases if domain changes occur.
+
+### Monitoring
+- ⏳ Add uptime check in New Relic Synthetics for the production URL.
+- ⏳ Add a Real User Monitoring (RUM) timing log for `/api/writing` response time from the client perspective.
+
+### Asset Hygiene
+- ⏳ Run orphan-file cleanup pass in `public/` after content is frozen (images and documents no longer referenced).
+
