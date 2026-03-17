@@ -57,7 +57,8 @@ export default function CTA() {
       return;
     }
 
-    const formData = new FormData(event.currentTarget);
+    const formElement = event.currentTarget;
+    const formData = new FormData(formElement);
     const fromName = String(formData.get("from_name") || "").trim();
     const fromEmail = String(formData.get("from_email") || "").trim();
     const message = String(formData.get("message") || "").trim();
@@ -80,9 +81,10 @@ export default function CTA() {
         },
         { publicKey: emailConfig.publicKey },
       );
-      event.currentTarget.reset();
+      formElement.reset();
       setStatus("success");
-    } catch {
+    } catch (error) {
+      console.error("EmailJS send failed", error);
       setStatus("error");
     } finally {
       setIsSubmitting(false);
