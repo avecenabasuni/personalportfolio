@@ -1,12 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { RefreshCwIcon } from "lucide-react";
 import MediumWritingList from "@/components/writing/MediumWritingList";
 import { sectionContent } from "@/lib/content";
 
 type WritingSource = "medium" | "fallback";
+type WritingFetchMeta = {
+  fetchedAt: string;
+  source: WritingSource;
+};
 
 function formatLastUpdated(timestamp: string) {
   if (!timestamp) {
@@ -30,6 +34,10 @@ export default function Writing() {
   const [refreshKey, setRefreshKey] = useState(0);
   const [fetchedAt, setFetchedAt] = useState("");
   const [source, setSource] = useState<WritingSource>("medium");
+  const handleMetaChange = useCallback((meta: WritingFetchMeta) => {
+    setFetchedAt(meta.fetchedAt);
+    setSource(meta.source);
+  }, []);
 
   const isDevRefreshEnabled = process.env.NODE_ENV !== "production";
   const sourceLabel = useMemo(
@@ -81,10 +89,7 @@ export default function Writing() {
             mode="home"
             limit={3}
             refreshKey={refreshKey}
-            onMetaChange={(meta) => {
-              setFetchedAt(meta.fetchedAt);
-              setSource(meta.source);
-            }}
+            onMetaChange={handleMetaChange}
           />
         </div>
       </div>
