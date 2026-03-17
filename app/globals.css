@@ -136,7 +136,20 @@
     @apply border-border outline-ring/50;
   }
   html {
+    --anchor-offset: 6.5rem;
+    @apply font-sans;
     overflow-x: hidden;
+    width: 100%;
+    scroll-behavior: smooth;
+    scroll-padding-top: var(--anchor-offset);
+  }
+  [id] {
+    scroll-margin-top: var(--anchor-offset);
+  }
+  @media (min-width: 768px) {
+    html {
+      --anchor-offset: 5.5rem;
+    }
   }
   body {
     @apply bg-background text-foreground;
@@ -173,12 +186,6 @@
   samp {
     font-family: var(--font-dm-mono), ui-monospace, SFMono-Regular, Menlo,
       Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  }
-  html {
-    @apply font-sans;
-    overflow-x: hidden;
-    width: 100%;
-    scroll-behavior: smooth;
   }
   ::selection {
     background: rgba(255, 255, 255, 0.14);
