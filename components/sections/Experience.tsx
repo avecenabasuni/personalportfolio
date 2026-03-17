@@ -94,7 +94,7 @@ export default function Experience() {
                             Previewing /documents/syringepump-patent.pdf
                           </DialogDescription>
                         </div>
-                        <div className="h-[75vh] w-full">
+                        <div className="h-[60vh] w-full md:h-[75vh]">
                           <iframe
                             src="/documents/syringepump-patent.pdf"
                             title="Syringe Pump Patent"

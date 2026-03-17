@@ -88,7 +88,7 @@ export default function Hero() {
           </motion.div>
 
           <motion.div
-            className="relative mx-auto mt-1 w-full max-w-[19rem] self-center sm:max-w-[21rem] lg:mt-2 lg:w-[26rem] lg:max-w-none xl:w-[27rem] lg:justify-self-end"
+            className="relative mx-auto mt-1 w-full max-w-[19rem] self-center overflow-hidden sm:max-w-[21rem] lg:mt-2 lg:w-[26rem] lg:max-w-none xl:w-[27rem] lg:justify-self-end"
             initial={{ opacity: 0, y: 22 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.21, 0.47, 0.32, 0.98], delay: 0.2 }}

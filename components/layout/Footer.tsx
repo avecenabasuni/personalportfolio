@@ -147,7 +147,7 @@ export default function Footer() {
                           target="_blank"
                           rel="noopener noreferrer"
                           aria-label="LinkedIn"
-                          className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/10 text-muted-foreground transition-colors hover:text-foreground"
+                          className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 text-muted-foreground transition-colors hover:text-foreground"
                         >
                           <LinkedinIcon size={18} />
                         </a>
@@ -156,7 +156,7 @@ export default function Footer() {
                           target="_blank"
                           rel="noopener noreferrer"
                           aria-label="GitHub"
-                          className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/10 text-muted-foreground transition-colors hover:text-foreground"
+                          className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 text-muted-foreground transition-colors hover:text-foreground"
                         >
                           <GithubIcon size={18} />
                         </a>
@@ -165,7 +165,7 @@ export default function Footer() {
                           target="_blank"
                           rel="noopener noreferrer"
                           aria-label="Instagram"
-                          className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/10 text-muted-foreground transition-colors hover:text-foreground"
+                          className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 text-muted-foreground transition-colors hover:text-foreground"
                         >
                           <InstagramIcon size={18} />
                         </a>

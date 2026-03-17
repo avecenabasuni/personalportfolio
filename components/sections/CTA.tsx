@@ -152,7 +152,7 @@ export default function CTA() {
                         Previewing /documents/Avecena-Basuni-CV.pdf
                       </DialogDescription>
                     </div>
-                    <div className="h-[75vh] w-full">
+                    <div className="h-[60vh] w-full md:h-[75vh]">
                       <iframe
                         src="/documents/Avecena-Basuni-CV.pdf"
                         title="Avecena Basuni Resume"

@@ -122,7 +122,7 @@ export default function Navigation() {
 
         <Dialog>
           <DialogTrigger
-            className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/[0.03] p-2 text-muted-foreground transition-colors hover:text-foreground md:hidden"
+            className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/[0.03] p-3 text-muted-foreground transition-colors hover:text-foreground md:hidden"
             aria-label="Open navigation menu"
           >
             <MenuIcon size={18} />
@@ -142,7 +142,7 @@ export default function Navigation() {
                     sections.
                   </DialogDescription>
                 </div>
-                <DialogClose className="rounded-full border border-white/10 p-2 text-muted-foreground transition-colors hover:text-foreground">
+                <DialogClose className="rounded-full border border-white/10 p-3 text-muted-foreground transition-colors hover:text-foreground">
                   <XIcon size={16} />
                   <span className="sr-only">Close menu</span>
                 </DialogClose>

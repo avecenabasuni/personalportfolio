@@ -104,7 +104,7 @@ export default function Vault() {
         >
           <DialogContent
             showCloseButton={false}
-            className="flex h-auto max-h-[80vh] w-[min(96vw,72rem)] flex-col overflow-y-auto rounded-[1.5rem] border border-white/10 bg-[#10141b]/94 p-0 text-left shadow-2xl backdrop-blur-2xl"
+            className="flex h-auto max-h-[90dvh] w-[min(96vw,72rem)] flex-col overflow-y-auto rounded-[1.5rem] border border-white/10 bg-[#10141b]/94 p-0 text-left shadow-2xl backdrop-blur-2xl"
           >
             {activeEntry ? (
               <motion.div
@@ -126,7 +126,7 @@ export default function Vault() {
                         TL;DR - {activeEntry.tldr}
                       </DialogDescription>
                     </div>
-                    <DialogClose className="rounded-full border border-white/10 p-2 text-muted-foreground transition-colors hover:text-foreground">
+                    <DialogClose className="rounded-full border border-white/10 p-3 text-muted-foreground transition-colors hover:text-foreground">
                       <XIcon size={16} />
                       <span className="sr-only">Close modal</span>
                     </DialogClose>

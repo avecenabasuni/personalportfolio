@@ -121,7 +121,7 @@ export default function Certifications() {
                     Grouped by issuer. Select any item on the left to update the detail panel.
                   </DialogDescription>
                 </div>
-                <DialogClose className="rounded-full border border-white/10 p-2 text-muted-foreground transition-colors hover:text-foreground">
+                <DialogClose className="rounded-full border border-white/10 p-3 text-muted-foreground transition-colors hover:text-foreground">
                   <XIcon size={16} />
                   <span className="sr-only">Close modal</span>
                 </DialogClose>
@@ -129,12 +129,12 @@ export default function Certifications() {
             </div>
 
             <motion.div
-              className="grid min-h-0 flex-1 overflow-hidden md:grid-cols-[minmax(0,40%)_minmax(0,60%)]"
+              className="flex min-h-0 flex-1 flex-col overflow-hidden md:grid md:grid-cols-[minmax(0,40%)_minmax(0,60%)]"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, ease: [0.21, 0.47, 0.32, 0.98] }}
             >
-              <div className="modal-dark-scrollbar min-h-0 overflow-y-auto overscroll-contain border-b border-white/8 px-6 py-5 md:border-b-0 md:border-r md:px-7 md:py-6">
+              <div className="modal-dark-scrollbar max-h-[38%] min-h-0 overflow-y-auto overscroll-contain border-b border-white/8 px-4 py-4 md:max-h-none md:border-b-0 md:border-r md:px-7 md:py-6">
                 <div className="space-y-7">
                   {groupedByIssuer.map(([issuer, certs]) => (
                     <div key={issuer}>
@@ -171,7 +171,7 @@ export default function Certifications() {
                   ))}
                 </div>
               </div>
-              <div className="modal-dark-scrollbar min-h-0 overflow-y-auto overflow-x-hidden overscroll-contain px-6 py-5 md:px-7 md:py-6 [white-space:normal] [word-break:keep-all] [overflow-wrap:break-word]">
+              <div className="modal-dark-scrollbar min-h-0 flex-1 overflow-y-auto overflow-x-hidden overscroll-contain px-4 py-4 md:flex-none md:px-7 md:py-6 [white-space:normal] [word-break:keep-all] [overflow-wrap:break-word]">
                 {selectedCert ? (
                   <motion.div
                     key={selectedCert.id}
