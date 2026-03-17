@@ -1,20 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
+import { XMLParser } from "fast-xml-parser";
 import { articles } from "@/lib/data";
 
-export const revalidate = 3600;
+export const revalidate = 300;
 
 const MEDIUM_USERNAME = "avecenabasuni";
-const MEDIUM_FEED_URL = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(
-  `https://medium.com/feed/@${MEDIUM_USERNAME}`,
-)}`;
+const MEDIUM_FEED_URL = `https://medium.com/feed/@${MEDIUM_USERNAME}`;
 
-type Rss2JsonItem = {
+type MediumRssItem = {
   title?: string;
   link?: string;
   pubDate?: string;
   description?: string;
-  thumbnail?: string;
-  categories?: string[];
+  category?: string[] | string;
+  "content:encoded"?: string;
 };
 
 function normalizePublishedAt(pubDate?: string) {
@@ -91,21 +90,51 @@ export async function GET(request: NextRequest) {
 
   try {
     const response = await fetch(MEDIUM_FEED_URL, {
-      next: { revalidate: 3600 },
+      headers: {
+        Accept: "application/rss+xml, application/xml, text/xml",
+      },
+      next: { revalidate: 300 },
     });
 
     if (!response.ok) {
       return NextResponse.json({ items: applyLimit(buildFallbackItems()) });
     }
 
-    const data = (await response.json()) as { items?: Rss2JsonItem[] };
-    const items = (data.items ?? []).map((item) => ({
+    const rawXml = await response.text();
+    const parser = new XMLParser({
+      ignoreAttributes: false,
+      parseTagValue: false,
+      trimValues: true,
+    });
+
+    const parsed = parser.parse(rawXml) as {
+      rss?: {
+        channel?: {
+          item?: MediumRssItem | MediumRssItem[];
+        };
+      };
+    };
+
+    const rawItems = parsed.rss?.channel?.item;
+    const itemsList = Array.isArray(rawItems)
+      ? rawItems
+      : rawItems
+        ? [rawItems]
+        : [];
+
+    const items = itemsList.map((item) => ({
       title: item.title ?? "Untitled article",
       link: item.link ?? "#",
       publishedAt: normalizePublishedAt(item.pubDate),
-      description: truncateDescription(stripHtml(item.description ?? "")),
-      tags: item.categories ?? [],
-      thumbnail: item.thumbnail ?? "",
+      description: truncateDescription(
+        stripHtml(item["content:encoded"] ?? item.description ?? ""),
+      ),
+      tags: Array.isArray(item.category)
+        ? item.category
+        : item.category
+          ? [item.category]
+          : [],
+      thumbnail: "",
     }));
 
     return NextResponse.json({ items: applyLimit(items) });

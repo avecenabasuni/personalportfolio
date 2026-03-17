@@ -2,6 +2,14 @@
 
 import { experience } from "@/lib/data";
 import { motion } from "framer-motion";
+import { FileTextIcon } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 export default function Experience() {
   return (
@@ -69,6 +77,34 @@ export default function Experience() {
                     </li>
                   ))}
                 </ul>
+
+                {role.company === "Covent Indonesia" ? (
+                  <div className="mt-6">
+                    <Dialog>
+                      <DialogTrigger className="inline-flex h-11 items-center gap-2 rounded-full border border-border px-5 font-sans text-sm font-medium text-muted-foreground transition-colors hover:border-foreground/30 hover:text-foreground">
+                        <FileTextIcon size={14} />
+                        Preview Syringe Pump Patent
+                      </DialogTrigger>
+                      <DialogContent className="w-[min(96vw,70rem)] max-w-[70rem] border-white/10 bg-[#10141b]/96 p-0">
+                        <div className="border-b border-white/8 px-6 py-4">
+                          <DialogTitle className="font-display text-2xl font-normal text-foreground">
+                            Patent Preview
+                          </DialogTitle>
+                          <DialogDescription className="mt-1 font-sans text-sm text-muted-foreground">
+                            Previewing /documents/syringepump-patent.pdf
+                          </DialogDescription>
+                        </div>
+                        <div className="h-[75vh] w-full">
+                          <iframe
+                            src="/documents/syringepump-patent.pdf"
+                            title="Syringe Pump Patent"
+                            className="h-full w-full"
+                          />
+                        </div>
+                      </DialogContent>
+                    </Dialog>
+                  </div>
+                ) : null}
               </div>
             </motion.div>
           ))}
