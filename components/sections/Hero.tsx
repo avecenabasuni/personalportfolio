@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { ArrowRightIcon } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -77,73 +76,77 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          <motion.div className="relative mx-auto mt-1 w-full max-w-[19rem] self-center sm:max-w-[21rem] lg:mt-2 lg:w-[26rem] lg:max-w-none xl:w-[27rem] lg:justify-self-end">
+          <motion.div
+            className="relative mx-auto mt-1 w-full max-w-[19rem] self-center sm:max-w-[21rem] lg:mt-2 lg:w-[26rem] lg:max-w-none xl:w-[27rem] lg:justify-self-end"
+            initial={{ opacity: 0, y: 22 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.21, 0.47, 0.32, 0.98], delay: 0.2 }}
+          >
             <div className="absolute inset-x-4 -top-5 h-10 rounded-full bg-blue-500/10 blur-2xl" />
             <div className="space-y-3">
               <div className="relative overflow-hidden rounded-[1.6rem] border border-white/10 bg-[#121316]/80 p-4 shadow-[0_24px_100px_rgba(0,0,0,0.35)] backdrop-blur-sm">
-                <div className="mb-4 flex items-center justify-between rounded-[1rem] border border-white/8 bg-white/[0.03] px-4 py-3.5">
-                  <div className="flex items-center gap-3">
-                    <div className="relative h-[72px] w-[72px] overflow-hidden rounded-full border border-white/10">
-                      <Image
-                        src="/images/foto-avecenabasuni.jpg"
-                        alt="Avecena Basuni"
-                        fill
-                        className="object-cover object-top"
-                        priority
-                        sizes="72px"
-                      />
-                    </div>
-                    <div>
-                      <p className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground/60">
-                        Profile
-                      </p>
-                      <p className="mt-1 font-sans text-sm text-foreground">
-                        Avecena Basuni
-                      </p>
-                    </div>
-                  </div>
-                  <span className="rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.16em] text-emerald-300/80">
-                    Open
-                  </span>
-                </div>
-
-                <div className="mt-2 grid grid-cols-2 gap-3">
-                  <div className="rounded-[1rem] border border-white/8 bg-white/[0.03] px-3.5 py-3.5">
-                    <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground/58">
-                      Based
-                    </p>
-                    <p className="mt-1 font-sans text-sm text-foreground">
-                      Jakarta
-                    </p>
-                  </div>
-                  <div className="rounded-[1rem] border border-white/8 bg-white/[0.03] px-3.5 py-3.5">
-                    <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground/58">
-                      Mode
-                    </p>
-                    <p className="mt-1 font-sans text-sm text-foreground">
-                      Remote / Relocation
-                    </p>
-                  </div>
-                </div>
-
-                <div className="mt-4 rounded-[1rem] border border-white/8 bg-white/[0.03] px-3.5 py-3.5">
-                  <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground/62">
-                    Focus areas
+                <div className="mb-3 flex items-center justify-between rounded-[1rem] border border-white/8 bg-white/[0.03] px-4 py-3">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground/70">
+                    Monitoring Dashboard
                   </p>
-                  <ul className="mt-2.5 space-y-2">
-                    <li className="font-sans text-[12px] leading-relaxed text-foreground/92 md:text-[13px]">
-                      Instrumenting distributed systems with traces, logs, and
-                      metrics that actually converge.
-                    </li>
-                    <li className="font-sans text-[12px] leading-relaxed text-foreground/92 md:text-[13px]">
-                      Reducing alert fatigue so teams can react faster with less
-                      noise.
-                    </li>
-                    <li className="font-sans text-[12px] leading-relaxed text-foreground/92 md:text-[13px]">
-                      Designing observability workflows engineers will still
-                      trust at 2am.
-                    </li>
-                  </ul>
+                  <motion.span
+                    animate={{ opacity: [0.45, 1, 0.45] }}
+                    transition={{ duration: 2.2, repeat: Infinity }}
+                    className="rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.14em] text-emerald-300/80"
+                  >
+                    Live
+                  </motion.span>
+                </div>
+
+                <div className="space-y-3 rounded-[1rem] border border-white/8 bg-white/[0.03] p-3.5">
+                  <div className="flex items-center justify-between">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground/62">
+                      Service Health
+                    </p>
+                    <p className="font-sans text-xs text-foreground/90">99.95%</p>
+                  </div>
+                  <div className="h-2 rounded-full bg-white/8">
+                    <motion.div
+                      className="h-2 rounded-full bg-emerald-400/80"
+                      animate={{ width: ["74%", "91%", "83%", "96%", "74%"] }}
+                      transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                    />
+                  </div>
+                </div>
+
+                <div className="mt-3 grid grid-cols-2 gap-3">
+                  <div className="rounded-[1rem] border border-white/8 bg-white/[0.03] px-3.5 py-3.5">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground/58">
+                      Alerts
+                    </p>
+                    <p className="mt-1 font-sans text-sm text-foreground">4 active</p>
+                  </div>
+                  <div className="rounded-[1rem] border border-white/8 bg-white/[0.03] px-3.5 py-3.5">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground/58">
+                      MTTR
+                    </p>
+                    <p className="mt-1 font-sans text-sm text-foreground">18m</p>
+                  </div>
+                </div>
+
+                <div className="mt-3 rounded-[1rem] border border-white/8 bg-white/[0.03] px-3.5 py-3.5">
+                  <div className="mb-3 flex items-center justify-between">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground/62">
+                      Throughput (req/min)
+                    </p>
+                    <p className="font-sans text-xs text-foreground/90">3.2k</p>
+                  </div>
+                  <div className="flex items-end gap-1.5">
+                    {[28, 48, 36, 62, 54, 70, 58, 66, 46, 74, 60, 68].map((h, idx) => (
+                      <motion.div
+                        key={idx}
+                        className="w-full rounded-sm bg-blue-400/65"
+                        style={{ height: `${h}px` }}
+                        animate={{ height: [`${h * 0.72}px`, `${h}px`, `${h * 0.84}px`, `${h}px`] }}
+                        transition={{ duration: 2.8, delay: idx * 0.08, repeat: Infinity, ease: "easeInOut" }}
+                      />
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>

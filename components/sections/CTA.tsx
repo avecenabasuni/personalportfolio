@@ -203,7 +203,6 @@ export default function CTA() {
               {status === "success" && "Message sent. I will get back to you soon."}
               {status === "error" &&
                 "Unable to send message. Check EmailJS keys in .env.local and try again."}
-              {status === "idle" && "Powered by EmailJS, no backend required."}
             </p>
           </form>
         </motion.div>
