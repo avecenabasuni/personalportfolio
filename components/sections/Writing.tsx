@@ -8,7 +8,7 @@ export default function Writing() {
       className="px-4 py-14 md:px-6 md:py-16 lg:px-8 xl:px-10 2xl:px-12"
     >
       <div className="w-full">
-        <div className="grid gap-6 md:grid-cols-[13rem_minmax(0,1fr)] md:gap-8 lg:grid-cols-[14.5rem_minmax(0,1fr)] lg:gap-10">
+        <div className="grid gap-6 md:grid-cols-[14rem_minmax(0,1fr)] md:gap-8 lg:grid-cols-[15.5rem_minmax(0,1fr)] lg:gap-10">
           <div>
             <p className="mb-2 font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
               Writing

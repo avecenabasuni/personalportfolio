@@ -54,7 +54,7 @@ export default function Certifications() {
           list by issuer.
         </p>
 
-        <div className="mb-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mb-8 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02]">
           {featuredCerts.map((cert, i) => (
             <motion.button
               key={cert.id}
@@ -72,37 +72,24 @@ export default function Certifications() {
                 delay: i * 0.07,
               }}
               onClick={() => openCertDetail(cert)}
-              className="rounded-2xl border border-white/12 bg-[linear-gradient(180deg,rgba(86,111,190,0.14),rgba(255,255,255,0.03))] px-5 py-4 text-left transition-colors hover:border-white/20"
+              className="flex w-full items-center justify-between gap-4 border-b border-white/8 px-5 py-4 text-left transition-colors hover:bg-white/[0.04] last:border-b-0"
             >
-              {cert.badgeImage ? (
-                <div className="mb-3 flex justify-center rounded-xl border border-white/8 bg-white/[0.02] p-2">
-                  <Image
-                    src={cert.badgeImage}
-                    alt={`${cert.name} badge`}
-                    width={74}
-                    height={74}
-                    className="h-[74px] w-[74px] rounded-lg object-contain"
-                  />
-                </div>
-              ) : null}
-              <p className="mb-1 font-sans text-sm font-medium leading-snug text-foreground">
-                {cert.name}
-              </p>
-              <div className="mt-2 flex items-center justify-between gap-2">
-                <span className="font-mono text-[11px] text-muted-foreground">
-                  {cert.issuer}
+              <div className="flex min-w-0 items-center gap-3">
+                <span className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-white/12 bg-white/[0.03] font-mono text-[10px] uppercase text-muted-foreground/80">
+                  {cert.issuer.charAt(0)}
                 </span>
-                <div className="flex items-center gap-2">
-                  {cert.credentialUrl ? (
-                    <span className="rounded-full border border-white/12 px-2 py-0.5 text-[10px] text-muted-foreground/75">
-                      Has link
-                    </span>
-                  ) : null}
-                  <span className="font-mono text-[11px] text-muted-foreground/60">
-                    {cert.issuedOn}
-                  </span>
+                <div className="min-w-0">
+                  <p className="truncate font-sans text-sm font-normal leading-snug text-foreground">
+                    {cert.name}
+                  </p>
+                  <p className="mt-1 font-sans text-xs text-muted-foreground/70">
+                    {cert.issuer}
+                  </p>
                 </div>
               </div>
+              <span className="shrink-0 font-mono text-[11px] text-muted-foreground/60">
+                {cert.issuedOn}
+              </span>
             </motion.button>
           ))}
         </div>

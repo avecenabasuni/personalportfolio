@@ -72,14 +72,12 @@ function stripHtml(input: string) {
     .trim();
 }
 
-function truncateDescription(input: string, maxLength = 150) {
+function truncateDescription(input: string, maxLength = 120) {
   if (input.length <= maxLength) {
     return input;
   }
 
-  const truncated = input.slice(0, maxLength);
-  const lastSpace = truncated.lastIndexOf(" ");
-  return `${truncated.slice(0, lastSpace > 0 ? lastSpace : maxLength).trim()}...`;
+  return `${input.slice(0, maxLength).trim()}...`;
 }
 
 export async function GET(request: NextRequest) {

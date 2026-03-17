@@ -152,6 +152,11 @@ export default function MediumWritingList({
                     {formatDate(article.publishedAt)}
                   </p>
                 ) : null}
+                {article.description ? (
+                  <p className="mt-2 line-clamp-2 font-sans text-sm leading-relaxed text-muted-foreground/85">
+                    {article.description}
+                  </p>
+                ) : null}
               </div>
               <ArrowUpRightIcon
                 size={14}
@@ -180,7 +185,13 @@ export default function MediumWritingList({
             ease: [0.21, 0.47, 0.32, 0.98],
             delay: i * 0.05,
           }}
-          className="rounded-2xl border border-white/8 bg-white/[0.03] px-5 py-5 transition-colors hover:border-white/16"
+          whileHover={{
+            y: -2,
+            backgroundColor: "rgba(255,255,255,0.06)",
+            borderColor: "rgba(255,255,255,0.16)",
+            transition: { type: "spring", stiffness: 280, damping: 24 },
+          }}
+          className="rounded-2xl border border-white/8 bg-white/[0.03] px-5 py-5 transition-colors"
         >
           <div className="flex items-start justify-between gap-4">
             <h3 className="font-sans text-lg leading-snug text-foreground">
@@ -194,6 +205,11 @@ export default function MediumWritingList({
           {formatDate(article.publishedAt) ? (
             <p className="mt-2 font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground/60">
               {formatDate(article.publishedAt)}
+            </p>
+          ) : null}
+          {article.description ? (
+            <p className="mt-3 line-clamp-2 font-sans text-base leading-relaxed text-muted-foreground">
+              {article.description}
             </p>
           ) : null}
         </motion.a>
