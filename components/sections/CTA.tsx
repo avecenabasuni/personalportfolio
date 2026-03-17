@@ -211,7 +211,7 @@ export default function CTA() {
                 <p className="font-sans text-sm text-muted-foreground md:col-span-2">
                   {status === "success" && "Message sent. I will get back to you soon."}
                   {status === "error" &&
-                    "Unable to send message. Check EmailJS keys in .env.local and try again."}
+                    "Unable to send message. Please try again or email me directly."}
                 </p>
               </form>
             </div>
