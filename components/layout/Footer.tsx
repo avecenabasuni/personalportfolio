@@ -1,5 +1,14 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
-import { GithubIcon, InstagramIcon, LinkedinIcon } from "lucide-react";
+import {
+  CheckIcon,
+  CopyIcon,
+  GithubIcon,
+  InstagramIcon,
+  LinkedinIcon,
+} from "lucide-react";
 
 const footerLinks = [
   {
@@ -29,6 +38,18 @@ const footerLinks = [
 ];
 
 export default function Footer() {
+  const [copied, setCopied] = useState(false);
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText("hello@avecenabasuni.my.id");
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1600);
+    } catch {
+      setCopied(false);
+    }
+  };
+
   return (
     <footer className="px-4 py-12 md:px-6 md:py-14 lg:px-8 xl:px-10 2xl:px-12">
       <div className="w-full">
@@ -85,6 +106,14 @@ export default function Footer() {
                   >
                     hello@avecenabasuni.my.id
                   </a>
+                  <button
+                    type="button"
+                    onClick={copyEmail}
+                    className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 font-sans text-sm text-foreground transition-colors hover:bg-white/[0.07]"
+                  >
+                    {copied ? <CheckIcon size={14} /> : <CopyIcon size={14} />}
+                    {copied ? "Copied" : "Copy email"}
+                  </button>
                   <span className="inline-flex items-center rounded-full border border-white/8 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
                     Available for SRE roles
                   </span>

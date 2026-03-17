@@ -53,7 +53,7 @@ export default function Vault() {
                 className="w-full rounded-xl border border-border bg-white/[0.02] px-6 py-5 text-left transition-colors hover:border-white/16 hover:bg-white/[0.04]"
               >
                 <div className="flex min-w-0 flex-col items-start gap-1">
-                  <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground/50">
+                  <span className="font-sans text-sm uppercase tracking-[0.14em] text-muted-foreground/58">
                     Debug Note
                   </span>
                   <span className="font-sans text-sm font-medium leading-snug text-foreground">
@@ -81,7 +81,7 @@ export default function Vault() {
                 <div className="shrink-0 border-b border-white/8 bg-[#10141b]/96 px-6 py-5 md:px-7 md:py-6">
                   <div className="flex items-start justify-between gap-4">
                     <div>
-                      <p className="font-mono text-xs uppercase tracking-[0.16em] text-muted-foreground/56">
+                      <p className="font-sans text-sm uppercase tracking-[0.14em] text-muted-foreground/64">
                         Debug Note
                       </p>
                       <DialogTitle className="mt-3 max-w-[24ch] font-display text-2xl leading-[1.08] text-foreground md:text-3xl">

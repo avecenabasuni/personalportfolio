@@ -117,7 +117,7 @@ export default function CaseStudies({
                             {cs.title}
                           </p>
                           <p className="mt-4 max-w-xl font-sans text-base leading-relaxed text-muted-foreground/88">
-                            {cs.result}
+                            {cs.summary}
                           </p>
                           <div className="mt-5 flex flex-wrap gap-1.5">
                             {cs.tags.map((tag) => (

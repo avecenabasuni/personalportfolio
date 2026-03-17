@@ -1,9 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import {
   ArrowRightIcon,
-  DownloadIcon,
+  FileTextIcon,
   LinkedinIcon,
   MailIcon,
   XIcon,
@@ -93,13 +92,14 @@ export default function StickyContact() {
 
           <a
             href="/documents/Avecena-Basuni-CV.pdf"
-            download
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center justify-between w-full rounded-xl border border-border bg-background px-4 py-3.5 hover:border-foreground/30 hover:bg-muted transition-colors group"
           >
             <div className="flex items-center gap-3">
-              <DownloadIcon size={15} className="text-muted-foreground" />
+              <FileTextIcon size={15} className="text-muted-foreground" />
               <p className="font-sans text-sm font-medium text-foreground">
-                Download CV
+                View Resume
               </p>
             </div>
             <ArrowRightIcon

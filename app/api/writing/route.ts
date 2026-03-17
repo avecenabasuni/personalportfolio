@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { articles } from "@/lib/data";
 
 export const revalidate = 3600;
 
@@ -15,6 +16,17 @@ type Rss2JsonItem = {
   thumbnail?: string;
   categories?: string[];
 };
+
+function buildFallbackItems() {
+  return articles.map((article) => ({
+    title: article.title,
+    link: article.url,
+    publishedAt: "",
+    description: "Read this article on Medium.",
+    tags: [],
+    thumbnail: "",
+  }));
+}
 
 function stripHtml(input: string) {
   return input
@@ -34,19 +46,21 @@ function truncateDescription(input: string, maxLength = 150) {
 }
 
 export async function GET(request: NextRequest) {
-  try {
-    const limitParam = request.nextUrl.searchParams.get("limit");
-    const limit = limitParam ? Number(limitParam) : undefined;
+  const limitParam = request.nextUrl.searchParams.get("limit");
+  const limit = limitParam ? Number(limitParam) : undefined;
 
+  const applyLimit = <T,>(items: T[]) =>
+    typeof limit === "number" && Number.isFinite(limit)
+      ? items.slice(0, Math.max(0, limit))
+      : items;
+
+  try {
     const response = await fetch(MEDIUM_FEED_URL, {
       next: { revalidate: 3600 },
     });
 
     if (!response.ok) {
-      return NextResponse.json(
-        { message: "Failed to fetch Medium feed." },
-        { status: 502 },
-      );
+      return NextResponse.json({ items: applyLimit(buildFallbackItems()) });
     }
 
     const data = (await response.json()) as { items?: Rss2JsonItem[] };
@@ -59,16 +73,8 @@ export async function GET(request: NextRequest) {
       thumbnail: item.thumbnail ?? "",
     }));
 
-    const limitedItems =
-      typeof limit === "number" && Number.isFinite(limit)
-        ? items.slice(0, Math.max(0, limit))
-        : items;
-
-    return NextResponse.json({ items: limitedItems });
+    return NextResponse.json({ items: applyLimit(items) });
   } catch {
-    return NextResponse.json(
-      { message: "Unable to load articles right now." },
-      { status: 500 },
-    );
+    return NextResponse.json({ items: applyLimit(buildFallbackItems()) });
   }
 }

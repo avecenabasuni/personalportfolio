@@ -11,6 +11,7 @@ export interface CaseStudy {
   stars?: number;
   image: string;
   imageAlt: string;
+  summary: string;
   problem: string;
   what: string;
   result: string;
@@ -41,6 +42,8 @@ export interface Certification {
   issuedOn: string;
   expiresOn?: string;
   summary: string;
+  credentialUrl?: string;
+  badgeImage?: string;
   platform: string;
   primary?: boolean;
 }

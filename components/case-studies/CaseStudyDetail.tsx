@@ -23,7 +23,7 @@ export default function CaseStudyDetail({
               {caseStudy.title}
             </h1>
             <p className="mt-5 max-w-3xl font-sans text-lg leading-relaxed text-muted-foreground">
-              {caseStudy.result}
+              {caseStudy.summary}
             </p>
 
             <div className="mt-6 flex flex-wrap gap-2">

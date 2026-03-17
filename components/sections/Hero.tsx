@@ -82,32 +82,32 @@ export default function Hero() {
             <div className="space-y-3">
               <div className="relative overflow-hidden rounded-[1.6rem] border border-white/10 bg-[#121316]/80 p-4 shadow-[0_24px_100px_rgba(0,0,0,0.35)] backdrop-blur-sm">
                 <div className="mb-4 flex items-center justify-between rounded-[1rem] border border-white/8 bg-white/[0.03] px-4 py-3.5">
-                  <div>
-                    <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground/60">
-                      Profile
-                    </p>
-                    <p className="mt-1 font-sans text-sm text-foreground">
-                      Avecena Basuni
-                    </p>
+                  <div className="flex items-center gap-3">
+                    <div className="relative h-[72px] w-[72px] overflow-hidden rounded-full border border-white/10">
+                      <Image
+                        src="/images/foto-avecenabasuni.jpg"
+                        alt="Avecena Basuni"
+                        fill
+                        className="object-cover object-top"
+                        priority
+                        sizes="72px"
+                      />
+                    </div>
+                    <div>
+                      <p className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground/60">
+                        Profile
+                      </p>
+                      <p className="mt-1 font-sans text-sm text-foreground">
+                        Avecena Basuni
+                      </p>
+                    </div>
                   </div>
                   <span className="rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.16em] text-emerald-300/80">
                     Open
                   </span>
                 </div>
 
-                <div className="relative aspect-[0.98] overflow-hidden rounded-[1.1rem] border border-white/8">
-                  <Image
-                    src="/images/foto-avecenabasuni.jpg"
-                    alt="Avecena Basuni"
-                    fill
-                    className="object-cover object-top"
-                    priority
-                    sizes="(max-width: 1024px) 100vw, 400px"
-                  />
-                  <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-                </div>
-
-                <div className="mt-4 grid grid-cols-2 gap-3">
+                <div className="mt-2 grid grid-cols-2 gap-3">
                   <div className="rounded-[1rem] border border-white/8 bg-white/[0.03] px-3.5 py-3.5">
                     <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground/58">
                       Based

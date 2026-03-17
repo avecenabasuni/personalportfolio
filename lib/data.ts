@@ -35,6 +35,8 @@ export const caseStudies: CaseStudy[] = [
     tags: ["New Relic", "APM", "Infrastructure", "Enterprise"],
     image: "/images/screenshot-fullstackobservability.png",
     imageAlt: "Full Stack Observability dashboard screenshot",
+    summary:
+      "Unified fragmented monitoring stacks into one actionable New Relic workflow so incidents move from guesswork to fast, context-rich response.",
     problem:
       "Most teams I work with aren't flying blind by choice. They're running three different monitoring tools that don't talk to each other, relying on open-source stacks nobody has time to maintain, and finding out about errors from their users before their dashboards do. Root cause analysis turns into a war room guessing game.\n\nThis is the pattern I see repeatedly across fintech, manufacturing, healthcare, and ecommerce clients.",
     what: "I consolidated their observability stack end-to-end with New Relic, replacing fragmented tools with a single unified platform. I instrumented applications and infrastructure, designed dashboards tailored to each team's actual workflow, and tuned alerts to cut noise without missing what matters. Then I ran training sessions so engineers could use what we built, not just look at it.\n\nThe goal was simple: when something breaks at 2am, the right person gets paged with enough context to act immediately.",
@@ -47,6 +49,8 @@ export const caseStudies: CaseStudy[] = [
     tags: ["New Relic NPM", "Docker", "SNMP", "Syslog"],
     image: "/images/screenshot-snmp.png",
     imageAlt: "Network Performance Monitoring SNMP demo screenshot",
+    summary:
+      "Built a laptop-ready Docker lab that simulates SNMP and syslog traffic, so engineers can learn and validate network observability without physical hardware.",
     problem:
       "Most tutorials for New Relic Network Performance Monitoring assume you have physical network devices sitting around. Routers, switches, something that speaks SNMP. Most engineers don't. So they skip NPM entirely, or never get hands-on experience before they need it in production.",
     what: "A fully containerized NPM demo environment using Docker. Two custom simulator images that generate real SNMP traps and syslog traffic without any physical hardware. Everything needed to explore New Relic NPM end-to-end, on a laptop, without touching a single physical device.",
@@ -60,6 +64,8 @@ export const caseStudies: CaseStudy[] = [
     isOpenSource: true,
     image: "/images/screenshot-observabilitytoolkit.png",
     imageAlt: "New Relic Observability Toolkit Terraform modules screenshot",
+    summary:
+      "Codified production observability into reusable Terraform modules so teams can deploy alerts, dashboards, and notifications consistently from day one.",
     problem:
       "Setting up observability from scratch is repetitive work. Every new environment needs the same alerts, the same dashboards, the same notification channels, built manually, configured inconsistently, and documented poorly. Teams end up with alert policies that nobody trusts and war room dashboards that mean something different to every engineer who built them.",
     what: "A production-ready Terraform toolkit that deploys a complete New Relic monitoring stack in a single `terraform apply`. Four modules, wired together out of the box: Golden Signals alerts with SRE-grounded thresholds, multi-channel notifications in SBAR format, external availability monitoring via Synthetics, and pre-built dashboards for NOC war rooms and engineer deep-dives.\n\nThe defaults are opinionated because they have to be. Error rate filters HTTP 5xx only because a 404 is not an incident. Notifications follow SBAR format because actionable alerts are a core principle from the Google SRE Workbook. Every decision is documented so the next engineer who touches it understands not just what was built, but why.",
@@ -74,6 +80,8 @@ export const caseStudies: CaseStudy[] = [
     stars: 1,
     image: "/images/screeenshot-squidproxy.png",
     imageAlt: "New Relic Squid Proxy installer screenshot",
+    summary:
+      "Automated New Relic proxy setup across restricted enterprise networks with a one-command installer that removes recurring connectivity blockers.",
     problem:
       "Enterprise environments don't always have direct internet access. Servers sit behind corporate firewalls, traffic goes through proxy chains, and getting a New Relic agent connected becomes a manual, distro-specific process that derails POC timelines before the client sees a single metric.\n\nEvery new client with network restrictions meant starting from scratch.",
     what: "An automated Squid Proxy installer that handles the entire lifecycle in a single command. One-liner install, multi-distro Linux support across nine distributions, optional SSL bump for TLS interception, Basic Auth, corporate proxy chaining, and a built-in verification engine that tests connectivity to all New Relic endpoints before handoff.\n\nIt also ships with a New Relic dashboard out of the box, so the proxy itself is observable from day one.",
@@ -170,6 +178,9 @@ export const certifications: Certification[] = [
     issuer: "Nutanix",
     platform: "Nutanix",
     issuedOn: "December 31, 2024",
+    credentialUrl:
+      "https://www.credly.com/badges/f204967f-2a01-4a01-88fb-298dceb49a1a/public_url",
+    badgeImage: "/images/certifications/ncsp.png",
     summary:
       "Recipients of the NCS-Core 6 badge have demonstrated basic understanding of delivering Nutanix Services with AOS 6.x. They have the technical knowledge to execute the core Nutanix service standards, facilitate a services technical kickoff call, deploy and configure Nutanix clusters and main features, and provide proper knowledge transfer and deliverables.",
   },
@@ -179,6 +190,9 @@ export const certifications: Certification[] = [
     issuer: "Nutanix",
     platform: "Nutanix",
     issuedOn: "October 26, 2024",
+    credentialUrl:
+      "https://www.credly.com/badges/378bd7df-296e-49ee-92ef-c72c72dfc20d/public_url",
+    badgeImage: "/images/certifications/nsp.png",
     summary:
       "This certification validates the ability to use Sizer to design and size Nutanix solutions effectively, understand Nutanix architecture fundamentals, and apply discovery tools for environment assessment and optimization.",
   },
@@ -188,6 +202,9 @@ export const certifications: Certification[] = [
     issuer: "Nutanix",
     platform: "Nutanix",
     issuedOn: "November 06, 2024",
+    credentialUrl:
+      "https://www.credly.com/badges/66986869-d554-474c-834f-05a7cd49c32c/public_url",
+    badgeImage: "/images/certifications/ncsp.png",
     summary:
       "Recipients of the NCSR badge can speak to customers about market conditions, infrastructure concerns, and how the Nutanix portfolio addresses them. It is part of the Nutanix Elevate Program and supports early partner progression.",
   },
@@ -198,6 +215,9 @@ export const certifications: Certification[] = [
     platform: "Nutanix",
     issuedOn: "October 22, 2024",
     expiresOn: "October 22, 2026",
+    credentialUrl:
+      "https://www.credly.com/badges/4a9287bc-d0c5-46dd-9655-881cb3b825e6/public_url",
+    badgeImage: "/images/certifications/ncpmci.png",
     summary:
       "Recipients of the NCP-MCI badge have demonstrated their skills and abilities in deploying, administering, and troubleshooting a Nutanix AOS 6.x based multicloud infrastructure.",
     primary: true,
@@ -209,6 +229,9 @@ export const certifications: Certification[] = [
     platform: "Nutanix",
     issuedOn: "July 29, 2025",
     expiresOn: "July 29, 2027",
+    credentialUrl:
+      "https://www.credly.com/badges/af124ce5-1c4b-424c-be66-2272521d9733/public_url",
+    badgeImage: "/images/certifications/nca.png",
     summary:
       "The Nutanix Certified Associate exam validates the ability to navigate a Nutanix AOS 6.xx cluster and manage and operate Nutanix core offerings.",
   },
@@ -218,6 +241,9 @@ export const certifications: Certification[] = [
     issuer: "Nutanix",
     platform: "Nutanix",
     issuedOn: "October 26, 2024",
+    credentialUrl:
+      "https://www.credly.com/badges/b956ae95-53d7-4c9f-9bd9-fb96aa69a894/public_url",
+    badgeImage: "/images/certifications/napi.png",
     summary:
       "The base level SE accreditation for Nutanix SEs and Partner SEs, covering Nutanix Cloud Infrastructure products, NCI demos, whiteboarding core components and data path, and sizing basic server virtualization opportunities.",
   },
@@ -227,6 +253,9 @@ export const certifications: Certification[] = [
     issuer: "Nutanix",
     platform: "Nutanix",
     issuedOn: "November 06, 2024",
+    credentialUrl:
+      "https://www.credly.com/badges/0ad7f09b-f30f-4c99-bf2c-683e38514e58/public_url",
+    badgeImage: "/images/certifications/naai.png",
     summary:
       "The base level sales accreditation for Nutanix sellers and partner sellers, covering HCI history and use cases, Nutanix Cloud Infrastructure, licensing, and first-call product positioning.",
   },
@@ -236,6 +265,9 @@ export const certifications: Certification[] = [
     issuer: "Cohesity",
     platform: "Cohesity",
     issuedOn: "January 20, 2026",
+    credentialUrl:
+      "https://www.credly.com/badges/d1209fc5-1bfc-49ee-aac3-89b160fe6a2e/public_url",
+    badgeImage: "/images/certifications/csfa.png",
     summary:
       "This badge validates the ability to position Cohesity's unified data management, protection, and accessibility capabilities against customer challenges and business outcomes, including backup, recovery, file and object management, and cloud solutions.",
   },
@@ -246,6 +278,9 @@ export const certifications: Certification[] = [
     platform: "New Relic",
     issuedOn: "August 24, 2025",
     expiresOn: "August 24, 2027",
+    credentialUrl:
+      "https://credentials.newrelic.com/6d89c1e8-ef3c-4ce2-b0e3-17236fa20383#acc.xd0A1lOB",
+    badgeImage: "/images/certifications/fsop.png",
     summary:
       "The New Relic Certified Performance Engineer exam validates competency in analyzing and optimizing systems and applications using New Relic monitoring, observability, and performance tooling with an emphasis on user experience.",
     primary: true,
@@ -257,6 +292,9 @@ export const certifications: Certification[] = [
     platform: "New Relic",
     issuedOn: "May 18, 2025",
     expiresOn: "May 18, 2027",
+    credentialUrl:
+      "https://credentials.newrelic.com/3f744034-072f-4a01-8a0c-eb7c6fc28af1#acc.DeQutcjF",
+    badgeImage: "/images/certifications/newrelic.png",
     summary:
       "This certification validates knowledge of APM fundamentals, user interface navigation, performance analysis insights, triage and troubleshooting techniques, and methods for tracking and improving application performance.",
     primary: true,
@@ -268,6 +306,9 @@ export const certifications: Certification[] = [
     platform: "New Relic",
     issuedOn: "May 8, 2025",
     expiresOn: "May 8, 2026",
+    credentialUrl:
+      "https://credentials.newrelic.com/81d5b7a8-0f31-481c-978f-e033b0fd9e27#acc.pFiDfsLG",
+    badgeImage: "/images/certifications/newrelic.png",
     summary:
       "The Partner Accredited Sales Associate exam is for business-focused sales partners tasked with communicating value and positioning New Relic in the observability industry.",
   },
@@ -278,6 +319,9 @@ export const certifications: Certification[] = [
     platform: "New Relic",
     issuedOn: "May 8, 2025",
     expiresOn: "May 8, 2026",
+    credentialUrl:
+      "https://credentials.newrelic.com/db8bd6f4-3382-404a-a8ba-5676b07612c3#acc.axt9bF07",
+    badgeImage: "/images/certifications/newrelic.png",
     summary:
       "The Partner Accredited Sales Engineer Level I exam is for technical consultants responsible for articulating New Relic’s technology and product portfolio positioning to business and technical users.",
   },
@@ -288,6 +332,9 @@ export const certifications: Certification[] = [
     platform: "New Relic",
     issuedOn: "December 19, 2024",
     expiresOn: "December 19, 2026",
+    credentialUrl:
+      "https://credentials.newrelic.com/068e7e5b-c3a9-4aed-8786-6f9134fd66aa#acc.hiSKzQRN",
+    badgeImage: "/images/certifications/nvf.png",
     summary:
       "The New Relic Foundations Verified certification validates knowledge of observability concepts, New Relic capabilities, performance monitoring, data visualization, and instrumentation and configuration of datasets.",
   },
@@ -298,6 +345,9 @@ export const certifications: Certification[] = [
     platform: "AWS",
     issuedOn: "April 24, 2024",
     expiresOn: "April 24, 2027",
+    credentialUrl:
+      "https://www.credly.com/badges/d65aeee4-927e-4dcf-9b2a-166fcea82751/public_url",
+    badgeImage: "/images/certifications/aws.png",
     summary:
       "This certification validates a comprehensive understanding of AWS services and the ability to design secure, scalable, resilient, efficient, and fault-tolerant distributed systems.",
     primary: true,
@@ -308,6 +358,9 @@ export const certifications: Certification[] = [
     issuer: "Cisco",
     platform: "Cisco",
     issuedOn: "June 17, 2024",
+    credentialUrl:
+      "https://www.credly.com/badges/0fa7352a-4bcc-454c-8fba-f5a138862077/public_url",
+    badgeImage: "/images/certifications/CCNAENSA__1_.png",
     summary:
       "This badge validates a foundation in scalable network architectures, dynamic routing, security threat mitigation, WANs, virtualization, and programmable network automation, including extensive lab participation.",
   },
@@ -317,6 +370,9 @@ export const certifications: Certification[] = [
     issuer: "Cisco",
     platform: "Cisco",
     issuedOn: "May 20, 2024",
+    credentialUrl:
+      "https://www.credly.com/badges/46a2d6c9-2454-4a73-8ace-72bdaf3eb340/public_url",
+    badgeImage: "/images/certifications/CCNAITN__1_.png",
     summary:
       "This badge validates networking fundamentals including IP addressing, Ethernet and data link support, and configuring connectivity between switches, routers, and end devices for local and remote access.",
   },
@@ -326,6 +382,9 @@ export const certifications: Certification[] = [
     issuer: "Cisco",
     platform: "Cisco",
     issuedOn: "June 02, 2024",
+    credentialUrl:
+      "https://www.credly.com/badges/85575361-3564-41cb-9bda-e615e798eaaf/public_url",
+    badgeImage: "/images/certifications/CCNASRWE__1_.png",
     summary:
       "This badge validates a foundation in switching operations, wired and wireless LAN configuration, security best practices, redundancy protocols, and practical troubleshooting through lab work.",
   },
@@ -335,6 +394,9 @@ export const certifications: Certification[] = [
     issuer: "Amazon Web Services",
     platform: "AWS",
     issuedOn: "April 12, 2022",
+    credentialUrl:
+      "https://www.credly.com/badges/d2dee066-3103-4366-bdbe-009174937cc3/public_url",
+    badgeImage: "/images/certifications/awsca.png",
     summary:
       "Earners of this badge have completed the AWS Academy Cloud Architecting course.",
   },
@@ -344,6 +406,9 @@ export const certifications: Certification[] = [
     issuer: "Amazon Web Services",
     platform: "AWS",
     issuedOn: "March 19, 2022",
+    credentialUrl:
+      "https://www.credly.com/badges/880f1f69-c013-4169-9fef-c570b87b1a28/public_url",
+    badgeImage: "/images/certifications/awscf.png",
     summary:
       "Earners of this badge have completed the AWS Academy Cloud Foundations course.",
   },
@@ -353,6 +418,9 @@ export const certifications: Certification[] = [
     issuer: "Amazon Web Services",
     platform: "AWS",
     issuedOn: "March 14, 2023",
+    credentialUrl:
+      "https://www.credly.com/badges/e44c5a4b-16b0-4cc1-bbb9-1864b9f893aa/public_url",
+    badgeImage: "/images/certifications/awsml.png",
     summary:
       "Earners of this badge have completed the AWS Academy Machine Learning Foundations course.",
   },
@@ -363,6 +431,7 @@ export const certifications: Certification[] = [
     platform: "Google Cloud",
     issuedOn: "1 Jun 2023",
     expiresOn: "1 Jun 2026",
+    badgeImage: "/images/certifications/google.png",
     summary:
       "A Cloud Digital Leader can articulate the capabilities of Google Cloud core products and services, common business use cases, and how cloud solutions support enterprise outcomes.",
     primary: true,

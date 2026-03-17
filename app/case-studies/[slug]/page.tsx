@@ -25,7 +25,7 @@ export async function generateMetadata({
 
   return {
     title: `${caseStudy.title} | Avecena Basuni`,
-    description: caseStudy.result,
+    description: caseStudy.summary,
   };
 }
 

@@ -120,13 +120,6 @@ export default function Navigation() {
           ))}
         </ul>
 
-        <a
-          href="mailto:hello@avecenabasuni.my.id"
-          className="hidden items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.02] px-4 py-1.5 font-sans text-sm text-foreground transition-colors duration-200 hover:bg-foreground hover:text-background md:inline-flex"
-        >
-          Get in touch
-        </a>
-
         <Dialog>
           <DialogTrigger
             className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/[0.03] p-2 text-muted-foreground transition-colors hover:text-foreground md:hidden"
@@ -184,16 +177,6 @@ export default function Navigation() {
                   </li>
                 ))}
               </ul>
-
-              <div className="mt-4 border-t border-white/8 px-2 pt-4 pb-2">
-                <a
-                  href="mailto:hello@avecenabasuni.my.id"
-                  className="flex items-center justify-center gap-2 rounded-full bg-foreground px-5 py-3 font-sans text-sm font-medium text-background transition-colors hover:bg-foreground/90"
-                >
-                  Get in touch
-                  <ArrowRightIcon size={14} />
-                </a>
-              </div>
             </div>
           </DialogContent>
         </Dialog>
