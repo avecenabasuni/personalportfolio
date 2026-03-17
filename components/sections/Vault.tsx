@@ -125,7 +125,6 @@ export default function Vault() {
                       <DialogDescription className="mt-3 font-sans text-sm italic leading-relaxed text-muted-foreground/78">
                         TL;DR - {activeEntry.tldr}
                       </DialogDescription>
-                      <div className="mt-4 h-px w-full bg-white/8" />
                     </div>
                     <DialogClose className="rounded-full border border-white/10 p-2 text-muted-foreground transition-colors hover:text-foreground">
                       <XIcon size={16} />

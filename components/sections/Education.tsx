@@ -40,19 +40,9 @@ export default function Education() {
                 href="https://lib.ui.ac.id/detail?id=9999920516718&lokasi=lokal"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group mt-4 inline-flex items-center gap-2 font-sans text-sm text-muted-foreground underline decoration-white/25 underline-offset-4 transition-colors hover:text-foreground"
-              >
-                Design and Implementation of Potentiostat for Cyclic Voltammetry Analysis Using ESP32 Microcontroller
-                <ArrowUpRightIcon size={14} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-              </a>
-
-              <a
-                href="/documents/syringepump-patent.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
                 className="mt-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 font-sans text-sm text-muted-foreground transition-colors hover:border-white/20 hover:text-foreground"
               >
-                Review syringe pump patent
+                This is my Bachelor Thesis
                 <ArrowUpRightIcon size={14} />
               </a>
             </div>
