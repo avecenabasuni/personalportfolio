@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { certifications, primaryCerts } from "@/lib/data";
+import { trackPortfolioInteraction } from "@/components/analytics/InteractionTracker";
 import type { Certification } from "@/lib/types";
 import {
   Dialog,
@@ -34,6 +35,12 @@ export default function Certifications() {
   const openCertDetail = (cert: Certification) => {
     setSelectedCert(cert);
     setIsListOpen(true);
+    trackPortfolioInteraction({
+      action: "certifications_modal_open",
+      section: "certifications",
+      label: cert.name,
+      destination: "modal",
+    });
   };
 
   return (
@@ -103,8 +110,17 @@ export default function Certifications() {
         <button
           type="button"
           onClick={() => {
-            setSelectedCert(selectedCert ?? featuredCerts[0] ?? certifications[0] ?? null);
+            const nextCert = selectedCert ?? featuredCerts[0] ?? certifications[0] ?? null;
+            setSelectedCert(nextCert);
             setIsListOpen(true);
+            if (nextCert) {
+              trackPortfolioInteraction({
+                action: "certifications_modal_open",
+                section: "certifications",
+                label: nextCert.name,
+                destination: "modal",
+              });
+            }
           }}
           disabled={!certifications.length}
           className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.02] px-5 py-2.5 font-sans text-sm font-medium text-muted-foreground transition-colors duration-200 hover:border-white/20 hover:text-foreground md:px-6 md:py-3"

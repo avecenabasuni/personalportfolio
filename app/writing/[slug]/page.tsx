@@ -35,11 +35,43 @@ export async function generateMetadata({
   };
 }
 
-export default function WritingArticlePage() {
+export default async function WritingArticlePage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const readableTitle = slug
+    .split("-")
+    .filter(Boolean)
+    .map((part) => part[0].toUpperCase() + part.slice(1))
+    .join(" ");
+
+  const placeholderJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: readableTitle || "Article preview page",
+    description:
+      "Article preview route for writing metadata and social sharing in the portfolio.",
+    author: {
+      "@type": "Person",
+      name: "Avecena Basuni",
+      url: "https://avecenabasuni.my.id",
+    },
+    url: `https://avecenabasuni.my.id/writing/${slug}`,
+    isAccessibleForFree: true,
+  };
+
   return (
     <>
       <Navigation />
       <main className="px-4 pt-24 pb-16 md:px-6 lg:px-8 xl:px-10 2xl:px-12">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(placeholderJsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
         <section className="w-full space-y-6">
           <BackPageLink href="/writing" label="Back to writing" />
           <div className="space-y-4">

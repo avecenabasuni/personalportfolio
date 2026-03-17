@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { XIcon } from "lucide-react";
 import { vaultEntries } from "@/lib/data";
 import type { VaultEntry } from "@/lib/types";
+import { trackPortfolioInteraction } from "@/components/analytics/InteractionTracker";
 import {
   Dialog,
   DialogClose,
@@ -79,7 +80,15 @@ export default function Vault() {
             >
               <button
                 type="button"
-                onClick={() => setActiveEntry(entry)}
+                onClick={() => {
+                  setActiveEntry(entry);
+                  trackPortfolioInteraction({
+                    action: "vault_open",
+                    section: "vault",
+                    label: entry.title,
+                    destination: "modal",
+                  });
+                }}
                 className="w-full rounded-xl border border-border bg-white/[0.02] px-6 py-5 text-left transition-colors hover:border-white/16 hover:bg-white/[0.04]"
               >
                 <div className="flex min-w-0 flex-col items-start gap-1">

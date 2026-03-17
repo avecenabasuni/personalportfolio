@@ -24,10 +24,50 @@ export const metadata: Metadata = {
 };
 
 export default function AllCaseStudiesPage() {
+  const collectionJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Case Studies | Avecena Basuni",
+    description:
+      "Production observability and infrastructure case studies across enterprise client environments.",
+    url: "https://avecenabasuni.my.id/case-studies",
+  };
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://avecenabasuni.my.id/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Case Studies",
+        item: "https://avecenabasuni.my.id/case-studies",
+      },
+    ],
+  };
+
   return (
     <>
       <Navigation />
       <main className="px-4 pt-24 pb-16 md:px-6 lg:px-8 xl:px-10 2xl:px-12">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(collectionJsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(breadcrumbJsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
         <div className="space-y-6">
           <BackPageLink href="/#case-studies" label="Back to home" />
           <CaseStudies

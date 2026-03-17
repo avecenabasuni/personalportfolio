@@ -3,6 +3,7 @@ import type {
   CaseStudy,
   Article,
   WorkInProgress,
+  WorkInProgressMeta,
   ExperienceRole,
   Certification,
   SkillGroup,
@@ -122,6 +123,21 @@ export const workInProgress: WorkInProgress[] = [
       "Terraform toolkit for production-grade New Relic stack, actively maintained and open source.",
   },
 ];
+
+export const workInProgressMeta: Record<string, WorkInProgressMeta> = {
+  "New Relic NPM Showcase": {
+    status: "in-progress",
+    tags: ["Docker", "SNMP", "Syslog", "New Relic"],
+  },
+  "chatbot-nutanix": {
+    status: "in-progress",
+    tags: ["RAG", "Nutanix Kubernetes", "pgvector", "Qwen"],
+  },
+  "observability-as-code": {
+    status: "completed",
+    tags: ["Terraform", "IaC", "Open Source", "SRE"],
+  },
+};
 
 export const experience: ExperienceRole[] = [
   {

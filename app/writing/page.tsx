@@ -24,10 +24,50 @@ export const metadata: Metadata = {
 };
 
 export default function WritingPage() {
+  const collectionJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Writing | Avecena Basuni",
+    description:
+      "Notes on observability, cloud infrastructure, and production reliability from real-world implementations.",
+    url: "https://avecenabasuni.my.id/writing",
+  };
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://avecenabasuni.my.id/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Writing",
+        item: "https://avecenabasuni.my.id/writing",
+      },
+    ],
+  };
+
   return (
     <>
       <Navigation />
       <main className="px-4 pt-24 pb-16 md:px-6 lg:px-8 xl:px-10 2xl:px-12">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(collectionJsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(breadcrumbJsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
         <section className="w-full space-y-6">
           <BackPageLink href="/#writing" label="Back to home" />
           <div className="space-y-4">

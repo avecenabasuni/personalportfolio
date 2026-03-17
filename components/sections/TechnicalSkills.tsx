@@ -1,6 +1,7 @@
 "use client";
 
 import { skillGroups } from "@/lib/data";
+import { sectionContent } from "@/lib/content";
 import { motion } from "framer-motion";
 
 export default function TechnicalSkills() {
@@ -14,8 +15,7 @@ export default function TechnicalSkills() {
           Technical Skills
         </p>
         <h2 className="mb-10 font-display text-[clamp(2.35rem,3.5vw,3.9rem)] font-normal leading-[1.04] tracking-[-0.03em] text-foreground">
-          Tools I reach for
-          <br className="hidden md:block" /> in production.
+          {sectionContent.technicalSkills.title}
         </h2>
 
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">

@@ -16,8 +16,24 @@ declare global {
   }
 }
 
+type PortfolioInteractionPayload = {
+  action: string;
+  section: string;
+  label: string;
+  destination: string;
+};
+
 function getAttribute(node: HTMLElement, key: string) {
   return node.getAttribute(key) ?? "";
+}
+
+export function trackPortfolioInteraction(payload: PortfolioInteractionPayload) {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  window.newrelic?.addPageAction?.("portfolio_interaction", payload);
+  window.newrelic?.recordCustomEvent?.("PortfolioInteraction", payload);
 }
 
 export default function InteractionTracker() {
@@ -47,8 +63,7 @@ export default function InteractionTracker() {
         destination,
       };
 
-      window.newrelic?.addPageAction?.("portfolio_interaction", payload);
-      window.newrelic?.recordCustomEvent?.("PortfolioInteraction", payload);
+      trackPortfolioInteraction(payload);
     };
 
     document.addEventListener("click", onClick, { passive: true });

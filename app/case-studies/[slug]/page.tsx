@@ -52,10 +52,31 @@ export default async function CaseStudyPage({
     notFound();
   }
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Project",
+    name: caseStudy.title,
+    description: caseStudy.summary,
+    keywords: caseStudy.tags,
+    image: `https://avecenabasuni.my.id${caseStudy.image}`,
+    url: `https://avecenabasuni.my.id/case-studies/${caseStudy.id}`,
+    author: {
+      "@type": "Person",
+      name: "Avecena Basuni",
+      url: "https://avecenabasuni.my.id",
+    },
+  };
+
   return (
     <>
       <Navigation />
       <main>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
         <CaseStudyDetail caseStudy={caseStudy} />
       </main>
       <Footer />

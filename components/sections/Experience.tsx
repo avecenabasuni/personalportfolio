@@ -1,6 +1,7 @@
 "use client";
 
 import { experience } from "@/lib/data";
+import { sectionContent } from "@/lib/content";
 import { motion } from "framer-motion";
 import { FileTextIcon } from "lucide-react";
 import {
@@ -28,10 +29,10 @@ export default function Experience() {
             Experience
           </p>
           <h2 className="mb-4 font-display text-[clamp(2.35rem,3.5vw,3.9rem)] font-normal leading-[1.04] tracking-[-0.03em] text-foreground">
-            The roles changed.
+            {sectionContent.experience.title}
           </h2>
           <p className="mb-10 max-w-xl font-sans text-base text-muted-foreground leading-relaxed">
-            The instinct to understand how systems behave did not.
+            {sectionContent.experience.description}
           </p>
         </motion.div>
 

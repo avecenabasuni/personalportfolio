@@ -1,7 +1,31 @@
+"use client";
+
+import { useCallback } from "react";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { ArrowUpRightIcon } from "lucide-react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { trackPortfolioInteraction } from "@/components/analytics/InteractionTracker";
+
+const EDUCATION_DETAILS_VALUE = "education-details";
 
 export default function Education() {
+  const handleAccordionValueChange = useCallback((value: string | string[] | null) => {
+    const normalized = Array.isArray(value) ? value[0] : value;
+    if (normalized === EDUCATION_DETAILS_VALUE) {
+      trackPortfolioInteraction({
+        action: "education_accordion_expand",
+        section: "education",
+        label: "Coursework and timeline",
+        destination: "accordion",
+      });
+    }
+  }, []);
+
   return (
     <section
       id="education"
@@ -25,16 +49,28 @@ export default function Education() {
                 Universitas Indonesia
               </p>
 
-              <p className="mt-4 font-sans text-sm leading-relaxed text-muted-foreground">
-                Minor: Electronics Engineering
-              </p>
-              <p className="mt-3 font-sans text-sm leading-relaxed text-muted-foreground">
-                Relevant coursework: Artificial Intelligence, Control Systems,
-                Microcontroller Programming, Network Communication, Embedded Systems.
-              </p>
-              <p className="mt-3 font-sans text-sm text-muted-foreground/80">
-                Graduated in 3 years 4 months
-              </p>
+              <Accordion
+                className="mt-4 max-w-[42rem] rounded-xl border border-white/10 bg-white/[0.02] px-4"
+                onValueChange={handleAccordionValueChange}
+              >
+                <AccordionItem value={EDUCATION_DETAILS_VALUE} className="border-b-0">
+                  <AccordionTrigger className="py-3 font-sans text-sm text-muted-foreground hover:no-underline">
+                    Coursework and timeline details
+                  </AccordionTrigger>
+                  <AccordionContent className="pb-3">
+                    <p className="font-sans text-sm leading-relaxed text-muted-foreground">
+                      Minor: Electronics Engineering
+                    </p>
+                    <p className="mt-2 font-sans text-sm leading-relaxed text-muted-foreground">
+                      Relevant coursework: Artificial Intelligence, Control Systems,
+                      Microcontroller Programming, Network Communication, Embedded Systems.
+                    </p>
+                    <p className="mt-2 font-sans text-sm text-muted-foreground/80">
+                      Graduated in 3 years 4 months
+                    </p>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
 
               <a
                 href="https://lib.ui.ac.id/detail?id=9999920516718&lokasi=lokal"

@@ -27,6 +27,11 @@ export interface WorkInProgress {
   description: string;
 }
 
+export interface WorkInProgressMeta {
+  status: "in-progress" | "completed";
+  tags: string[];
+}
+
 export interface ExperienceRole {
   title: string;
   company: string;

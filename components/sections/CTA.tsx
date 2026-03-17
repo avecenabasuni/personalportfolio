@@ -11,6 +11,7 @@ import {
   SendIcon,
 } from "lucide-react";
 import { motion } from "framer-motion";
+import { sectionContent } from "@/lib/content";
 import {
   Dialog,
   DialogContent,
@@ -110,15 +111,13 @@ export default function CTA() {
                 Let's talk
               </p>
               <h2 className="mb-5 font-display text-[clamp(2.35rem,3.5vw,3.9rem)] font-normal leading-[1.04] tracking-[-0.03em] text-foreground">
-                Ready to talk?
+                {sectionContent.cta.title}
               </h2>
               <p className="mb-8 max-w-lg font-sans text-base leading-relaxed text-muted-foreground">
-                I'm currently open to SRE and cloud infrastructure roles. If your
-                team is dealing with alert noise, slow root cause analysis, or
-                monitoring that nobody trusts, I'd like to hear about it.
+                {sectionContent.cta.description}
                 <br />
                 <span className="mt-2 block text-sm text-muted-foreground/70">
-                  No commitment. Just a conversation.
+                  {sectionContent.cta.disclaimer}
                 </span>
               </p>
 
