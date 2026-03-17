@@ -4,6 +4,17 @@ import { ArrowRightIcon } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function Hero() {
+  const traceRows = [
+    { service: "api-gateway", offset: 0, duration: 88, color: "bg-sky-400/80" },
+    { service: "auth-service", offset: 12, duration: 30, color: "bg-cyan-300/80" },
+    { service: "feature-flags", offset: 18, duration: 14, color: "bg-teal-300/80" },
+    { service: "catalog-service", offset: 27, duration: 42, color: "bg-blue-300/80" },
+    { service: "postgres-primary", offset: 34, duration: 22, color: "bg-emerald-300/80" },
+    { service: "redis-cache", offset: 38, duration: 10, color: "bg-lime-300/80" },
+    { service: "payment-worker", offset: 52, duration: 24, color: "bg-violet-300/80" },
+    { service: "notification-bus", offset: 66, duration: 16, color: "bg-indigo-300/80" },
+  ];
+
   return (
     <section id="home" className="radix-surface radix-arcs relative flex min-h-[100vh] items-center overflow-hidden bg-[#0d1218] px-4 py-14 md:px-6 md:py-16 lg:px-8 xl:px-10 2xl:px-12">
       <div
@@ -87,65 +98,88 @@ export default function Hero() {
               <div className="relative overflow-hidden rounded-[1.6rem] border border-white/10 bg-[#121316]/80 p-4 shadow-[0_24px_100px_rgba(0,0,0,0.35)] backdrop-blur-sm">
                 <div className="mb-3 flex items-center justify-between rounded-[1rem] border border-white/8 bg-white/[0.03] px-4 py-3">
                   <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground/70">
-                    Monitoring Dashboard
+                    Distributed Trace Waterfall
                   </p>
                   <motion.span
                     animate={{ opacity: [0.45, 1, 0.45] }}
                     transition={{ duration: 2.2, repeat: Infinity }}
                     className="rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.14em] text-emerald-300/80"
                   >
-                    Live
+                    trace id 7fa1
                   </motion.span>
                 </div>
 
-                <div className="space-y-3 rounded-[1rem] border border-white/8 bg-white/[0.03] p-3.5">
-                  <div className="flex items-center justify-between">
-                    <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground/62">
-                      Service Health
-                    </p>
-                    <p className="font-sans text-xs text-foreground/90">99.95%</p>
-                  </div>
-                  <div className="h-2 rounded-full bg-white/8">
-                    <motion.div
-                      className="h-2 rounded-full bg-emerald-400/80"
-                      animate={{ width: ["74%", "91%", "83%", "96%", "74%"] }}
-                      transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                    />
-                  </div>
-                </div>
-
-                <div className="mt-3 grid grid-cols-2 gap-3">
-                  <div className="rounded-[1rem] border border-white/8 bg-white/[0.03] px-3.5 py-3.5">
-                    <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground/58">
-                      Alerts
-                    </p>
-                    <p className="mt-1 font-sans text-sm text-foreground">4 active</p>
-                  </div>
-                  <div className="rounded-[1rem] border border-white/8 bg-white/[0.03] px-3.5 py-3.5">
-                    <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground/58">
-                      MTTR
-                    </p>
-                    <p className="mt-1 font-sans text-sm text-foreground">18m</p>
-                  </div>
-                </div>
-
-                <div className="mt-3 rounded-[1rem] border border-white/8 bg-white/[0.03] px-3.5 py-3.5">
+                <div className="rounded-[1rem] border border-white/8 bg-white/[0.03] p-3.5">
                   <div className="mb-3 flex items-center justify-between">
                     <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground/62">
-                      Throughput (req/min)
+                      latency timeline (ms)
                     </p>
-                    <p className="font-sans text-xs text-foreground/90">3.2k</p>
+                    <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-foreground/82">
+                      p95 342
+                    </p>
                   </div>
-                  <div className="flex items-end gap-1.5">
-                    {[28, 48, 36, 62, 54, 70, 58, 66, 46, 74, 60, 68].map((h, idx) => (
-                      <motion.div
-                        key={idx}
-                        className="w-full rounded-sm bg-blue-400/65"
-                        style={{ height: `${h}px` }}
-                        animate={{ height: [`${h * 0.72}px`, `${h}px`, `${h * 0.84}px`, `${h}px`] }}
-                        transition={{ duration: 2.8, delay: idx * 0.08, repeat: Infinity, ease: "easeInOut" }}
-                      />
+
+                  <div className="mb-2 grid grid-cols-[8.25rem_minmax(0,1fr)] items-center gap-2 text-[9px] text-muted-foreground/50">
+                    <span className="font-mono uppercase tracking-[0.14em]">service</span>
+                    <div className="relative h-4 font-mono uppercase tracking-[0.13em]">
+                      {[0, 25, 50, 75, 100].map((mark) => (
+                        <span
+                          key={mark}
+                          className="absolute -translate-x-1/2"
+                          style={{ left: `${mark}%` }}
+                        >
+                          {mark * 4}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="space-y-2.5">
+                    {traceRows.map((row, idx) => (
+                      <div key={row.service} className="grid grid-cols-[8.25rem_minmax(0,1fr)] items-center gap-2">
+                        <p className="truncate font-mono text-[10px] uppercase tracking-[0.13em] text-muted-foreground/72">
+                          {row.service}
+                        </p>
+                        <div className="relative h-4 rounded-sm bg-white/[0.04]">
+                          <motion.div
+                            className={`absolute top-0 h-4 rounded-sm ${row.color}`}
+                            style={{ left: `${row.offset}%` }}
+                            animate={{
+                              width: [`${row.duration * 0.7}%`, `${row.duration}%`, `${row.duration * 0.82}%`, `${row.duration}%`],
+                              opacity: [0.6, 1, 0.78, 1],
+                            }}
+                            transition={{ duration: 2.6, delay: idx * 0.12, repeat: Infinity, ease: "easeInOut" }}
+                          />
+                          <motion.div
+                            className="absolute top-0 h-4 w-[3px] rounded-full bg-white/90"
+                            style={{ left: `${row.offset + row.duration}%` }}
+                            animate={{ opacity: [0.2, 0.95, 0.2] }}
+                            transition={{ duration: 1.7, delay: idx * 0.09, repeat: Infinity }}
+                          />
+                        </div>
+                      </div>
                     ))}
+                  </div>
+                </div>
+
+                <div className="mt-3 rounded-[1rem] border border-white/8 bg-white/[0.03] px-3.5 py-3">
+                  <div className="mb-2 flex items-center justify-between">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground/62">
+                      critical path
+                    </p>
+                    <p className="font-sans text-xs text-foreground/90">checkout request</p>
+                  </div>
+                  <div className="relative h-[18px] rounded-full bg-white/[0.05]">
+                    <motion.div
+                      className="absolute left-0 top-[8px] h-[2px] bg-fuchsia-300/75"
+                      animate={{ width: ["68%", "82%", "74%", "86%", "68%"] }}
+                      transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                    />
+                    <motion.span
+                      className="absolute top-[5px] h-2.5 w-2.5 rounded-full bg-fuchsia-200"
+                      animate={{ left: ["67%", "81%", "73%", "85%", "67%"], boxShadow: ["0 0 0px rgba(244,114,182,0.2)", "0 0 14px rgba(244,114,182,0.7)", "0 0 0px rgba(244,114,182,0.2)"] }}
+                      transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                    />
                   </div>
                 </div>
               </div>
