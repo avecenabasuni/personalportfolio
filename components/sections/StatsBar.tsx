@@ -8,22 +8,17 @@ import { useEffect, useRef, useState } from "react";
 function AnimatedStatValue({ value }: { value: string }) {
   const ref = useRef<HTMLParagraphElement | null>(null);
   const isInView = useInView(ref, { amount: 0.5 });
-  const [displayValue, setDisplayValue] = useState(value);
+
+  const match = value.match(/^(\d+)(.*)$/);
+  const target = match ? Number(match[1]) : 0;
+  const suffix = match ? match[2] || "" : "";
+  const isNumeric = !!match;
+
+  // Track the animated number; only updated from rAF callbacks (async).
+  const [animatedNumber, setAnimatedNumber] = useState(0);
 
   useEffect(() => {
-    const match = value.match(/^(\d+)(.*)$/);
-    if (!match) {
-      setDisplayValue(value);
-      return;
-    }
-
-    const target = Number(match[1]);
-    const suffix = match[2] || "";
-
-    if (!isInView) {
-      setDisplayValue(`0${suffix}`);
-      return;
-    }
+    if (!isNumeric || !isInView) return;
 
     let frameId = 0;
     const start = performance.now();
@@ -32,8 +27,7 @@ function AnimatedStatValue({ value }: { value: string }) {
     const tick = (now: number) => {
       const t = Math.min((now - start) / duration, 1);
       const eased = 1 - Math.pow(1 - t, 3);
-      const current = Math.round(target * eased);
-      setDisplayValue(`${current}${suffix}`);
+      setAnimatedNumber(Math.round(target * eased));
       if (t < 1) {
         frameId = requestAnimationFrame(tick);
       }
@@ -41,7 +35,14 @@ function AnimatedStatValue({ value }: { value: string }) {
 
     frameId = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frameId);
-  }, [isInView, value]);
+  }, [isInView, isNumeric, target]);
+
+  // Derive display value synchronously from state — no effect needed.
+  const displayValue = !isNumeric
+    ? value
+    : isInView
+      ? `${animatedNumber}${suffix}`
+      : `0${suffix}`;
 
   return (
     <motion.p

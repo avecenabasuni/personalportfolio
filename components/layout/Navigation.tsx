@@ -33,14 +33,11 @@ export default function Navigation() {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
 
-  const getNavHref = (href: string) => (pathname === "/" ? href : `/${href}`);
+  const isHome = pathname === "/";
+  const getNavHref = (href: string) => (isHome ? href : `/${href}`);
 
   useEffect(() => {
-    if (pathname !== "/") {
-      setScrolled(true);
-      setActiveSection("");
-      return;
-    }
+    if (!isHome) return;
 
     const onScroll = () => {
       setScrolled(window.scrollY > 20);
@@ -73,12 +70,16 @@ export default function Navigation() {
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
     return () => window.removeEventListener("scroll", onScroll);
-  }, [pathname]);
+  }, [isHome]);
+
+  // Derive non-home state synchronously (avoids setState-in-effect)
+  const effectiveScrolled = isHome ? scrolled : true;
+  const effectiveActiveSection = isHome ? activeSection : "";
 
   return (
     <header
       className={`fixed top-0 inset-x-0 z-40 transition-colors duration-300 ${
-        scrolled
+        effectiveScrolled
           ? "border-b border-white/10 bg-transparent/40 backdrop-blur-xl"
           : "bg-transparent"
       }`}
@@ -108,7 +109,7 @@ export default function Navigation() {
                 <Link
                   href={getNavHref(link.href)}
                   className={`inline-flex whitespace-nowrap rounded-full px-3.5 py-1.5 font-sans text-[0.84rem] transition-colors ${
-                    activeSection === link.sectionId
+                    effectiveActiveSection === link.sectionId
                       ? "bg-white/[0.12] text-foreground"
                       : "text-muted-foreground hover:bg-white/[0.06] hover:text-foreground"
                   }`}

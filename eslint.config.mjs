@@ -12,6 +12,11 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Build artifacts (Cloudflare OpenNext):
+    ".open-next/**",
+    // Non-source folders:
+    "temp/**",
+    "docs/**",
   ]),
 ]);
 

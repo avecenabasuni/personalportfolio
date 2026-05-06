@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { certifications, primaryCerts } from "@/lib/data";
@@ -21,16 +21,14 @@ export default function Certifications() {
 
   const featuredCerts = primaryCerts.slice(0, 5);
 
-  const groupedByIssuer = useMemo(() => {
-    return Array.from(
-      certifications.reduce((map, cert) => {
-        const bucket = map.get(cert.issuer) ?? [];
-        bucket.push(cert);
-        map.set(cert.issuer, bucket);
-        return map;
-      }, new Map<string, Certification[]>()),
-    );
-  }, []);
+  const groupedByIssuer = Array.from(
+    certifications.reduce((map, cert) => {
+      const bucket = map.get(cert.issuer) ?? [];
+      bucket.push(cert);
+      map.set(cert.issuer, bucket);
+      return map;
+    }, new Map<string, Certification[]>()),
+  );
 
   const openCertDetail = (cert: Certification) => {
     setSelectedCert(cert);
