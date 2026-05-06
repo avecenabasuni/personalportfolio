@@ -108,6 +108,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={`dark ${dmSerifDisplay.variable} ${dmSans.variable} ${dmMono.variable}`}
+      suppressHydrationWarning
     >
       <head>
         <Script

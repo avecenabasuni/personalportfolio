@@ -132,7 +132,7 @@ export default function CTA() {
                 </button>
                 <motion.a
                   href="mailto:hello@avecenabasuni.my.id"
-                  whileHover={{ scale: 1.04, backgroundColor: "#232323" }}
+                  whileHover={{ scale: 1.04 }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   className="inline-flex h-11 items-center gap-2 rounded-full bg-foreground px-5 font-sans text-sm font-medium text-background transition-colors hover:bg-foreground/90"
                 >
