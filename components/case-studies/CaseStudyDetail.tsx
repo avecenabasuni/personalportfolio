@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { ArrowUpRightIcon } from "lucide-react";
 import ImageLightbox from "@/components/ui/ImageLightbox";
 import BackPageLink from "@/components/ui/BackPageLink";

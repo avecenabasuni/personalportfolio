@@ -108,7 +108,7 @@ export default function CTA() {
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,36rem)] lg:items-start lg:gap-10">
             <div>
               <p className="mb-3 font-mono text-xs tracking-[0.18em] text-muted-foreground uppercase">
-                Let's talk
+                Let&apos;s talk
               </p>
               <h2 className="mb-5 font-display text-[clamp(2.35rem,3.5vw,3.9rem)] font-normal leading-[1.04] tracking-[-0.03em] text-foreground">
                 {sectionContent.cta.title}

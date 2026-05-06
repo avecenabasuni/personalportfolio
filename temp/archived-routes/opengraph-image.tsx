@@ -33,6 +33,7 @@ export default function OpenGraphImage() {
             opacity: 0.95,
           }}
         >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="https://avecenabasuni.my.id/images/logo-avecenabasuni.jpg"
             alt="Avecena Basuni logo"
