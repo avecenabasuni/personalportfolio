@@ -17,7 +17,7 @@ import {
 export default function StickyContact() {
   return (
     <Dialog>
-      {/* Trigger — fixed floating button */}
+      {/* Trigger - fixed floating button */}
       <DialogTrigger
         className="fixed bottom-6 right-6 z-50 inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-3 font-sans text-sm font-medium text-background shadow-lg hover:bg-foreground/90 active:scale-95 transition-all duration-200"
         style={{ bottom: 'calc(1.5rem + env(safe-area-inset-bottom, 0px))' }}
@@ -45,22 +45,22 @@ export default function StickyContact() {
             Ready to talk?
           </h3>
           <p className="mt-2 font-sans text-sm text-muted-foreground leading-relaxed">
-            Open to SRE and cloud infrastructure roles. No commitment — just a
-            conversation.
+            Open to SRE roles, reliability architecture work, and focused
+            observability projects.
           </p>
         </div>
 
         {/* Actions */}
         <div className="px-6 py-6 space-y-3">
           <a
-            href="mailto:hello@avecenabasuni.my.id"
+            href="mailto:hello@avecenabasuni.my.id?subject=Discuss%20a%20role"
             className="flex items-center justify-between w-full rounded-xl border border-border bg-background px-4 py-3.5 hover:border-foreground/30 hover:bg-muted transition-colors group"
           >
             <div className="flex items-center gap-3">
               <MailIcon size={15} className="text-muted-foreground" />
               <div>
                 <p className="font-sans text-sm font-medium text-foreground">
-                  Email me
+                  Discuss a role
                 </p>
                 <p className="font-mono text-[11px] text-muted-foreground/70">
                   hello@avecenabasuni.my.id
@@ -74,15 +74,13 @@ export default function StickyContact() {
           </a>
 
           <a
-            href="https://linkedin.com/in/avecenabasuni"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="mailto:hello@avecenabasuni.my.id?subject=Talk%20about%20a%20project"
             className="flex items-center justify-between w-full rounded-xl border border-border bg-background px-4 py-3.5 hover:border-foreground/30 hover:bg-muted transition-colors group"
           >
             <div className="flex items-center gap-3">
-              <LinkedinIcon size={15} className="text-muted-foreground" />
+              <MailIcon size={15} className="text-muted-foreground" />
               <p className="font-sans text-sm font-medium text-foreground">
-                LinkedIn
+                Talk about a project
               </p>
             </div>
             <ArrowRightIcon
@@ -100,7 +98,25 @@ export default function StickyContact() {
             <div className="flex items-center gap-3">
               <FileTextIcon size={15} className="text-muted-foreground" />
               <p className="font-sans text-sm font-medium text-foreground">
-                View Resume
+                View resume
+              </p>
+            </div>
+            <ArrowRightIcon
+              size={14}
+              className="text-muted-foreground/40 group-hover:text-foreground group-hover:translate-x-0.5 transition-all"
+            />
+          </a>
+
+          <a
+            href="https://linkedin.com/in/avecenabasuni"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-between w-full rounded-xl border border-border bg-background px-4 py-3.5 hover:border-foreground/30 hover:bg-muted transition-colors group"
+          >
+            <div className="flex items-center gap-3">
+              <LinkedinIcon size={15} className="text-muted-foreground" />
+              <p className="font-sans text-sm font-medium text-foreground">
+                LinkedIn
               </p>
             </div>
             <ArrowRightIcon

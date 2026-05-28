@@ -94,9 +94,9 @@ export default function Footer() {
                   Built for teams that need calmer systems.
                 </h3>
                 <p className="mt-5 max-w-lg font-sans text-sm leading-relaxed text-muted-foreground">
-                  SRE & Observability Engineer. Jakarta based. Open to remote
-                  and relocation. If your incident response still depends on
-                  guesswork, I can help make the system legible.
+                  SRE & Observability Engineer. Jakarta based. Open to remote,
+                  relocation, reliability architecture work, and focused
+                  observability projects.
                 </p>
 
                 <div className="mt-8 flex flex-wrap gap-3">
@@ -115,7 +115,7 @@ export default function Footer() {
                     {copied ? "Copied" : "Copy email"}
                   </button>
                   <span className="inline-flex items-center rounded-full border border-white/8 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
-                    Available for SRE roles
+                    Available for roles and projects
                   </span>
                 </div>
               </div>
@@ -195,7 +195,7 @@ export default function Footer() {
                       Jakarta, Indonesia
                     </p>
                     <p className="mt-1 font-mono text-xs text-muted-foreground/54">
-                      © {new Date().getFullYear()} Avecena Basuni
+                      Copyright {new Date().getFullYear()} Avecena Basuni
                     </p>
                   </div>
                 </div>

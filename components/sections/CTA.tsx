@@ -4,8 +4,6 @@ import { FormEvent, useMemo, useState } from "react";
 import emailjs from "@emailjs/browser";
 import {
   ArrowRightIcon,
-  CheckIcon,
-  CopyIcon,
   FileTextIcon,
   LinkedinIcon,
   SendIcon,
@@ -23,7 +21,6 @@ import {
 export default function CTA() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
-  const [copied, setCopied] = useState(false);
 
   const emailConfig = useMemo(
     () => ({
@@ -34,16 +31,6 @@ export default function CTA() {
     }),
     [],
   );
-
-  const copyEmail = async () => {
-    try {
-      await navigator.clipboard.writeText("hello@avecenabasuni.my.id");
-      setCopied(true);
-      window.setTimeout(() => setCopied(false), 1600);
-    } catch {
-      setCopied(false);
-    }
-  };
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -122,23 +109,22 @@ export default function CTA() {
               </p>
 
               <div className="flex flex-wrap gap-3">
-                <button
-                  type="button"
-                  onClick={copyEmail}
-                  className="inline-flex h-11 items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-5 font-sans text-sm font-medium text-foreground transition-colors hover:bg-white/[0.07]"
-                >
-                  {copied ? <CheckIcon size={14} /> : <CopyIcon size={14} />}
-                  {copied ? "Copied" : "Copy email"}
-                </button>
                 <motion.a
-                  href="mailto:hello@avecenabasuni.my.id"
+                  href="mailto:hello@avecenabasuni.my.id?subject=Discuss%20a%20role"
                   whileHover={{ scale: 1.04 }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   className="inline-flex h-11 items-center gap-2 rounded-full bg-foreground px-5 font-sans text-sm font-medium text-background transition-colors hover:bg-foreground/90"
                 >
-                  Email me
+                  Discuss a role
                   <ArrowRightIcon size={14} />
                 </motion.a>
+                <a
+                  href="mailto:hello@avecenabasuni.my.id?subject=Talk%20about%20a%20project"
+                  className="inline-flex h-11 items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-5 font-sans text-sm font-medium text-foreground transition-colors hover:bg-white/[0.07]"
+                >
+                  Talk about a project
+                  <ArrowRightIcon size={14} />
+                </a>
                 <Dialog>
                   <DialogTrigger
                     data-track-event="resume_open"
@@ -147,7 +133,7 @@ export default function CTA() {
                     className="inline-flex h-11 items-center gap-2 rounded-full border border-border px-5 font-sans text-sm font-medium text-muted-foreground transition-colors hover:border-foreground/30 hover:text-foreground"
                   >
                     <FileTextIcon size={14} />
-                    View Resume
+                    View resume
                   </DialogTrigger>
                   <DialogContent className="w-[min(96vw,70rem)] max-w-[70rem] border-white/10 bg-[#10141b]/96 p-0">
                     <div className="border-b border-white/8 px-6 py-4">
@@ -180,26 +166,26 @@ export default function CTA() {
             </div>
 
             <div className="w-full lg:max-w-[36rem] lg:justify-self-end">
-              <form onSubmit={onSubmit} className="grid gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-5 md:grid-cols-2">
+              <form onSubmit={onSubmit} className="grid min-w-0 gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-5 md:grid-cols-2">
                 <input
                   name="from_name"
                   placeholder="Your name"
                   required
-                  className="rounded-xl border border-white/10 bg-black/20 px-4 py-3 font-sans text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground/65 focus:border-white/30"
+                  className="min-w-0 w-full rounded-xl border border-white/10 bg-black/20 px-4 py-3 font-sans text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground/65 focus:border-white/30"
                 />
                 <input
                   name="from_email"
                   type="email"
                   placeholder="Your email"
                   required
-                  className="rounded-xl border border-white/10 bg-black/20 px-4 py-3 font-sans text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground/65 focus:border-white/30"
+                  className="min-w-0 w-full rounded-xl border border-white/10 bg-black/20 px-4 py-3 font-sans text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground/65 focus:border-white/30"
                 />
                 <textarea
                   name="message"
                   placeholder="Tell me about your team, role, or project."
                   required
                   rows={5}
-                  className="rounded-xl border border-white/10 bg-black/20 px-4 py-3 font-sans text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground/65 focus:border-white/30 md:col-span-2"
+                  className="min-w-0 w-full max-w-full resize-none rounded-xl border border-white/10 bg-black/20 px-4 py-3 font-sans text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground/65 focus:border-white/30 md:col-span-2"
                 />
                 <button
                   type="submit"

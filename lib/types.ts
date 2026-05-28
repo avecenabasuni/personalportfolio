@@ -12,6 +12,9 @@ export interface CaseStudy {
   image: string;
   imageAlt: string;
   summary: string;
+  implementation: string;
+  architecture: string;
+  outcome: string;
   problem: string;
   what: string;
   result: string;

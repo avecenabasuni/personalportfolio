@@ -2,6 +2,7 @@
 import Footer from "@/components/layout/Footer";
 
 import Hero from "@/components/sections/Hero";
+import HelpAs from "@/components/sections/HelpAs";
 import StatsBar from "@/components/sections/StatsBar";
 import CaseStudies from "@/components/sections/CaseStudies";
 import About from "@/components/sections/About";
@@ -21,6 +22,7 @@ export default function Home() {
 
       <main>
         <Hero />
+        <HelpAs />
         <StatsBar />
         <CaseStudies />
         <About />

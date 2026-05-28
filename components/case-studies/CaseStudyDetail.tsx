@@ -8,6 +8,12 @@ export default function CaseStudyDetail({
 }: {
   caseStudy: CaseStudy;
 }) {
+  const layers = [
+    ["Technical implementation", caseStudy.implementation],
+    ["Architecture decision", caseStudy.architecture],
+    ["Operational outcome", caseStudy.outcome],
+  ];
+
   return (
     <section className="px-4 pt-28 pb-16 md:px-6 lg:px-8 xl:px-10 2xl:px-12">
       <div className="relative w-full max-w-full space-y-6">
@@ -64,6 +70,22 @@ export default function CaseStudyDetail({
               />
             </div>
           </div>
+        </div>
+
+        <div className="mt-10 grid gap-3 md:grid-cols-3">
+          {layers.map(([label, value]) => (
+            <div
+              key={label}
+              className="rounded-[1.2rem] border border-white/10 bg-white/[0.03] p-5"
+            >
+              <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground/62">
+                {label}
+              </p>
+              <p className="mt-3 font-sans text-sm leading-relaxed text-muted-foreground md:text-base">
+                {value}
+              </p>
+            </div>
+          ))}
         </div>
 
         <div className="mt-12 grid gap-6 lg:grid-cols-[minmax(0,1fr)_18rem]">

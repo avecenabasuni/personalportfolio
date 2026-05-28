@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRightIcon } from "lucide-react";
+import { ArrowRightIcon, FileTextIcon } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function Hero() {
@@ -50,7 +50,7 @@ export default function Hero() {
             }}
           >
             <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground sm:text-[11px]">
-              SRE · Observability · Cloud Infrastructure
+              SRE / Observability / Cloud Infrastructure
             </p>
 
             <h1 className="max-w-[24ch] font-display text-[clamp(2.75rem,4.8vw,6rem)] font-normal leading-[0.98] tracking-[-0.032em] text-foreground sm:max-w-[22ch] sm:text-[clamp(3.25rem,5.2vw,6rem)] lg:max-w-[24ch] xl:max-w-[25ch]">
@@ -65,24 +65,33 @@ export default function Hero() {
             <div className="mt-5 h-px w-full max-w-[64ch] bg-foreground/25" />
 
             <p className="mt-5 max-w-[64ch] font-sans text-[17px] leading-relaxed text-muted-foreground md:text-[1.15rem]">
-              Electrical engineer turned SRE. I instrument distributed systems,
-              reduce alert noise, and design observability workflows engineers
-              can trust under pressure.
+              Electrical engineer turned SRE. I help enterprise teams
+              instrument distributed systems, reduce alert noise, improve
+              incident response, and design reliable cloud infrastructure.
             </p>
 
             <div className="mt-6 flex flex-wrap gap-3 md:mt-6 md:gap-4">
               <a
-                href="mailto:hello@avecenabasuni.my.id"
+                href="mailto:hello@avecenabasuni.my.id?subject=Discuss%20a%20role"
                 className="inline-flex items-center gap-2 rounded-full border border-foreground bg-foreground px-5 py-2.5 font-sans text-sm font-medium text-background transition-colors duration-200 hover:bg-foreground/92 md:px-6 md:py-3"
               >
-                Get in touch
+                Discuss a role
                 <ArrowRightIcon size={14} />
               </a>
               <a
-                href="#case-studies"
+                href="mailto:hello@avecenabasuni.my.id?subject=Talk%20about%20a%20project"
                 className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.02] px-5 py-2.5 font-sans text-sm font-medium text-muted-foreground transition-colors duration-200 hover:border-white/20 hover:text-foreground md:px-6 md:py-3"
               >
-                See my work
+                Talk about a project
+              </a>
+              <a
+                href="/documents/Avecena-Basuni-CV.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.02] px-5 py-2.5 font-sans text-sm font-medium text-muted-foreground transition-colors duration-200 hover:border-white/20 hover:text-foreground md:px-6 md:py-3"
+              >
+                View resume
+                <FileTextIcon size={14} />
               </a>
             </div>
           </motion.div>

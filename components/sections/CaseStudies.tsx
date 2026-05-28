@@ -41,7 +41,7 @@ export default function CaseStudies({
           <div>
             <SectionLabel text="Work" />
             <h2 className="max-w-[19ch] font-display text-[clamp(2.35rem,3.5vw,3.9rem)] font-normal leading-[1.04] tracking-[-0.03em] text-foreground">
-              Here&apos;s what the work actually looks like.
+              Real systems, real tradeoffs, real outcomes.
             </h2>
           </div>
           <div className="flex flex-col items-start gap-5 md:items-end md:pb-2">
@@ -56,9 +56,8 @@ export default function CaseStudies({
             ) : null}
 
             <p className="max-w-xl font-sans text-base leading-relaxed text-muted-foreground">
-              Four engagements across enterprise observability, open-source
-              tooling, and infrastructure automation. Open each one for the full
-              breakdown.
+              Each case study connects the implementation detail, architecture
+              decision, and operational result behind the work.
             </p>
           </div>
         </div>
@@ -122,6 +121,25 @@ export default function CaseStudies({
                           <p className="mt-4 max-w-xl font-sans text-base leading-relaxed text-muted-foreground/88">
                             {cs.summary}
                           </p>
+                          <div className="mt-5 grid gap-2 text-sm md:grid-cols-3">
+                            {[
+                              ["Implementation", cs.implementation],
+                              ["Architecture", cs.architecture],
+                              ["Outcome", cs.outcome],
+                            ].map(([label, value]) => (
+                              <div
+                                key={label}
+                                className="rounded-xl border border-white/10 bg-black/15 p-3"
+                              >
+                                <p className="font-mono text-[9px] uppercase tracking-[0.14em] text-muted-foreground/62">
+                                  {label}
+                                </p>
+                                <p className="mt-1 line-clamp-3 font-sans text-xs leading-relaxed text-muted-foreground/82">
+                                  {value}
+                                </p>
+                              </div>
+                            ))}
+                          </div>
                           <div className="mt-5 flex flex-wrap gap-1.5">
                             {cs.tags.map((tag) => (
                               <span

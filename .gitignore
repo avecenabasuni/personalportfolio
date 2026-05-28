@@ -12,6 +12,7 @@
 
 # testing
 /coverage
+/.playwright-mcp/
 
 # next.js
 /.next/
@@ -27,6 +28,7 @@
 Thumbs.db
 
 # local root artifacts (real assets are kept under /public)
+/temp/
 /Avecena-Basuni-CV.pdf
 /color-palette.png
 /foto-avecenabasuni.jpg

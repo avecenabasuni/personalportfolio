@@ -49,9 +49,8 @@ export default function ImageLightbox({
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent
           showCloseButton={false}
-          className="max-w-[calc(100vw-1.5rem)] border-none bg-transparent p-0 shadow-none ring-0 sm:max-w-[92vw]"
+          className="top-0 left-0 h-[100dvh] w-screen max-w-none max-h-none translate-x-0 translate-y-0 overflow-y-auto rounded-none border-none bg-black/80 p-0 shadow-none ring-0 backdrop-blur-sm sm:max-w-none"
         >
-          <div className="fixed inset-0 bg-black/80 backdrop-blur-sm" aria-hidden />
           <div className="relative z-10 flex min-h-[100svh] items-center justify-center p-4 sm:p-8">
             <div className="relative w-full max-w-6xl overflow-hidden rounded-[1.4rem] border border-white/10 bg-[#0f141c] shadow-2xl">
               <div className="relative aspect-[16/10] w-full">

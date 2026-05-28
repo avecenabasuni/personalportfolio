@@ -38,6 +38,12 @@ export const caseStudies: CaseStudy[] = [
     imageAlt: "Full Stack Observability dashboard screenshot",
     summary:
       "Unified fragmented monitoring stacks into one actionable New Relic workflow so incidents move from guesswork to fast, context-rich response.",
+    implementation:
+      "Instrumented applications, infrastructure, dashboards, and alert workflows across production environments.",
+    architecture:
+      "Consolidated fragmented telemetry into one operating model with trace-log-metric correlation and team-specific views.",
+    outcome:
+      "Reduced blind spots and helped teams move from user-reported incidents to faster, context-rich response.",
     problem:
       "Most teams I work with aren't flying blind by choice. They're running three different monitoring tools that don't talk to each other, relying on open-source stacks nobody has time to maintain, and finding out about errors from their users before their dashboards do. Root cause analysis turns into a war room guessing game.\n\nThis is the pattern I see repeatedly across fintech, manufacturing, healthcare, and ecommerce clients.",
     what: "I consolidated their observability stack end-to-end with New Relic, replacing fragmented tools with a single unified platform. I instrumented applications and infrastructure, designed dashboards tailored to each team's actual workflow, and tuned alerts to cut noise without missing what matters. Then I ran training sessions so engineers could use what we built, not just look at it.\n\nThe goal was simple: when something breaks at 2am, the right person gets paged with enough context to act immediately.",
@@ -52,6 +58,12 @@ export const caseStudies: CaseStudy[] = [
     imageAlt: "Network Performance Monitoring SNMP demo screenshot",
     summary:
       "Built a laptop-ready Docker lab that simulates SNMP and syslog traffic, so engineers can learn and validate network observability without physical hardware.",
+    implementation:
+      "Built Docker-based SNMP and syslog simulators that generate realistic New Relic NPM telemetry locally.",
+    architecture:
+      "Removed the hardware dependency from network observability demos while preserving the real data path engineers need to validate.",
+    outcome:
+      "Made network monitoring easier to demo, learn, and troubleshoot before touching production devices.",
     problem:
       "Most tutorials for New Relic Network Performance Monitoring assume you have physical network devices sitting around. Routers, switches, something that speaks SNMP. Most engineers don't. So they skip NPM entirely, or never get hands-on experience before they need it in production.",
     what: "A fully containerized NPM demo environment using Docker. Two custom simulator images that generate real SNMP traps and syslog traffic without any physical hardware. Everything needed to explore New Relic NPM end-to-end, on a laptop, without touching a single physical device.",
@@ -67,6 +79,12 @@ export const caseStudies: CaseStudy[] = [
     imageAlt: "New Relic Observability Toolkit Terraform modules screenshot",
     summary:
       "Codified production observability into reusable Terraform modules so teams can deploy alerts, dashboards, and notifications consistently from day one.",
+    implementation:
+      "Packaged alerts, dashboards, notification channels, and synthetics into reusable Terraform modules.",
+    architecture:
+      "Turned observability standards into reviewable IaC with opinionated defaults for golden signals and SBAR-style alerts.",
+    outcome:
+      "Gave teams a repeatable day-one baseline instead of weeks of manual dashboard and alert setup.",
     problem:
       "Setting up observability from scratch is repetitive work. Every new environment needs the same alerts, the same dashboards, the same notification channels, built manually, configured inconsistently, and documented poorly. Teams end up with alert policies that nobody trusts and war room dashboards that mean something different to every engineer who built them.",
     what: "A production-ready Terraform toolkit that deploys a complete New Relic monitoring stack in a single `terraform apply`. Four modules, wired together out of the box: Golden Signals alerts with SRE-grounded thresholds, multi-channel notifications in SBAR format, external availability monitoring via Synthetics, and pre-built dashboards for NOC war rooms and engineer deep-dives.\n\nThe defaults are opinionated because they have to be. Error rate filters HTTP 5xx only because a 404 is not an incident. Notifications follow SBAR format because actionable alerts are a core principle from the Google SRE Workbook. Every decision is documented so the next engineer who touches it understands not just what was built, but why.",
@@ -83,6 +101,12 @@ export const caseStudies: CaseStudy[] = [
     imageAlt: "New Relic Squid Proxy installer screenshot",
     summary:
       "Automated New Relic proxy setup across restricted enterprise networks with a one-command installer that removes recurring connectivity blockers.",
+    implementation:
+      "Automated Squid Proxy installation, endpoint verification, auth, SSL bump options, and proxy observability.",
+    architecture:
+      "Designed for restricted enterprise networks where monitoring agents must traverse proxy chains and corporate firewalls.",
+    outcome:
+      "Turned a recurring POC blocker into a repeatable handoff that any engineer can run and validate.",
     problem:
       "Enterprise environments don't always have direct internet access. Servers sit behind corporate firewalls, traffic goes through proxy chains, and getting a New Relic agent connected becomes a manual, distro-specific process that derails POC timelines before the client sees a single metric.\n\nEvery new client with network restrictions meant starting from scratch.",
     what: "An automated Squid Proxy installer that handles the entire lifecycle in a single command. One-liner install, multi-distro Linux support across nine distributions, optional SSL bump for TLS interception, Basic Auth, corporate proxy chaining, and a built-in verification engine that tests connectivity to all New Relic endpoints before handoff.\n\nIt also ships with a New Relic dashboard out of the box, so the proxy itself is observable from day one.",
