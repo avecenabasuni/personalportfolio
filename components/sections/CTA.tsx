@@ -1,15 +1,13 @@
 "use client";
 
-import { FormEvent, useMemo, useState } from "react";
-import emailjs from "@emailjs/browser";
 import {
   ArrowRightIcon,
   FileTextIcon,
   LinkedinIcon,
-  SendIcon,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { sectionContent } from "@/lib/content";
+import { ContactDialog } from "@/components/contact/ContactDialog";
 import {
   Dialog,
   DialogContent,
@@ -19,66 +17,6 @@ import {
 } from "@/components/ui/dialog";
 
 export default function CTA() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
-
-  const emailConfig = useMemo(
-    () => ({
-      serviceId: process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
-      templateId: process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
-      publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY,
-      toEmail: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "hello@avecenabasuni.my.id",
-    }),
-    [],
-  );
-
-  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setStatus("idle");
-
-    if (
-      !emailConfig.serviceId ||
-      !emailConfig.templateId ||
-      !emailConfig.publicKey
-    ) {
-      setStatus("error");
-      return;
-    }
-
-    const formElement = event.currentTarget;
-    const formData = new FormData(formElement);
-    const fromName = String(formData.get("from_name") || "").trim();
-    const fromEmail = String(formData.get("from_email") || "").trim();
-    const message = String(formData.get("message") || "").trim();
-
-    if (!fromName || !fromEmail || !message) {
-      setStatus("error");
-      return;
-    }
-
-    setIsSubmitting(true);
-    try {
-      await emailjs.send(
-        emailConfig.serviceId,
-        emailConfig.templateId,
-        {
-          from_name: fromName,
-          from_email: fromEmail,
-          message,
-          to_email: emailConfig.toEmail,
-        },
-        { publicKey: emailConfig.publicKey },
-      );
-      formElement.reset();
-      setStatus("success");
-    } catch (error) {
-      console.error("EmailJS send failed", error);
-      setStatus("error");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
   return (
     <section
       id="contact"
@@ -92,7 +30,7 @@ export default function CTA() {
           viewport={{ once: false, margin: "-60px" }}
           transition={{ duration: 0.55, ease: [0.21, 0.47, 0.32, 0.98] }}
         >
-          <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,36rem)] lg:items-start lg:gap-10">
+          <div className="max-w-4xl">
             <div>
               <p className="mb-3 font-mono text-xs tracking-[0.18em] text-muted-foreground uppercase">
                 Let&apos;s talk
@@ -109,22 +47,27 @@ export default function CTA() {
               </p>
 
               <div className="flex flex-wrap gap-3">
-                <motion.a
-                  href="mailto:hello@avecenabasuni.my.id?subject=Discuss%20a%20role"
+                <motion.div
                   whileHover={{ scale: 1.04 }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  className="inline-flex h-11 items-center gap-2 rounded-full bg-foreground px-5 font-sans text-sm font-medium text-background transition-colors hover:bg-foreground/90"
                 >
-                  Discuss a role
-                  <ArrowRightIcon size={14} />
-                </motion.a>
-                <a
-                  href="mailto:hello@avecenabasuni.my.id?subject=Talk%20about%20a%20project"
+                  <ContactDialog
+                    intent="role"
+                    trackLabel="Discuss a role"
+                    className="inline-flex h-11 items-center gap-2 rounded-full bg-foreground px-5 font-sans text-sm font-medium text-background transition-colors hover:bg-foreground/90"
+                  >
+                    Discuss a role
+                    <ArrowRightIcon size={14} />
+                  </ContactDialog>
+                </motion.div>
+                <ContactDialog
+                  intent="project"
+                  trackLabel="Talk about a project"
                   className="inline-flex h-11 items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-5 font-sans text-sm font-medium text-foreground transition-colors hover:bg-white/[0.07]"
                 >
                   Talk about a project
                   <ArrowRightIcon size={14} />
-                </a>
+                </ContactDialog>
                 <Dialog>
                   <DialogTrigger
                     data-track-event="resume_open"
@@ -163,44 +106,6 @@ export default function CTA() {
                   LinkedIn
                 </a>
               </div>
-            </div>
-
-            <div className="w-full lg:max-w-[36rem] lg:justify-self-end">
-              <form onSubmit={onSubmit} className="grid min-w-0 gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-5 md:grid-cols-2">
-                <input
-                  name="from_name"
-                  placeholder="Your name"
-                  required
-                  className="min-w-0 w-full rounded-xl border border-white/10 bg-black/20 px-4 py-3 font-sans text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground/65 focus:border-white/30"
-                />
-                <input
-                  name="from_email"
-                  type="email"
-                  placeholder="Your email"
-                  required
-                  className="min-w-0 w-full rounded-xl border border-white/10 bg-black/20 px-4 py-3 font-sans text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground/65 focus:border-white/30"
-                />
-                <textarea
-                  name="message"
-                  placeholder="Tell me about your team, role, or project."
-                  required
-                  rows={5}
-                  className="min-w-0 w-full max-w-full resize-none rounded-xl border border-white/10 bg-black/20 px-4 py-3 font-sans text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground/65 focus:border-white/30 md:col-span-2"
-                />
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 py-2.5 font-sans text-sm font-medium text-background transition-colors hover:bg-foreground/90 disabled:cursor-not-allowed disabled:opacity-70 md:col-span-2"
-                >
-                  {isSubmitting ? "Sending..." : "Send message"}
-                  <SendIcon size={14} />
-                </button>
-                <p className="font-sans text-sm text-muted-foreground md:col-span-2">
-                  {status === "success" && "Message sent. I will get back to you soon."}
-                  {status === "error" &&
-                    "Unable to send message. Please try again or email me directly."}
-                </p>
-              </form>
             </div>
           </div>
         </motion.div>

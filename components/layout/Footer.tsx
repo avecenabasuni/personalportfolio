@@ -9,6 +9,7 @@ import {
   InstagramIcon,
   LinkedinIcon,
 } from "lucide-react";
+import { ContactDialog } from "@/components/contact/ContactDialog";
 
 const footerLinks = [
   {
@@ -30,7 +31,6 @@ const footerLinks = [
   {
     heading: "Connect",
     links: [
-      { label: "Email", href: "mailto:hello@avecenabasuni.my.id" },
       { label: "LinkedIn", href: "https://linkedin.com/in/avecenabasuni" },
       { label: "GitHub", href: "https://github.com/avecenabasuni" },
     ],
@@ -100,12 +100,13 @@ export default function Footer() {
                 </p>
 
                 <div className="mt-8 flex flex-wrap gap-3">
-                  <a
-                    href="mailto:hello@avecenabasuni.my.id"
+                  <ContactDialog
+                    intent="role"
+                    trackLabel="Footer email"
                     className="inline-flex items-center rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 font-sans text-sm text-foreground transition-colors hover:bg-white/[0.07]"
                   >
                     hello@avecenabasuni.my.id
-                  </a>
+                  </ContactDialog>
                   <button
                     type="button"
                     onClick={copyEmail}
