@@ -103,12 +103,13 @@ export default function Footer() {
                   Closing note
                 </p>
                 <h3 className="mt-3 max-w-[12ch] font-display text-4xl font-normal leading-[1.02] tracking-[-0.03em] text-foreground md:text-5xl">
-                  Built for teams that need calmer systems.
+                  Built for teams that need reliable systems.
                 </h3>
                 <p className="mt-5 max-w-lg font-sans text-sm leading-relaxed text-muted-foreground">
-                  SRE & Observability Engineer. Jakarta based. Open to remote,
-                  relocation, reliability architecture work, and focused
-                  observability projects.
+                  SRE, Observability Engineer, and reliability-focused Solutions
+                  Architect. Jakarta based. Open to remote, relocation,
+                  reliability architecture work, and focused observability
+                  projects.
                 </p>
 
                 <div className="mt-8 flex flex-wrap gap-3">
@@ -128,7 +129,7 @@ export default function Footer() {
                     {copied ? "Copied" : "Copy email"}
                   </button>
                   <span className="inline-flex items-center rounded-full border border-white/8 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
-                    Available for roles and projects
+                    Available for SRE, architecture, and observability work
                   </span>
                 </div>
               </div>

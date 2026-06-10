@@ -29,7 +29,7 @@ export default function Hero() {
         <div className="grid items-center gap-6 lg:grid-cols-[minmax(0,1fr)_26rem] lg:gap-8 xl:grid-cols-[minmax(0,1fr)_27rem] xl:gap-10">
           <div className="max-w-none self-center">
             <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground sm:text-[11px]">
-              SRE / Observability / Cloud Infrastructure
+              SRE / Observability / Solutions Architecture
             </p>
 
             <h1 className="max-w-[24ch] font-display text-[clamp(2.75rem,4.8vw,6rem)] font-normal leading-[0.98] tracking-[-0.032em] text-foreground sm:max-w-[22ch] sm:text-[clamp(3.25rem,5.2vw,6rem)] lg:max-w-[24ch] xl:max-w-[25ch]">
@@ -44,9 +44,9 @@ export default function Hero() {
             <div className="mt-5 h-px w-full max-w-[64ch] bg-foreground/25" />
 
             <p className="mt-5 max-w-[64ch] font-sans text-[17px] leading-relaxed text-muted-foreground md:text-[1.15rem]">
-              Electrical engineer turned SRE. I help enterprise teams
-              instrument distributed systems, reduce alert noise, improve
-              incident response, and design reliable cloud infrastructure.
+              Electrical engineer turned reliability engineer. I help enterprise
+              teams instrument distributed systems, reduce alert noise, improve
+              incident response, and design resilient cloud infrastructure.
             </p>
 
             <div className="mt-6 flex flex-wrap gap-3 md:mt-6 md:gap-4">

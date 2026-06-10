@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRightIcon } from "lucide-react";
+import { ContactDialog } from "@/components/contact/ContactDialog";
 import ImageLightbox from "@/components/ui/ImageLightbox";
 import BackPageLink from "@/components/ui/BackPageLink";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
@@ -17,6 +18,12 @@ export default function CaseStudyDetail({
     ["Architecture decision", caseStudy.architecture],
     ["Operational outcome", caseStudy.outcome],
   ];
+  const hiringSummary = [
+    ["Role", caseStudy.hiringSummary.role],
+    ["Scope", caseStudy.hiringSummary.scope],
+    ["Stack", caseStudy.hiringSummary.stack],
+    ["Outcome", caseStudy.hiringSummary.outcome],
+  ] as const;
   const relatedCaseStudies = caseStudies
     .filter((entry) => entry.id !== caseStudy.id)
     .map((entry) => ({
@@ -93,7 +100,36 @@ export default function CaseStudyDetail({
           </div>
         </div>
 
-        <div className="mt-10 grid gap-3 md:grid-cols-3">
+        <div className="mt-10 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+          {hiringSummary.map(([label, value]) => (
+            <div
+              key={label}
+              className="rounded-[1.2rem] border border-white/10 bg-white/[0.03] p-5"
+            >
+              <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground/62">
+                {label}
+              </p>
+              {Array.isArray(value) ? (
+                <div className="mt-3 flex flex-wrap gap-1.5">
+                  {value.map((item) => (
+                    <span
+                      key={item}
+                      className="rounded-full border border-white/10 bg-black/15 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground/78"
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              ) : (
+                <p className="mt-3 font-sans text-sm leading-relaxed text-muted-foreground md:text-base">
+                  {value}
+                </p>
+              )}
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-6 grid gap-3 md:grid-cols-3">
           {layers.map(([label, value]) => (
             <div
               key={label}
@@ -138,6 +174,30 @@ export default function CaseStudyDetail({
               {caseStudy.result}
             </p>
           </aside>
+        </div>
+
+        <div className="mt-12 overflow-hidden rounded-[1.6rem] border border-white/10 bg-[linear-gradient(135deg,rgba(255,255,255,0.06),rgba(91,112,184,0.12)_48%,rgba(255,255,255,0.03))] p-6 md:p-8">
+          <div className="grid gap-6 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
+            <div>
+              <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground/62">
+                {caseStudy.cta.eyebrow}
+              </p>
+              <h2 className="mt-3 max-w-3xl font-display text-3xl font-normal leading-[1.06] text-foreground md:text-4xl">
+                {caseStudy.cta.title}
+              </h2>
+              <p className="mt-4 max-w-2xl font-sans text-base leading-relaxed text-muted-foreground md:text-lg">
+                {caseStudy.cta.description}
+              </p>
+            </div>
+            <ContactDialog
+              intent={caseStudy.cta.intent}
+              trackLabel={caseStudy.cta.trackLabel}
+              className="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-foreground px-5 font-sans text-sm font-medium text-background transition-colors hover:bg-foreground/90"
+            >
+              {caseStudy.cta.label}
+              <ArrowUpRightIcon size={14} />
+            </ContactDialog>
+          </div>
         </div>
 
         <div className="mt-12 border-t border-white/8 pt-8">

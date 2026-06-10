@@ -22,6 +22,20 @@ export interface CaseStudy {
   implementation: string;
   architecture: string;
   outcome: string;
+  hiringSummary: {
+    role: string;
+    scope: string;
+    stack: string[];
+    outcome: string;
+  };
+  cta: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    intent: "role" | "project";
+    label: string;
+    trackLabel: string;
+  };
   problem: string;
   what: string;
   result: string;

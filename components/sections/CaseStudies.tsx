@@ -108,11 +108,12 @@ export default function CaseStudies({
                           <p className="mt-4 max-w-xl font-sans text-base leading-relaxed text-muted-foreground/88">
                             {cs.summary}
                           </p>
-                          <div className="mt-5 grid gap-2 text-sm md:grid-cols-3">
+                          <div className="mt-5 grid gap-2 text-sm md:grid-cols-4">
                             {[
-                              ["Implementation", cs.implementation],
-                              ["Architecture", cs.architecture],
-                              ["Outcome", cs.outcome],
+                              ["Role", cs.hiringSummary.role],
+                              ["Scope", cs.hiringSummary.scope],
+                              ["Stack", cs.hiringSummary.stack.join(" / ")],
+                              ["Outcome", cs.hiringSummary.outcome],
                             ].map(([label, value]) => (
                               <div
                                 key={label}

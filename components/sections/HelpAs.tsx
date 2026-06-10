@@ -5,7 +5,7 @@ const paths = [
     title: "SRE hire",
     label: "For reliability teams",
     description:
-      "I can own observability, incident response, alert tuning, SLI/SLO design, and production reliability work.",
+      "I can own production reliability work across observability, incident response, alert tuning, and SLI/SLO workflows.",
     signals: ["On-call signal quality", "MTTR reduction", "SLO workflows"],
     icon: BriefcaseBusinessIcon,
   },
@@ -13,7 +13,7 @@ const paths = [
     title: "Solutions Architect",
     label: "For cloud and platform teams",
     description:
-      "I can translate business constraints into resilient cloud, Kubernetes, and monitoring architectures.",
+      "I can translate business constraints into resilient cloud, Kubernetes, and observability architectures.",
     signals: ["Architecture tradeoffs", "Cloud infrastructure", "Technical validation"],
     icon: NetworkIcon,
   },
@@ -21,7 +21,7 @@ const paths = [
     title: "Freelance consultant",
     label: "For focused project work",
     description:
-      "I can help with observability setup, New Relic implementation, infra review, Terraform, and alert cleanup.",
+      "I can help with observability setup, New Relic implementation, infrastructure review, Terraform, and alert cleanup.",
     signals: ["Observability setup", "New Relic rollout", "Terraform/IaC enablement"],
     icon: WrenchIcon,
   },
@@ -37,7 +37,7 @@ export default function HelpAs() {
               I can help as
             </p>
             <h2 className="max-w-[18ch] font-display text-[clamp(2.35rem,3.5vw,3.9rem)] font-normal leading-[1.04] tracking-[-0.03em] text-foreground">
-              One reliability practice, three ways to engage.
+              One reliability practice, three ways to bring me in.
             </h2>
           </div>
 
