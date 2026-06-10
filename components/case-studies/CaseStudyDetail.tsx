@@ -78,6 +78,7 @@ export default function CaseStudyDetail({
                 alt={caseStudy.imageAlt}
                 sizes="(max-width: 1024px) 100vw, 420px"
                 triggerClassName="relative h-full w-full cursor-zoom-in"
+                priority
               />
             </div>
             <div className="mt-4 flex items-center justify-between gap-3 rounded-[1rem] border border-white/8 bg-black/20 px-4 py-3">

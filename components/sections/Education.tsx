@@ -1,4 +1,3 @@
-import { FadeIn } from "@/components/ui/FadeIn";
 import { ArrowUpRightIcon } from "lucide-react";
 
 export default function Education() {
@@ -8,7 +7,7 @@ export default function Education() {
       className="px-4 py-14 md:px-6 md:py-16 lg:px-8 xl:px-10 2xl:px-12"
     >
       <div className="w-full">
-        <FadeIn className="w-full">
+        <div className="w-full">
           <p className="mb-3 font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
             Education
           </p>
@@ -61,7 +60,7 @@ export default function Education() {
               </p>
             </div>
           </div>
-        </FadeIn>
+        </div>
       </div>
     </section>
   );

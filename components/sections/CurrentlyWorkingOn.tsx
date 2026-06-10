@@ -1,8 +1,5 @@
-"use client";
-
 import { workInProgress, workInProgressMeta } from "@/lib/data";
 import { sectionContent } from "@/lib/content";
-import { motion } from "framer-motion";
 
 export default function CurrentlyWorkingOn() {
   return (
@@ -29,16 +26,8 @@ export default function CurrentlyWorkingOn() {
               const isInProgress = itemMeta?.status === "in-progress";
 
               return (
-                <motion.li
+                <li
                   key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: false, margin: "-60px" }}
-                  transition={{
-                    duration: 0.5,
-                    ease: [0.21, 0.47, 0.32, 0.98],
-                    delay: i * 0.12,
-                  }}
                   className="relative flex gap-4 rounded-xl border border-white/8 bg-white/[0.02] px-4 py-4 transition-colors hover:border-white/16 hover:bg-white/[0.04]"
                 >
                   <div className="relative mt-1 shrink-0">
@@ -86,7 +75,7 @@ export default function CurrentlyWorkingOn() {
                       ))}
                     </div>
                   </div>
-                </motion.li>
+                </li>
               );
             })}
           </ul>

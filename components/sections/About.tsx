@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { FadeIn } from "@/components/ui/FadeIn";
 import { sectionContent } from "@/lib/content";
 
 export default function About() {
@@ -9,7 +8,7 @@ export default function About() {
       className="px-4 pt-10 pb-14 md:px-6 md:pt-12 md:pb-16 lg:px-8 xl:px-10 2xl:px-12"
     >
       <div className="w-full">
-        <FadeIn className="w-full">
+        <div className="w-full">
           <div className="mb-4 flex items-center gap-3">
             <div className="relative h-12 w-12 overflow-hidden rounded-full border border-white/10">
               <Image
@@ -17,7 +16,6 @@ export default function About() {
                 alt="Avecena Basuni"
                 fill
                 className="object-cover object-top"
-                priority
                 sizes="48px"
               />
             </div>
@@ -42,7 +40,7 @@ export default function About() {
               {sectionContent.about.paragraphs[2]}
             </p>
           </div>
-        </FadeIn>
+        </div>
       </div>
     </section>
   );

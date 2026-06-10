@@ -1,8 +1,5 @@
-"use client";
-
 import { skillGroups } from "@/lib/data";
 import { sectionContent } from "@/lib/content";
-import { motion } from "framer-motion";
 
 export default function TechnicalSkills() {
   return (
@@ -19,19 +16,10 @@ export default function TechnicalSkills() {
         </h2>
 
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {skillGroups.map((group, idx) => (
-            <motion.div
+          {skillGroups.map((group) => (
+            <div
               key={group.domain}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, margin: "-60px" }}
-              transition={{
-                duration: 0.5,
-                ease: [0.21, 0.47, 0.32, 0.98],
-                delay: idx * 0.1,
-              }}
-              whileHover={{ y: -2 }}
-              className="rounded-2xl border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02))] px-6 py-8 transition-colors hover:border-white/20 hover:bg-[linear-gradient(180deg,rgba(110,136,255,0.08),rgba(255,255,255,0.04))]"
+              className="rounded-2xl border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02))] px-6 py-8 transition-[border-color,background,transform] hover:-translate-y-0.5 hover:border-white/20 hover:bg-[linear-gradient(180deg,rgba(110,136,255,0.08),rgba(255,255,255,0.04))]"
             >
               <p className="mb-1 font-sans text-sm font-medium text-foreground">
                 {group.domain}
@@ -41,17 +29,15 @@ export default function TechnicalSkills() {
               </p>
               <div className="flex flex-wrap gap-2">
                 {group.skills.map((skill) => (
-                  <motion.span
+                  <span
                     key={skill}
-                    whileHover={{ scale: 1.08, backgroundColor: "#232323" }}
-                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                    className="rounded-full border border-border px-3 py-1 font-sans text-xs text-muted-foreground hover:text-foreground hover:border-border/60 transition-colors"
+                    className="rounded-full border border-border px-3 py-1 font-sans text-xs text-muted-foreground transition-[border-color,color,background,transform] hover:scale-[1.04] hover:border-border/60 hover:bg-[#232323] hover:text-foreground"
                   >
                     {skill}
-                  </motion.span>
+                  </span>
                 ))}
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

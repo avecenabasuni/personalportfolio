@@ -74,6 +74,7 @@ export default function AllCaseStudiesPage() {
             showViewAllButton={false}
             topPaddingClass="pt-0 md:pt-0"
             horizontalPaddingClass="px-0 md:px-0 lg:px-0 xl:px-0 2xl:px-0"
+            prioritizeFirstImage
           />
         </div>
       </main>

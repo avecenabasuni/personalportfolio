@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DM_Serif_Display, DM_Sans, DM_Mono } from "next/font/google";
+import { DM_Serif_Display, DM_Sans } from "next/font/google";
 import Script from "next/script";
 import StickyContact from "@/components/StickyContact";
 import InteractionTracker from "@/components/analytics/InteractionTracker";
@@ -10,19 +10,14 @@ const dmSerifDisplay = DM_Serif_Display({
   variable: "--font-dm-display",
   weight: "400",
   subsets: ["latin"],
-  style: ["normal", "italic"],
+  display: "optional",
 });
 
 const dmSans = DM_Sans({
   variable: "--font-dm-sans",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
-});
-
-const dmMono = DM_Mono({
-  variable: "--font-dm-mono",
-  weight: ["300", "400", "500"],
-  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  display: "optional",
 });
 
 export const metadata: Metadata = {
@@ -80,6 +75,10 @@ NREUM.loader_config={accountID:"4381242",trustKey:"4381242",agentID:"1120313957"
 NREUM.info={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",licenseKey:"NRJS-97af675f24f176c6bb0",applicationID:"1120313957",sa:1};
 `;
 
+const isNewRelicBrowserEnabled =
+  process.env.NODE_ENV === "production" &&
+  process.env.NEXT_PUBLIC_NEW_RELIC_BROWSER_ENABLED !== "false";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -108,20 +107,24 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`dark ${dmSerifDisplay.variable} ${dmSans.variable} ${dmMono.variable}`}
+      className={`dark ${dmSerifDisplay.variable} ${dmSans.variable}`}
       suppressHydrationWarning
     >
       <head>
-        <Script
-          id="newrelic-config"
-          strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{ __html: newRelicConfigScript }}
-        />
-        <Script
-          id="newrelic-loader"
-          src="https://js-agent.newrelic.com/nr-loader-spa-current.min.js"
-          strategy="beforeInteractive"
-        />
+        {isNewRelicBrowserEnabled ? (
+          <>
+            <Script
+              id="newrelic-config"
+              strategy="lazyOnload"
+              dangerouslySetInnerHTML={{ __html: newRelicConfigScript }}
+            />
+            <Script
+              id="newrelic-loader"
+              src="https://js-agent.newrelic.com/nr-loader-spa-current.min.js"
+              strategy="lazyOnload"
+            />
+          </>
+        ) : null}
         <Script
           id="jsonld-person"
           type="application/ld+json"

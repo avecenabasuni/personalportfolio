@@ -11,6 +11,7 @@ type ImageLightboxProps = {
   sizes: string;
   triggerClassName: string;
   imageClassName?: string;
+  priority?: boolean;
 };
 
 export default function ImageLightbox({
@@ -19,6 +20,7 @@ export default function ImageLightbox({
   sizes,
   triggerClassName,
   imageClassName = "object-cover object-top",
+  priority = false,
 }: ImageLightboxProps) {
   const [open, setOpen] = useState(false);
 
@@ -43,7 +45,14 @@ export default function ImageLightbox({
         className={triggerClassName}
         aria-label="Open image in fullscreen"
       >
-        <Image src={src} alt={alt} fill className={imageClassName} sizes={sizes} />
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          className={imageClassName}
+          sizes={sizes}
+          priority={priority}
+        />
       </button>
 
       <Dialog open={open} onOpenChange={setOpen}>
@@ -69,7 +78,6 @@ export default function ImageLightbox({
                   fill
                   sizes="100vw"
                   className="object-contain p-4 sm:p-6"
-                  priority
                 />
               </div>
 

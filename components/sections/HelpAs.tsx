@@ -1,7 +1,4 @@
-"use client";
-
 import { BriefcaseBusinessIcon, NetworkIcon, WrenchIcon } from "lucide-react";
-import { motion } from "framer-motion";
 
 const paths = [
   {
@@ -35,35 +32,22 @@ export default function HelpAs() {
     <section className="bg-[#0d1218] px-4 pt-8 pb-6 md:px-6 md:pt-10 md:pb-8 lg:px-8 xl:px-10 2xl:px-12">
       <div className="w-full">
         <div className="grid gap-6 border-b border-white/8 pb-8 lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] lg:items-start lg:gap-10">
-          <motion.div
-            initial={{ opacity: 0, y: 22 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, margin: "-60px" }}
-            transition={{ duration: 0.5, ease: [0.21, 0.47, 0.32, 0.98] }}
-          >
+          <div>
             <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground/76">
               I can help as
             </p>
             <h2 className="max-w-[18ch] font-display text-[clamp(2.35rem,3.5vw,3.9rem)] font-normal leading-[1.04] tracking-[-0.03em] text-foreground">
               One reliability practice, three ways to engage.
             </h2>
-          </motion.div>
+          </div>
 
           <div className="grid gap-3 md:grid-cols-3">
-            {paths.map((path, index) => {
+            {paths.map((path) => {
               const Icon = path.icon;
 
               return (
-                <motion.article
+                <article
                   key={path.title}
-                  initial={{ opacity: 0, y: 22 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: false, margin: "-60px" }}
-                  transition={{
-                    duration: 0.5,
-                    ease: [0.21, 0.47, 0.32, 0.98],
-                    delay: index * 0.08,
-                  }}
                   className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition-colors hover:border-white/18 hover:bg-white/[0.045]"
                 >
                   <div className="mb-5 flex items-center justify-between gap-3">
@@ -90,7 +74,7 @@ export default function HelpAs() {
                       </span>
                     ))}
                   </div>
-                </motion.article>
+                </article>
               );
             })}
           </div>

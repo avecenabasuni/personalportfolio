@@ -1,9 +1,6 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRightIcon } from "lucide-react";
-import { motion } from "framer-motion";
 import { caseStudies } from "@/lib/data";
 import { cn } from "@/lib/utils";
 
@@ -26,10 +23,12 @@ export default function CaseStudies({
   showViewAllButton = true,
   topPaddingClass = "pt-14 md:pt-16",
   horizontalPaddingClass = "px-4 md:px-6 lg:px-8 xl:px-10 2xl:px-12",
+  prioritizeFirstImage = false,
 }: {
   showViewAllButton?: boolean;
   topPaddingClass?: string;
   horizontalPaddingClass?: string;
+  prioritizeFirstImage?: boolean;
 }) {
   return (
     <section
@@ -64,17 +63,7 @@ export default function CaseStudies({
 
         <div className="mt-6 grid gap-5">
           {caseStudies.map((cs, idx) => (
-            <motion.div
-              key={cs.id}
-              initial={{ opacity: 0, y: 28 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, margin: "-60px" }}
-              transition={{
-                duration: 0.55,
-                ease: [0.21, 0.47, 0.32, 0.98],
-                delay: idx * 0.12,
-              }}
-            >
+            <div key={cs.id}>
               <Link
                 href={`/case-studies/${cs.id}`}
                 data-track-event="case_study_open"
@@ -82,10 +71,8 @@ export default function CaseStudies({
                 data-track-label={cs.title}
                 className="block rounded-[1.6rem] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
               >
-                <motion.article
-                  whileHover={{ y: -3 }}
-                  transition={{ type: "spring", stiffness: 280, damping: 22 }}
-                  className="group overflow-hidden rounded-[1.6rem] border border-white/8 bg-[#141519]/82 shadow-[0_20px_90px_rgba(0,0,0,0.22)] transition-colors hover:border-white/16"
+                <article
+                  className="group overflow-hidden rounded-[1.6rem] border border-white/8 bg-[#141519]/82 shadow-[0_20px_90px_rgba(0,0,0,0.22)] transition-[border-color,transform] hover:-translate-y-0.5 hover:border-white/16"
                 >
                   <div
                     className={cn(
@@ -162,6 +149,7 @@ export default function CaseStudies({
                               fill
                               className="object-cover object-top opacity-88 transition-transform duration-500 group-hover:scale-[1.02]"
                               sizes="320px"
+                              priority={prioritizeFirstImage && idx === 0}
                             />
                           </div>
                           <div className="absolute inset-x-0 bottom-0 flex items-center justify-between bg-gradient-to-t from-black/70 via-black/30 to-transparent px-4 py-3">
@@ -177,9 +165,9 @@ export default function CaseStudies({
                       </div>
                     </div>
                   </div>
-                </motion.article>
+                </article>
               </Link>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

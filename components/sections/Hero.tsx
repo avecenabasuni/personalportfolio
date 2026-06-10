@@ -1,7 +1,4 @@
-"use client";
-
 import { ArrowRightIcon, FileTextIcon } from "lucide-react";
-import { motion } from "framer-motion";
 import { ContactDialog } from "@/components/contact/ContactDialog";
 import { traceRows } from "@/lib/data";
 
@@ -30,16 +27,7 @@ export default function Hero() {
       />
       <div className="relative w-full max-w-full">
         <div className="grid items-center gap-6 lg:grid-cols-[minmax(0,1fr)_26rem] lg:gap-8 xl:grid-cols-[minmax(0,1fr)_27rem] xl:gap-10">
-          <motion.div
-            className="max-w-none self-center"
-            initial={{ opacity: 0, y: 28 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.7,
-              ease: [0.21, 0.47, 0.32, 0.98],
-              delay: 0.1,
-            }}
-          >
+          <div className="max-w-none self-center">
             <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground sm:text-[11px]">
               SRE / Observability / Cloud Infrastructure
             </p>
@@ -90,13 +78,10 @@ export default function Hero() {
                 <FileTextIcon size={14} />
               </a>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div
+          <div
             className="relative w-full self-center overflow-hidden lg:mt-2 lg:w-[26rem] lg:max-w-none xl:w-[27rem] lg:justify-self-end"
-            initial={{ opacity: 0, y: 22 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.21, 0.47, 0.32, 0.98], delay: 0.2 }}
           >
             <div className="absolute inset-x-4 -top-5 h-10 rounded-full bg-blue-500/10 blur-2xl" />
             <div className="space-y-3">
@@ -105,13 +90,11 @@ export default function Hero() {
                   <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground/70">
                     Distributed Trace Waterfall
                   </p>
-                  <motion.span
-                    animate={{ opacity: [0.45, 1, 0.45] }}
-                    transition={{ duration: 2.2, repeat: Infinity }}
-                    className="rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.14em] text-emerald-300/80"
+                  <span
+                    className="rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.14em] text-emerald-300/80 motion-safe:animate-pulse"
                   >
                     trace id 7fa1
-                  </motion.span>
+                  </span>
                 </div>
 
                 <div className="rounded-[1rem] border border-white/8 bg-white/[0.03] p-3.5">
@@ -140,26 +123,22 @@ export default function Hero() {
                   </div>
 
                   <div className="space-y-2.5">
-                    {traceRows.map((row, idx) => (
+                    {traceRows.map((row) => (
                       <div key={row.service} className="grid grid-cols-[8.25rem_minmax(0,1fr)] items-center gap-2">
                         <p className="truncate font-mono text-[10px] uppercase tracking-[0.13em] text-muted-foreground/72">
                           {row.service}
                         </p>
                         <div className="relative h-4 rounded-sm bg-white/[0.04]">
-                          <motion.div
+                          <div
                             className={`absolute top-0 h-4 rounded-sm ${row.color}`}
-                            style={{ left: `${row.offset}%` }}
-                            animate={{
-                              width: [`${row.duration * 0.7}%`, `${row.duration}%`, `${row.duration * 0.82}%`, `${row.duration}%`],
-                              opacity: [0.6, 1, 0.78, 1],
+                            style={{
+                              left: `${row.offset}%`,
+                              width: `${row.duration}%`,
                             }}
-                            transition={{ duration: 2.6, delay: idx * 0.12, repeat: Infinity, ease: "easeInOut" }}
                           />
-                          <motion.div
+                          <div
                             className="absolute top-0 h-4 w-[3px] rounded-full bg-white/90"
                             style={{ left: `${row.offset + row.duration}%` }}
-                            animate={{ opacity: [0.2, 0.95, 0.2] }}
-                            transition={{ duration: 1.7, delay: idx * 0.09, repeat: Infinity }}
                           />
                         </div>
                       </div>
@@ -175,21 +154,22 @@ export default function Hero() {
                     <p className="font-sans text-xs text-foreground/90">checkout request</p>
                   </div>
                   <div className="relative h-[18px] rounded-full bg-white/[0.05]">
-                    <motion.div
+                    <div
                       className="absolute left-0 top-[8px] h-[2px] bg-fuchsia-300/75"
-                      animate={{ width: ["68%", "82%", "74%", "86%", "68%"] }}
-                      transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                      style={{ width: "78%" }}
                     />
-                    <motion.span
+                    <span
                       className="absolute top-[5px] h-2.5 w-2.5 rounded-full bg-fuchsia-200"
-                      animate={{ left: ["67%", "81%", "73%", "85%", "67%"], boxShadow: ["0 0 0px rgba(244,114,182,0.2)", "0 0 14px rgba(244,114,182,0.7)", "0 0 0px rgba(244,114,182,0.2)"] }}
-                      transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                      style={{
+                        left: "78%",
+                        boxShadow: "0 0 14px rgba(244,114,182,0.55)",
+                      }}
                     />
                   </div>
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
