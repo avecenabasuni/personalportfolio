@@ -14,6 +14,8 @@
     "test:e2e": "playwright test",
     "audit:assets": "node scripts/audit-assets.mjs",
     "audit:links": "node scripts/audit-links.mjs",
+    "audit:external-links": "node scripts/audit-external-links.mjs",
+    "lighthouse:ci": "npx --yes @lhci/cli@0.15.1 autorun --config=lighthouserc.cjs",
     "quality:check": "npm run typecheck && npm run lint && npm run test:smoke && npm run audit:assets && npm run audit:links"
   },
   "dependencies": {

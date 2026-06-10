@@ -5,7 +5,7 @@
 ### CI / Automation
 - [x] Add GitHub Actions CI for `quality:check`, production build, and Playwright E2E.
 - [x] Add automated internal link, hash anchor, and local asset scan.
-- [ ] Add Lighthouse CI budget check for mobile performance regressions.
+- [x] Add Lighthouse CI budget check for mobile performance regressions.
 
 ### Testing
 - [x] Add Playwright E2E smoke tests for hash navigation and modal keyboard flow.
@@ -57,7 +57,7 @@
 ### Monitoring
 - [x] Add client-side timing event for `/api/writing` fetches.
 - [ ] Add uptime check in New Relic Synthetics for the production URL.
-- [ ] Add scheduled external link health report.
+- [x] Add scheduled external link health report.
 
 ### Asset Hygiene
 - [ ] Run orphan-file cleanup pass in `public/` after content is frozen.

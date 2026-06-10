@@ -1,0 +1,36 @@
+name: Link Health
+
+on:
+  schedule:
+    - cron: "17 2 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: link-health-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  external-links:
+    name: External Links
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24.x
+      - name: Check external links
+        run: node scripts/audit-external-links.mjs --markdown | tee external-link-health.md
+      - name: Publish job summary
+        run: cat external-link-health.md >> "$GITHUB_STEP_SUMMARY"
+      - name: Upload report
+        uses: actions/upload-artifact@v4
+        with:
+          name: external-link-health
+          path: external-link-health.md
+          retention-days: 14
