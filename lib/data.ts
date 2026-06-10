@@ -432,7 +432,7 @@ export const certifications: Certification[] = [
     issuer: "New Relic",
     platform: "New Relic",
     issuedOn: "May 8, 2025",
-    expiresOn: "May 8, 2026",
+    expiresOn: "June 30, 2027",
     credentialUrl:
       "https://credentials.newrelic.com/81d5b7a8-0f31-481c-978f-e033b0fd9e27#acc.pFiDfsLG",
     badgeImage: "/images/certifications/newrelic.png",
@@ -445,7 +445,7 @@ export const certifications: Certification[] = [
     issuer: "New Relic",
     platform: "New Relic",
     issuedOn: "May 8, 2025",
-    expiresOn: "May 8, 2026",
+    expiresOn: "June 30, 2027",
     credentialUrl:
       "https://credentials.newrelic.com/db8bd6f4-3382-404a-a8ba-5676b07612c3#acc.axt9bF07",
     badgeImage: "/images/certifications/newrelic.png",
