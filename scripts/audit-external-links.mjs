@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { normalizeExternalUrl } from "./link-normalization.mjs";
 
 const projectRoot = process.cwd();
 const scanRoots = ["app", "components", "lib", "README.md", "ROADMAP.md"];
@@ -38,10 +39,6 @@ function collectFiles() {
     .flatMap((rootPath) => walk(rootPath));
 }
 
-function normalizeUrl(url) {
-  return url.replace(/[),.;]+$/, "").replace(/#.*$/, "");
-}
-
 function collectExternalUrls(files) {
   const urls = new Map();
 
@@ -51,7 +48,7 @@ function collectExternalUrls(files) {
     const matches = content.match(externalRegex) ?? [];
 
     for (const match of matches) {
-      const url = normalizeUrl(match);
+      const url = normalizeExternalUrl(match);
       if (url.includes("${")) {
         continue;
       }

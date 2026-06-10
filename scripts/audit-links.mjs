@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { normalizeInternalPath } from "./link-normalization.mjs";
 
 const projectRoot = process.cwd();
 const scanRoots = ["app", "components", "lib", "README.md", "ROADMAP.md"];
@@ -114,16 +115,6 @@ function collectReferences(files) {
   }
 
   return references;
-}
-
-function normalizeInternalPath(value) {
-  const withoutQuery = value.split("?")[0];
-  const [routePart, hashPart] = withoutQuery.split("#");
-
-  return {
-    route: routePart || "/",
-    hash: hashPart || "",
-  };
 }
 
 function routeExists(route, appRoutes) {

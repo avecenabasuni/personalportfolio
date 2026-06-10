@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { XMLParser } from "fast-xml-parser";
 import { articles } from "@/lib/data";
+import {
+  buildFallbackItems,
+  formatMediumRssItem,
+} from "@/lib/medium-rss.mjs";
 
 export const revalidate = 300;
 
@@ -15,69 +19,6 @@ type MediumRssItem = {
   category?: string[] | string;
   "content:encoded"?: string;
 };
-
-function normalizePublishedAt(pubDate?: string) {
-  if (!pubDate) {
-    return "";
-  }
-
-  const directDate = new Date(pubDate);
-  if (!Number.isNaN(directDate.getTime())) {
-    return directDate.toISOString();
-  }
-
-  const match = pubDate
-    .trim()
-    .match(/^(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2})(?::(\d{2}))?$/);
-
-  if (!match) {
-    return "";
-  }
-
-  const [, year, month, day, hour, minute, second = "0"] = match;
-  const normalized = new Date(
-    Date.UTC(
-      Number(year),
-      Number(month) - 1,
-      Number(day),
-      Number(hour),
-      Number(minute),
-      Number(second),
-    ),
-  );
-
-  if (Number.isNaN(normalized.getTime())) {
-    return "";
-  }
-
-  return normalized.toISOString();
-}
-
-function buildFallbackItems() {
-  return articles.map((article) => ({
-    title: article.title,
-    link: article.url,
-    publishedAt: "",
-    description: "",
-    tags: [],
-    thumbnail: "",
-  }));
-}
-
-function stripHtml(input: string) {
-  return input
-    .replace(/<[^>]*>/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
-function truncateDescription(input: string, maxLength = 120) {
-  if (input.length <= maxLength) {
-    return input;
-  }
-
-  return `${input.slice(0, maxLength).trim()}...`;
-}
 
 export async function GET(request: NextRequest) {
   const limitParam = request.nextUrl.searchParams.get("limit");
@@ -99,7 +40,7 @@ export async function GET(request: NextRequest) {
 
     if (!response.ok) {
       return NextResponse.json({
-        items: applyLimit(buildFallbackItems()),
+        items: applyLimit(buildFallbackItems(articles)),
         fetchedAt: new Date().toISOString(),
         source: "fallback",
       });
@@ -127,20 +68,7 @@ export async function GET(request: NextRequest) {
         ? [rawItems]
         : [];
 
-    const items = itemsList.map((item) => ({
-      title: item.title ?? "Untitled article",
-      link: item.link ?? "#",
-      publishedAt: normalizePublishedAt(item.pubDate),
-      description: truncateDescription(
-        stripHtml(item["content:encoded"] ?? item.description ?? ""),
-      ),
-      tags: Array.isArray(item.category)
-        ? item.category
-        : item.category
-          ? [item.category]
-          : [],
-      thumbnail: "",
-    }));
+    const items = itemsList.map(formatMediumRssItem);
 
     return NextResponse.json({
       items: applyLimit(items),
@@ -149,7 +77,7 @@ export async function GET(request: NextRequest) {
     });
   } catch {
     return NextResponse.json({
-      items: applyLimit(buildFallbackItems()),
+      items: applyLimit(buildFallbackItems(articles)),
       fetchedAt: new Date().toISOString(),
       source: "fallback",
     });
