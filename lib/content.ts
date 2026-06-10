@@ -25,6 +25,6 @@ export const sectionContent = {
     title: "Bring me in when production needs to make sense.",
     description:
       "I'm open to SRE roles, reliability-focused Solutions Architect work, and freelance projects around observability setup, alert tuning, New Relic implementation, infrastructure review, and Terraform/IaC enablement.",
-    disclaimer: "Roles, projects, or technical due diligence. Start with the problem and I'll tell you where I can help.",
+    disclaimer: "Jakarta based. Open to remote, relocation, roles, projects, and technical due diligence. Start with the problem and I'll tell you where I can help.",
   },
 } as const;

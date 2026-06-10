@@ -21,6 +21,9 @@ type PortfolioInteractionPayload = {
   section: string;
   label: string;
   destination: string;
+  count?: number;
+  durationMs?: number;
+  source?: string;
 };
 
 function getAttribute(node: HTMLElement, key: string) {

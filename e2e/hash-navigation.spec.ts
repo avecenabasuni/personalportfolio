@@ -27,9 +27,10 @@ test.describe("hash navigation", () => {
       .click();
     await expect(page).toHaveURL(/#contact$/);
 
-    const contactHeading = page.locator("#contact").getByRole("heading", {
-      name: /ready to talk\?/i,
-    });
+    const contactHeading = page
+      .locator("#contact")
+      .getByRole("heading", { level: 2 })
+      .first();
     await expect(contactHeading).toBeVisible();
     const contactTop = (await contactHeading.boundingBox())?.y ?? 0;
     expect(contactTop).toBeGreaterThan(50);

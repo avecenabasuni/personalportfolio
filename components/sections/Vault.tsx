@@ -1,8 +1,8 @@
 "use client";
 
-import { ReactNode, useState } from "react";
+import { ReactNode, useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { XIcon } from "lucide-react";
+import { SearchIcon, XIcon } from "lucide-react";
 import { vaultEntries } from "@/lib/data";
 import type { VaultEntry } from "@/lib/types";
 import { trackPortfolioInteraction } from "@/components/analytics/InteractionTracker";
@@ -46,6 +46,32 @@ function renderBody(body: string): ReactNode {
 
 export default function Vault() {
   const [activeEntry, setActiveEntry] = useState<VaultEntry | null>(null);
+  const [query, setQuery] = useState("");
+  const [activeTag, setActiveTag] = useState("All");
+
+  const tags = useMemo(
+    () => [
+      "All",
+      ...Array.from(new Set(vaultEntries.flatMap((entry) => entry.tags))),
+    ],
+    [],
+  );
+
+  const filteredEntries = useMemo(() => {
+    const normalizedQuery = query.trim().toLowerCase();
+
+    return vaultEntries.filter((entry) => {
+      const matchesTag = activeTag === "All" || entry.tags.includes(activeTag);
+      const matchesQuery =
+        !normalizedQuery ||
+        [entry.title, entry.tldr, entry.body, ...entry.tags]
+          .join(" ")
+          .toLowerCase()
+          .includes(normalizedQuery);
+
+      return matchesTag && matchesQuery;
+    });
+  }, [activeTag, query]);
 
   return (
     <section
@@ -65,8 +91,43 @@ export default function Vault() {
           audience.
         </p>
 
-        <ul className="space-y-3">
-          {vaultEntries.map((entry, idx) => (
+        <div className="mb-6 grid gap-3 md:grid-cols-[minmax(0,1fr)_auto] md:items-start">
+          <label className="relative block">
+            <span className="sr-only">Search vault entries</span>
+            <SearchIcon
+              aria-hidden
+              size={15}
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground/62"
+            />
+            <input
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="Search notes, tools, or symptoms"
+              className="h-11 w-full rounded-full border border-white/10 bg-white/[0.03] pl-11 pr-4 font-sans text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground/58 focus:border-white/22"
+            />
+          </label>
+
+          <div className="flex flex-wrap gap-2 md:max-w-[32rem] md:justify-end">
+            {tags.map((tag) => (
+              <button
+                key={tag}
+                type="button"
+                onClick={() => setActiveTag(tag)}
+                className={`rounded-full border px-3 py-2 font-mono text-[10px] uppercase tracking-[0.12em] transition-colors ${
+                  activeTag === tag
+                    ? "border-white/24 bg-white/[0.1] text-foreground"
+                    : "border-white/10 bg-white/[0.03] text-muted-foreground hover:border-white/20 hover:text-foreground"
+                }`}
+              >
+                {tag}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {filteredEntries.length ? (
+          <ul className="space-y-3">
+          {filteredEntries.map((entry, idx) => (
             <motion.li
               key={entry.id}
               initial={{ opacity: 0, y: 20 }}
@@ -101,11 +162,26 @@ export default function Vault() {
                   <span className="font-sans text-xs leading-snug text-muted-foreground/70 md:text-sm">
                     TL;DR — {entry.tldr}
                   </span>
+                  <span className="mt-3 flex flex-wrap gap-1.5">
+                    {entry.tags.map((tag) => (
+                      <span
+                        key={`${entry.id}-${tag}`}
+                        className="rounded-full border border-white/10 bg-white/[0.03] px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground/78"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </span>
                 </div>
               </button>
             </motion.li>
           ))}
-        </ul>
+          </ul>
+        ) : (
+          <div className="rounded-xl border border-white/10 bg-white/[0.03] px-5 py-4 font-sans text-sm text-muted-foreground">
+            No vault notes match that filter.
+          </div>
+        )}
 
         <Dialog
           open={Boolean(activeEntry)}
@@ -128,6 +204,16 @@ export default function Vault() {
                       <p className="font-sans text-sm uppercase tracking-[0.14em] text-muted-foreground/64">
                         Debug Note
                       </p>
+                      <div className="mt-2 flex flex-wrap gap-1.5">
+                        {activeEntry.tags.map((tag) => (
+                          <span
+                            key={`${activeEntry.id}-modal-${tag}`}
+                            className="rounded-full border border-white/10 bg-white/[0.03] px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground/78"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
                       <DialogTitle className="mt-3 max-w-[24ch] font-display text-2xl leading-[1.08] text-foreground md:text-3xl">
                         {activeEntry.title}
                       </DialogTitle>

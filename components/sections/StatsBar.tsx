@@ -2,12 +2,13 @@
 
 import { stats } from "@/lib/data";
 import { FadeIn } from "@/components/ui/FadeIn";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 function AnimatedStatValue({ value }: { value: string }) {
   const ref = useRef<HTMLParagraphElement | null>(null);
   const isInView = useInView(ref, { amount: 0.5 });
+  const shouldReduceMotion = useReducedMotion();
 
   const match = value.match(/^(\d+)(.*)$/);
   const target = match ? Number(match[1]) : 0;
@@ -18,7 +19,7 @@ function AnimatedStatValue({ value }: { value: string }) {
   const [animatedNumber, setAnimatedNumber] = useState(0);
 
   useEffect(() => {
-    if (!isNumeric || !isInView) return;
+    if (!isNumeric || !isInView || shouldReduceMotion) return;
 
     let frameId = 0;
     const start = performance.now();
@@ -35,12 +36,14 @@ function AnimatedStatValue({ value }: { value: string }) {
 
     frameId = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frameId);
-  }, [isInView, isNumeric, target]);
+  }, [isInView, isNumeric, shouldReduceMotion, target]);
 
   // Derive display value synchronously from state — no effect needed.
   const displayValue = !isNumeric
     ? value
-    : isInView
+    : shouldReduceMotion
+      ? `${target}${suffix}`
+      : isInView
       ? `${animatedNumber}${suffix}`
       : `0${suffix}`;
 

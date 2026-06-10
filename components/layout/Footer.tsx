@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import {
   CheckIcon,
   CopyIcon,
@@ -10,6 +11,7 @@ import {
   LinkedinIcon,
 } from "lucide-react";
 import { ContactDialog } from "@/components/contact/ContactDialog";
+import { trackPortfolioInteraction } from "@/components/analytics/InteractionTracker";
 
 const footerLinks = [
   {
@@ -39,11 +41,21 @@ const footerLinks = [
 
 export default function Footer() {
   const [copied, setCopied] = useState(false);
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+  const getFooterHref = (href: string) =>
+    href.startsWith("#") && !isHome ? `/${href}` : href;
 
   const copyEmail = async () => {
     try {
       await navigator.clipboard.writeText("hello@avecenabasuni.my.id");
       setCopied(true);
+      trackPortfolioInteraction({
+        action: "email_copy",
+        section: "footer",
+        label: "Footer email",
+        destination: "clipboard",
+      });
       window.setTimeout(() => setCopied(false), 1600);
     } catch {
       setCopied(false);
@@ -133,7 +145,7 @@ export default function Footer() {
                       {col.links.map((link) => (
                         <li key={link.label}>
                           <a
-                            href={link.href}
+                            href={getFooterHref(link.href)}
                             className="font-sans text-sm text-muted-foreground transition-colors hover:text-foreground"
                           >
                             {link.label}
@@ -148,6 +160,9 @@ export default function Footer() {
                           target="_blank"
                           rel="noopener noreferrer"
                           aria-label="LinkedIn"
+                          data-track-event="linkedin_open"
+                          data-track-section="footer"
+                          data-track-label="Footer LinkedIn"
                           className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 text-muted-foreground transition-colors hover:text-foreground"
                         >
                           <LinkedinIcon size={18} />
@@ -157,6 +172,9 @@ export default function Footer() {
                           target="_blank"
                           rel="noopener noreferrer"
                           aria-label="GitHub"
+                          data-track-event="github_open"
+                          data-track-section="footer"
+                          data-track-label="Footer GitHub"
                           className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 text-muted-foreground transition-colors hover:text-foreground"
                         >
                           <GithubIcon size={18} />
@@ -166,6 +184,9 @@ export default function Footer() {
                           target="_blank"
                           rel="noopener noreferrer"
                           aria-label="Instagram"
+                          data-track-event="instagram_open"
+                          data-track-section="footer"
+                          data-track-label="Footer Instagram"
                           className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 text-muted-foreground transition-colors hover:text-foreground"
                         >
                           <InstagramIcon size={18} />

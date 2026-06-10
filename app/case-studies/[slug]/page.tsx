@@ -66,6 +66,30 @@ export default async function CaseStudyPage({
       url: "https://avecenabasuni.my.id",
     },
   };
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://avecenabasuni.my.id/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Case Studies",
+        item: "https://avecenabasuni.my.id/case-studies",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: caseStudy.title,
+        item: `https://avecenabasuni.my.id/case-studies/${caseStudy.id}`,
+      },
+    ],
+  };
 
   return (
     <>
@@ -75,6 +99,12 @@ export default async function CaseStudyPage({
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(breadcrumbJsonLd).replace(/</g, "\\u003c"),
           }}
         />
         <CaseStudyDetail caseStudy={caseStudy} />

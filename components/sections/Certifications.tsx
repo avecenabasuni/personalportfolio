@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { certifications, primaryCerts } from "@/lib/data";
+import { certifications, isCertificationExpired, primaryCerts } from "@/lib/data";
 import { trackPortfolioInteraction } from "@/components/analytics/InteractionTracker";
 import type { Certification } from "@/lib/types";
 import {
@@ -170,6 +170,7 @@ export default function Certifications() {
                       <ul className="space-y-2">
                         {certs.map((cert) => {
                           const isSelected = selectedCert?.id === cert.id;
+                          const isExpired = isCertificationExpired(cert);
 
                           return (
                             <li key={cert.id}>
@@ -185,9 +186,16 @@ export default function Certifications() {
                                 <p className="font-sans text-sm font-medium text-foreground">
                                   {cert.name}
                                 </p>
-                                <p className="mt-1 font-mono text-xs text-muted-foreground/65">
-                                  {cert.issuedOn}
-                                </p>
+                                <div className="mt-1 flex flex-wrap items-center gap-2">
+                                  <p className="font-mono text-xs text-muted-foreground/65">
+                                    {cert.issuedOn}
+                                  </p>
+                                  {isExpired ? (
+                                    <span className="rounded-full border border-amber-400/20 bg-amber-400/10 px-2 py-0.5 font-mono text-[9px] uppercase tracking-[0.12em] text-amber-200/80">
+                                      Expired
+                                    </span>
+                                  ) : null}
+                                </div>
                               </button>
                             </li>
                           );
@@ -220,6 +228,11 @@ export default function Certifications() {
                       <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground/60 [white-space:normal] [word-break:keep-all] [overflow-wrap:break-word]">
                         {selectedCert.platform}
                       </p>
+                      {isCertificationExpired(selectedCert) ? (
+                        <span className="mt-3 inline-flex rounded-full border border-amber-400/20 bg-amber-400/10 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.12em] text-amber-200/80">
+                          Expired credential
+                        </span>
+                      ) : null}
                       <h3 className="mt-3 font-display text-2xl leading-[1.08] text-foreground md:text-3xl [white-space:normal] [word-break:keep-all] [overflow-wrap:break-word]">
                         {selectedCert.name}
                       </h3>
@@ -233,6 +246,9 @@ export default function Certifications() {
                         href={selectedCert.credentialUrl}
                         target="_blank"
                         rel="noopener noreferrer"
+                        data-track-event="credential_open"
+                        data-track-section="certifications"
+                        data-track-label={selectedCert.name}
                         className="mt-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 font-sans text-sm text-foreground transition-colors hover:border-white/20"
                       >
                         View credential
@@ -262,7 +278,9 @@ export default function Certifications() {
                         Expiration
                       </p>
                       <p className="mt-2 font-sans text-base text-foreground [white-space:normal] [word-break:keep-all] [overflow-wrap:break-word]">
-                        {selectedCert.expiresOn ?? "No published expiration"}
+                        {selectedCert.expiresOn
+                          ? `${isCertificationExpired(selectedCert) ? "Expired " : ""}${selectedCert.expiresOn}`
+                          : "No published expiration"}
                       </p>
                     </div>
                   </div>

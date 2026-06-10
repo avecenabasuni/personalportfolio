@@ -1,5 +1,6 @@
 import type {
   Stat,
+  TraceSpan,
   CaseStudy,
   Article,
   WorkInProgress,
@@ -27,6 +28,17 @@ export const stats: Stat[] = [
     value: "20+",
     label: "Certifications across AWS, GCP, New Relic, and Nutanix",
   },
+];
+
+export const traceRows: TraceSpan[] = [
+  { service: "api-gateway", offset: 0, duration: 88, color: "bg-sky-400/80" },
+  { service: "auth-service", offset: 12, duration: 30, color: "bg-cyan-300/80" },
+  { service: "feature-flags", offset: 18, duration: 14, color: "bg-teal-300/80" },
+  { service: "catalog-service", offset: 27, duration: 42, color: "bg-blue-300/80" },
+  { service: "postgres-primary", offset: 34, duration: 22, color: "bg-emerald-300/80" },
+  { service: "redis-cache", offset: 38, duration: 10, color: "bg-lime-300/80" },
+  { service: "payment-worker", offset: 52, duration: 24, color: "bg-violet-300/80" },
+  { service: "notification-bus", offset: 66, duration: 16, color: "bg-indigo-300/80" },
 ];
 
 export const caseStudies: CaseStudy[] = [
@@ -474,11 +486,29 @@ export const certifications: Certification[] = [
     badgeImage: "/images/certifications/google.png",
     summary:
       "A Cloud Digital Leader can articulate the capabilities of Google Cloud core products and services, common business use cases, and how cloud solutions support enterprise outcomes.",
-    primary: true,
   },
 ];
 
-export const primaryCerts = certifications.filter((cert) => cert.primary);
+export function isCertificationExpired(
+  cert: Certification,
+  referenceDate = new Date(),
+) {
+  if (!cert.expiresOn) {
+    return false;
+  }
+
+  const expiryDate = new Date(cert.expiresOn);
+  if (Number.isNaN(expiryDate.getTime())) {
+    return false;
+  }
+
+  expiryDate.setHours(23, 59, 59, 999);
+  return expiryDate < referenceDate;
+}
+
+export const primaryCerts = certifications.filter(
+  (cert) => cert.primary && !isCertificationExpired(cert),
+);
 
 export const additionalCertGroups = Array.from(
   certifications.reduce((map, cert) => {
@@ -537,18 +567,21 @@ export const vaultEntries: VaultEntry[] = [
   {
     id: "ktranslate-dying",
     title: "Why ktranslate Keeps Dying on Docker",
+    tags: ["New Relic", "Docker", "Permissions"],
     tldr: "Container dies immediately with permission denied on config directory. Add --user $(id -u):$(id -g) to your Docker run command.",
     body: "You spin up ktranslate for SNMP discovery, the container starts, then immediately dies. Logs say permission denied on the config directory. You're bind-mounting a local folder and the container's internal user (UID 1000) doesn't match your host UID.\n\nAdding `--user $(id -u):$(id -g)` to your Docker run command makes the process run as your host user. Container stays up.\n\nBind mounts don't inherit host permissions automatically. Always check what user the process runs as inside the container before mounting anything.",
   },
   {
     id: "snmp-traps-missing",
     title: "Where Did My SNMP Traps Go?",
+    tags: ["New Relic", "SNMP", "NRQL"],
     tldr: "Traps don't appear in FROM Log. Query FROM KSnmpTrap instead — that's where ktranslate sends them.",
     body: "You configure ktranslate to receive SNMP traps and expect them to show up as Log events in New Relic. They don't. You query `FROM Log WHERE logtype = 'ktranslate-snmp'` and get nothing.\n\nktranslate sends different telemetry types to different event tables. Flows, traps, and syslog each have their own home in NRDB.\n\nSNMP traps use a completely different event type. Query `FROM KSnmpTrap` instead. The data was always there, just not where you were looking.",
   },
   {
     id: "openshift-nodes-missing",
     title: "Two Out of Three Nodes Showing in New Relic on OpenShift",
+    tags: ["OpenShift", "Kubernetes", "New Relic"],
     tldr: "OpenShift SCC blocks the agent from accessing /proc and /sys. One command fixes it: oc adm policy add-scc-to-user privileged.",
     body: "You install the New Relic Kubernetes integration on Red Hat OpenShift, everything deploys cleanly, but only 2 out of 3 nodes show up in the cluster explorer. No obvious errors. The DaemonSet looks healthy.\n\nOpenShift adds a security layer on top of standard Kubernetes RBAC called Security Context Constraints. The New Relic agent needs privileged access to scrape deep system metrics from each node's `/proc` and `/sys`. Without it, the agent runs but can't collect what it needs from the host.\n\nOne command sorts it out: `oc adm policy add-scc-to-user privileged system:serviceaccount:<YOUR_NAMESPACE>:newrelic`. After that, the missing node appears.\n\nOpenShift is not just Kubernetes with a different name. If you're migrating from GKE or EKS, assume SCC will bite you at least once.",
   },

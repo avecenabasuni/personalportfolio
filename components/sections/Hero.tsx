@@ -3,19 +3,9 @@
 import { ArrowRightIcon, FileTextIcon } from "lucide-react";
 import { motion } from "framer-motion";
 import { ContactDialog } from "@/components/contact/ContactDialog";
+import { traceRows } from "@/lib/data";
 
 export default function Hero() {
-  const traceRows = [
-    { service: "api-gateway", offset: 0, duration: 88, color: "bg-sky-400/80" },
-    { service: "auth-service", offset: 12, duration: 30, color: "bg-cyan-300/80" },
-    { service: "feature-flags", offset: 18, duration: 14, color: "bg-teal-300/80" },
-    { service: "catalog-service", offset: 27, duration: 42, color: "bg-blue-300/80" },
-    { service: "postgres-primary", offset: 34, duration: 22, color: "bg-emerald-300/80" },
-    { service: "redis-cache", offset: 38, duration: 10, color: "bg-lime-300/80" },
-    { service: "payment-worker", offset: 52, duration: 24, color: "bg-violet-300/80" },
-    { service: "notification-bus", offset: 66, duration: 16, color: "bg-indigo-300/80" },
-  ];
-
   return (
     <section id="home" className="radix-surface radix-arcs relative flex min-h-[100vh] items-center overflow-hidden bg-[#0d1218] px-4 pt-28 pb-14 md:px-6 md:pt-16 md:pb-16 lg:px-8 xl:px-10 2xl:px-12">
       <div
@@ -91,6 +81,9 @@ export default function Hero() {
                 href="/documents/Avecena-Basuni-CV.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
+                data-track-event="resume_open"
+                data-track-section="hero"
+                data-track-label="Hero resume"
                 className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.02] px-5 py-2.5 font-sans text-sm font-medium text-muted-foreground transition-colors duration-200 hover:border-white/20 hover:text-foreground md:px-6 md:py-3"
               >
                 View resume

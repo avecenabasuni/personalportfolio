@@ -100,6 +100,9 @@ export default function CTA() {
                   href="https://linkedin.com/in/avecenabasuni"
                   target="_blank"
                   rel="noopener noreferrer"
+                  data-track-event="linkedin_open"
+                  data-track-section="contact"
+                  data-track-label="CTA LinkedIn"
                   className="inline-flex h-11 items-center gap-2 rounded-full border border-border px-5 font-sans text-sm font-medium text-muted-foreground transition-colors hover:border-foreground/30 hover:text-foreground"
                 >
                   <LinkedinIcon size={14} />

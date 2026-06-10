@@ -53,7 +53,9 @@ export function ContactDialog({
 }: ContactDialogProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+  const [status, setStatus] = useState<
+    "idle" | "success" | "error" | "config"
+  >("idle");
 
   const emailConfig = useMemo(
     () => ({
@@ -77,7 +79,7 @@ export function ContactDialog({
       !emailConfig.templateId ||
       !emailConfig.publicKey
     ) {
-      setStatus("error");
+      setStatus("config");
       return;
     }
 
@@ -182,6 +184,19 @@ export function ContactDialog({
               "Message sent. I will get back to you soon."}
             {status === "error" &&
               "Unable to send message. Please try again or email me directly."}
+            {status === "config" && (
+              <>
+                Contact form is not configured in this environment.{" "}
+                <a
+                  href={`mailto:${emailConfig.toEmail}?subject=${encodeURIComponent(
+                    copy.subject,
+                  )}`}
+                  className="text-foreground underline underline-offset-4"
+                >
+                  Email me directly.
+                </a>
+              </>
+            )}
           </p>
         </form>
       </DialogContent>

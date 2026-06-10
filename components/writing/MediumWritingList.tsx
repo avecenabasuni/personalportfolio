@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { ArrowUpRightIcon } from "lucide-react";
 import { motion } from "framer-motion";
+import { trackPortfolioInteraction } from "@/components/analytics/InteractionTracker";
 
 type MediumArticle = {
   title: string;
@@ -32,6 +33,11 @@ function formatDate(dateString: string) {
     month: "short",
     day: "numeric",
   });
+}
+
+function estimateReadTime(description: string) {
+  const wordCount = description.trim().split(/\s+/).filter(Boolean).length;
+  return Math.max(1, Math.ceil(wordCount / 220));
 }
 
 function HomeSkeleton() {
@@ -78,6 +84,7 @@ export default function MediumWritingList({
   const [items, setItems] = useState<MediumArticle[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
+  const [selectedTag, setSelectedTag] = useState("All");
 
   useEffect(() => {
     let cancelled = false;
@@ -85,6 +92,7 @@ export default function MediumWritingList({
     const load = async () => {
       setIsLoading(true);
       setHasError(false);
+      const startedAt = performance.now();
       try {
         const params = new URLSearchParams();
         if (typeof limit === "number") {
@@ -107,6 +115,15 @@ export default function MediumWritingList({
         };
         if (!cancelled) {
           setItems(data.items ?? []);
+          trackPortfolioInteraction({
+            action: "writing_feed_fetch",
+            section: "writing",
+            label: data.source ?? "fallback",
+            destination: "/api/writing",
+            count: data.items?.length ?? 0,
+            durationMs: Math.round(performance.now() - startedAt),
+            source: data.source ?? "fallback",
+          });
           onMetaChange?.({
             fetchedAt: data.fetchedAt ?? new Date().toISOString(),
             source: data.source ?? "fallback",
@@ -115,6 +132,13 @@ export default function MediumWritingList({
       } catch {
         if (!cancelled) {
           setHasError(true);
+          trackPortfolioInteraction({
+            action: "writing_feed_fetch_error",
+            section: "writing",
+            label: "error",
+            destination: "/api/writing",
+            durationMs: Math.round(performance.now() - startedAt),
+          });
           onMetaChange?.({
             fetchedAt: new Date().toISOString(),
             source: "fallback",
@@ -132,6 +156,25 @@ export default function MediumWritingList({
       cancelled = true;
     };
   }, [limit, onMetaChange, refreshKey]);
+
+  const allTags = useMemo(
+    () => ["All", ...Array.from(new Set(items.flatMap((item) => item.tags)))],
+    [items],
+  );
+
+  const visibleItems = useMemo(
+    () =>
+      selectedTag === "All"
+        ? items
+        : items.filter((item) => item.tags.includes(selectedTag)),
+    [items, selectedTag],
+  );
+
+  useEffect(() => {
+    if (selectedTag !== "All" && !allTags.includes(selectedTag)) {
+      setSelectedTag("All");
+    }
+  }, [allTags, selectedTag]);
 
   const emptyMessage = useMemo(() => {
     if (hasError) {
@@ -155,7 +198,7 @@ export default function MediumWritingList({
   if (mode === "home") {
     return (
       <ul className="w-full space-y-2">
-        {items.map((article, i) => (
+        {visibleItems.map((article, i) => (
           <li key={`${article.link}-${i}`}>
             <motion.a
               href={article.link}
@@ -194,6 +237,11 @@ export default function MediumWritingList({
                     {article.description}
                   </p>
                 ) : null}
+                {article.description ? (
+                  <p className="mt-2 font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground/55">
+                    {estimateReadTime(article.description)} min read
+                  </p>
+                ) : null}
               </div>
               <ArrowUpRightIcon
                 size={14}
@@ -207,8 +255,29 @@ export default function MediumWritingList({
   }
 
   return (
-    <div className="grid gap-3">
-      {items.map((article, i) => (
+    <div className="space-y-4">
+      {allTags.length > 1 ? (
+        <div className="flex flex-wrap gap-2">
+          {allTags.map((tag) => (
+            <button
+              key={tag}
+              type="button"
+              onClick={() => setSelectedTag(tag)}
+              className={`rounded-full border px-3 py-2 font-mono text-[10px] uppercase tracking-[0.12em] transition-colors ${
+                selectedTag === tag
+                  ? "border-white/24 bg-white/[0.1] text-foreground"
+                  : "border-white/10 bg-white/[0.03] text-muted-foreground hover:border-white/20 hover:text-foreground"
+              }`}
+            >
+              {tag}
+            </button>
+          ))}
+        </div>
+      ) : null}
+
+      {visibleItems.length ? (
+        <div className="grid gap-3">
+          {visibleItems.map((article, i) => (
         <motion.a
           key={`${article.link}-${i}`}
           href={article.link}
@@ -252,8 +321,19 @@ export default function MediumWritingList({
               {article.description}
             </p>
           ) : null}
+          {article.description ? (
+            <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground/55">
+              {estimateReadTime(article.description)} min read
+            </p>
+          ) : null}
         </motion.a>
-      ))}
+          ))}
+        </div>
+      ) : (
+        <div className="rounded-2xl border border-white/8 bg-white/[0.03] px-5 py-4 font-sans text-sm text-muted-foreground">
+          No articles match that tag yet.
+        </div>
+      )}
     </div>
   );
 }

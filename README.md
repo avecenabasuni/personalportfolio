@@ -57,7 +57,8 @@ App will run at http://localhost:3000.
 - `npm run typecheck` - run TypeScript checks
 - `npm run test:smoke` - run anchor-offset smoke test
 - `npm run audit:assets` - validate referenced public assets
-- `npm run quality:check` - run typecheck, lint, smoke, and asset audit
+- `npm run audit:links` - validate internal routes, hash anchors, and local assets
+- `npm run quality:check` - run typecheck, lint, smoke, asset audit, and link audit
 - `npm run cf:build` - build for Cloudflare/OpenNext
 - `npm run cf:deploy` - build and deploy with Wrangler
 

@@ -3,6 +3,13 @@ export interface Stat {
   label: string;
 }
 
+export interface TraceSpan {
+  service: string;
+  offset: number;
+  duration: number;
+  color: string;
+}
+
 export interface CaseStudy {
   id: string;
   title: string;
@@ -65,6 +72,7 @@ export interface SkillGroup {
 export interface VaultEntry {
   id: string;
   title: string;
+  tags: string[];
   tldr: string;
   body: string;
 }

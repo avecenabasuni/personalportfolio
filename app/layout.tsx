@@ -3,6 +3,7 @@ import { DM_Serif_Display, DM_Sans, DM_Mono } from "next/font/google";
 import Script from "next/script";
 import StickyContact from "@/components/StickyContact";
 import InteractionTracker from "@/components/analytics/InteractionTracker";
+import MotionProvider from "@/components/ui/MotionProvider";
 import "./globals.css";
 
 const dmSerifDisplay = DM_Serif_Display({
@@ -128,9 +129,11 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased font-sans">
-        {children}
-        <InteractionTracker />
-        <StickyContact />
+        <MotionProvider>
+          {children}
+          <InteractionTracker />
+          <StickyContact />
+        </MotionProvider>
       </body>
     </html>
   );

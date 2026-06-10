@@ -83,8 +83,15 @@ export default function Experience() {
                   <div className="mt-6">
                     <Dialog>
                       <DialogTrigger className="inline-flex h-11 items-center gap-2 rounded-full border border-border px-5 font-sans text-sm font-medium text-muted-foreground transition-colors hover:border-foreground/30 hover:text-foreground">
+                        <span
+                          data-track-event="patent_preview_open"
+                          data-track-section="experience"
+                          data-track-label="Syringe Pump Patent"
+                          className="contents"
+                        >
                         <FileTextIcon size={14} />
                         Preview Syringe Pump Patent
+                        </span>
                       </DialogTrigger>
                       <DialogContent className="w-[min(96vw,70rem)] max-w-[70rem] border-white/10 bg-[#10141b]/96 p-0">
                         <div className="border-b border-white/8 px-6 py-4">

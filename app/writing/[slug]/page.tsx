@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Navigation from "@/components/layout/Navigation";
 import Footer from "@/components/layout/Footer";
 import BackPageLink from "@/components/ui/BackPageLink";
+import Breadcrumbs from "@/components/ui/Breadcrumbs";
 
 export async function generateMetadata({
   params,
@@ -61,6 +62,30 @@ export default async function WritingArticlePage({
     url: `https://avecenabasuni.my.id/writing/${slug}`,
     isAccessibleForFree: true,
   };
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://avecenabasuni.my.id/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Writing",
+        item: "https://avecenabasuni.my.id/writing",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: readableTitle || "Article preview page",
+        item: `https://avecenabasuni.my.id/writing/${slug}`,
+      },
+    ],
+  };
 
   return (
     <>
@@ -72,7 +97,20 @@ export default async function WritingArticlePage({
             __html: JSON.stringify(placeholderJsonLd).replace(/</g, "\\u003c"),
           }}
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(breadcrumbJsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
         <section className="w-full space-y-6">
+          <Breadcrumbs
+            items={[
+              { label: "Home", href: "/" },
+              { label: "Writing", href: "/writing" },
+              { label: readableTitle || "Article Preview" },
+            ]}
+          />
           <BackPageLink href="/writing" label="Back to writing" />
           <div className="space-y-4">
             <h1 className="max-w-[16ch] font-display text-[clamp(2.62rem,5vw,4.24rem)] leading-[1.02] tracking-[-0.035em] text-foreground">

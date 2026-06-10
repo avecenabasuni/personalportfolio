@@ -1,6 +1,10 @@
+import Image from "next/image";
+import Link from "next/link";
 import { ArrowUpRightIcon } from "lucide-react";
 import ImageLightbox from "@/components/ui/ImageLightbox";
 import BackPageLink from "@/components/ui/BackPageLink";
+import Breadcrumbs from "@/components/ui/Breadcrumbs";
+import { caseStudies } from "@/lib/data";
 import type { CaseStudy } from "@/lib/types";
 
 export default function CaseStudyDetail({
@@ -13,10 +17,26 @@ export default function CaseStudyDetail({
     ["Architecture decision", caseStudy.architecture],
     ["Operational outcome", caseStudy.outcome],
   ];
+  const relatedCaseStudies = caseStudies
+    .filter((entry) => entry.id !== caseStudy.id)
+    .map((entry) => ({
+      entry,
+      score: entry.tags.filter((tag) => caseStudy.tags.includes(tag)).length,
+    }))
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 2)
+    .map(({ entry }) => entry);
 
   return (
     <section className="px-4 pt-28 pb-16 md:px-6 lg:px-8 xl:px-10 2xl:px-12">
       <div className="relative w-full max-w-full space-y-6">
+        <Breadcrumbs
+          items={[
+            { label: "Home", href: "/" },
+            { label: "Case Studies", href: "/case-studies" },
+            { label: caseStudy.title },
+          ]}
+        />
         <BackPageLink href="/case-studies" label="Back to case studies" />
 
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_22rem] lg:items-start">
@@ -117,6 +137,59 @@ export default function CaseStudyDetail({
               {caseStudy.result}
             </p>
           </aside>
+        </div>
+
+        <div className="mt-12 border-t border-white/8 pt-8">
+          <div className="mb-5 flex items-end justify-between gap-4">
+            <div>
+              <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground/62">
+                Related
+              </p>
+              <h2 className="mt-2 font-display text-3xl leading-[1.05] text-foreground">
+                More case studies.
+              </h2>
+            </div>
+          </div>
+          <div className="grid gap-4 md:grid-cols-2">
+            {relatedCaseStudies.map((related) => (
+              <Link
+                key={related.id}
+                href={`/case-studies/${related.id}`}
+                data-track-event="case_study_open"
+                data-track-section="related-case-studies"
+                data-track-label={related.title}
+                className="group grid gap-4 rounded-[1.2rem] border border-white/10 bg-white/[0.03] p-4 transition-colors hover:border-white/18 hover:bg-white/[0.05] sm:grid-cols-[9rem_minmax(0,1fr)]"
+              >
+                <div className="relative aspect-[1.2] overflow-hidden rounded-xl border border-white/10 bg-black/20">
+                  <Image
+                    src={related.image}
+                    alt={related.imageAlt}
+                    fill
+                    className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]"
+                    sizes="160px"
+                  />
+                </div>
+                <div className="min-w-0">
+                  <p className="font-sans text-base font-medium leading-snug text-foreground">
+                    {related.title}
+                  </p>
+                  <p className="mt-2 line-clamp-3 font-sans text-sm leading-relaxed text-muted-foreground">
+                    {related.summary}
+                  </p>
+                  <div className="mt-3 flex flex-wrap gap-1.5">
+                    {related.tags.slice(0, 3).map((tag) => (
+                      <span
+                        key={`${related.id}-${tag}`}
+                        className="rounded-full border border-white/10 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground/78"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </section>
