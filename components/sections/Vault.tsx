@@ -47,31 +47,20 @@ function renderBody(body: string): ReactNode {
 export default function Vault() {
   const [activeEntry, setActiveEntry] = useState<VaultEntry | null>(null);
   const [query, setQuery] = useState("");
-  const [activeTag, setActiveTag] = useState("All");
-
-  const tags = useMemo(
-    () => [
-      "All",
-      ...Array.from(new Set(vaultEntries.flatMap((entry) => entry.tags))),
-    ],
-    [],
-  );
 
   const filteredEntries = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
 
     return vaultEntries.filter((entry) => {
-      const matchesTag = activeTag === "All" || entry.tags.includes(activeTag);
-      const matchesQuery =
+      return (
         !normalizedQuery ||
         [entry.title, entry.tldr, entry.body, ...entry.tags]
           .join(" ")
           .toLowerCase()
-          .includes(normalizedQuery);
-
-      return matchesTag && matchesQuery;
+          .includes(normalizedQuery)
+      );
     });
-  }, [activeTag, query]);
+  }, [query]);
 
   return (
     <section
@@ -91,8 +80,8 @@ export default function Vault() {
           audience.
         </p>
 
-        <div className="mb-6 grid gap-3 md:grid-cols-[minmax(0,1fr)_auto] md:items-start">
-          <label className="relative block">
+        <div className="mb-6">
+          <label className="relative block max-w-2xl">
             <span className="sr-only">Search vault entries</span>
             <SearchIcon
               aria-hidden
@@ -106,23 +95,6 @@ export default function Vault() {
               className="h-11 w-full rounded-full border border-white/10 bg-white/[0.03] pl-11 pr-4 font-sans text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground/58 focus:border-white/22"
             />
           </label>
-
-          <div className="flex flex-wrap gap-2 md:max-w-[32rem] md:justify-end">
-            {tags.map((tag) => (
-              <button
-                key={tag}
-                type="button"
-                onClick={() => setActiveTag(tag)}
-                className={`rounded-full border px-3 py-2 font-mono text-[10px] uppercase tracking-[0.12em] transition-colors ${
-                  activeTag === tag
-                    ? "border-white/24 bg-white/[0.1] text-foreground"
-                    : "border-white/10 bg-white/[0.03] text-muted-foreground hover:border-white/20 hover:text-foreground"
-                }`}
-              >
-                {tag}
-              </button>
-            ))}
-          </div>
         </div>
 
         {filteredEntries.length ? (
@@ -179,7 +151,7 @@ export default function Vault() {
           </ul>
         ) : (
           <div className="rounded-xl border border-white/10 bg-white/[0.03] px-5 py-4 font-sans text-sm text-muted-foreground">
-            No vault notes match that filter.
+            No vault notes match that search.
           </div>
         )}
 
