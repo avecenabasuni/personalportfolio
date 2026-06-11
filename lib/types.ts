@@ -56,6 +56,25 @@ export interface WorkInProgressMeta {
   tags: string[];
 }
 
+export interface HiringEvidenceLink {
+  label: string;
+  href: string;
+  type: "case-study" | "certification" | "writing" | "vault" | "resume";
+}
+
+export interface HiringProfile {
+  id: "sre" | "observability" | "solutions-architect";
+  title: string;
+  shortTitle: string;
+  audience: string;
+  summary: string;
+  outcomes: string[];
+  strengths: string[];
+  evidence: HiringEvidenceLink[];
+  ctaLabel: string;
+  trackLabel: string;
+}
+
 export interface ExperienceRole {
   title: string;
   company: string;

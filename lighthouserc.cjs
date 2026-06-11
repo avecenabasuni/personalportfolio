@@ -6,6 +6,7 @@ module.exports = {
       startServerReadyPattern: "Ready",
       url: [
         "http://127.0.0.1:3000/",
+        "http://127.0.0.1:3000/hire",
         "http://127.0.0.1:3000/case-studies",
         "http://127.0.0.1:3000/case-studies/fullstack-observability",
         "http://127.0.0.1:3000/writing",

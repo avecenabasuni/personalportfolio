@@ -15,6 +15,7 @@ A modern portfolio website built with Next.js App Router, TypeScript, and Tailwi
 ## Features
 
 - Section-based landing page (hero, experience, case studies, writing, contact)
+- Recruiter-facing hiring page at `/hire`
 - Dynamic writing feed via Medium RSS proxy (`/api/writing`)
 - Social sharing cards (Open Graph + Twitter image routes)
 - Interaction tracking hooks for analytics events
@@ -56,6 +57,8 @@ App will run at http://localhost:3000.
 - `npm run lint` - run ESLint
 - `npm run typecheck` - run TypeScript checks
 - `npm run test:smoke` - run anchor-offset smoke test
+- `npm run test:unit` - run focused unit tests for formatting and normalization helpers
+- `npm run test:e2e` - run Playwright browser smoke tests
 - `npm run audit:assets` - validate referenced public assets
 - `npm run audit:links` - validate internal routes, hash anchors, and local assets
 - `npm run audit:external-links` - report external link health without blocking CI

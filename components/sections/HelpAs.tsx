@@ -1,31 +1,17 @@
-import { BriefcaseBusinessIcon, NetworkIcon, WrenchIcon } from "lucide-react";
+import Link from "next/link";
+import {
+  ArrowRightIcon,
+  BriefcaseBusinessIcon,
+  NetworkIcon,
+  RadarIcon,
+} from "lucide-react";
+import { hiringProfiles } from "@/lib/data";
 
-const paths = [
-  {
-    title: "SRE hire",
-    label: "For reliability teams",
-    description:
-      "I can own production reliability work across observability, incident response, alert tuning, and SLI/SLO workflows.",
-    signals: ["On-call signal quality", "MTTR reduction", "SLO workflows"],
-    icon: BriefcaseBusinessIcon,
-  },
-  {
-    title: "Solutions Architect",
-    label: "For cloud and platform teams",
-    description:
-      "I can translate business constraints into resilient cloud, Kubernetes, and observability architectures.",
-    signals: ["Architecture tradeoffs", "Cloud infrastructure", "Technical validation"],
-    icon: NetworkIcon,
-  },
-  {
-    title: "Freelance consultant",
-    label: "For focused project work",
-    description:
-      "I can help with observability setup, New Relic implementation, infrastructure review, Terraform, and alert cleanup.",
-    signals: ["Observability setup", "New Relic rollout", "Terraform/IaC enablement"],
-    icon: WrenchIcon,
-  },
-];
+const iconByProfile = {
+  sre: BriefcaseBusinessIcon,
+  observability: RadarIcon,
+  "solutions-architect": NetworkIcon,
+};
 
 export default function HelpAs() {
   return (
@@ -42,30 +28,40 @@ export default function HelpAs() {
           </div>
 
           <div className="grid gap-3 md:grid-cols-3">
-            {paths.map((path) => {
-              const Icon = path.icon;
+            {hiringProfiles.map((profile) => {
+              const Icon = iconByProfile[profile.id];
 
               return (
-                <article
-                  key={path.title}
-                  className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition-colors hover:border-white/18 hover:bg-white/[0.045]"
+                <Link
+                  key={profile.id}
+                  href={`/hire#${profile.id}`}
+                  data-track-event="hire_profile_open"
+                  data-track-section="help-as"
+                  data-track-label={profile.title}
+                  className="group rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition-colors hover:border-white/18 hover:bg-white/[0.045]"
                 >
                   <div className="mb-5 flex items-center justify-between gap-3">
                     <div className="flex size-10 items-center justify-center rounded-full border border-white/10 bg-black/20 text-foreground">
                       <Icon size={17} />
                     </div>
-                    <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground/62">
-                      {path.label}
+                    <span className="max-w-[9rem] text-right font-mono text-[10px] uppercase leading-snug tracking-[0.16em] text-muted-foreground/62">
+                      {profile.audience}
                     </span>
                   </div>
-                  <h3 className="font-sans text-base font-medium text-foreground">
-                    {path.title}
-                  </h3>
+                  <div className="flex items-start justify-between gap-3">
+                    <h3 className="font-sans text-base font-medium text-foreground">
+                      {profile.shortTitle}
+                    </h3>
+                    <ArrowRightIcon
+                      size={14}
+                      className="mt-1 shrink-0 text-muted-foreground/55 transition-transform group-hover:translate-x-0.5 group-hover:text-foreground"
+                    />
+                  </div>
                   <p className="mt-3 min-h-[5.25rem] font-sans text-sm leading-relaxed text-muted-foreground">
-                    {path.description}
+                    {profile.summary}
                   </p>
                   <div className="mt-5 flex flex-wrap gap-1.5">
-                    {path.signals.map((signal) => (
+                    {profile.strengths.slice(0, 3).map((signal) => (
                       <span
                         key={signal}
                         className="rounded-full border border-white/10 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground/76"
@@ -74,7 +70,7 @@ export default function HelpAs() {
                       </span>
                     ))}
                   </div>
-                </article>
+                </Link>
               );
             })}
           </div>

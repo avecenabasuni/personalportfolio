@@ -5,6 +5,7 @@ import type {
   Article,
   WorkInProgress,
   WorkInProgressMeta,
+  HiringProfile,
   ExperienceRole,
   Certification,
   SkillGroup,
@@ -40,6 +41,138 @@ export const traceRows: TraceSpan[] = [
   { service: "redis-cache", offset: 38, duration: 10, color: "bg-lime-300/80" },
   { service: "payment-worker", offset: 52, duration: 24, color: "bg-violet-300/80" },
   { service: "notification-bus", offset: 66, duration: 16, color: "bg-indigo-300/80" },
+];
+
+export const hiringProfiles: HiringProfile[] = [
+  {
+    id: "sre",
+    title: "Site Reliability Engineer",
+    shortTitle: "SRE hire",
+    audience: "For reliability and platform teams",
+    summary:
+      "I can own production reliability work across observability, incident response, alert tuning, and SLI/SLO workflows.",
+    outcomes: [
+      "Reduce noisy alerts into actionable incident signal.",
+      "Build incident-ready dashboards and runbooks engineers can use under pressure.",
+      "Turn reliability work into repeatable operating practice, not one-off cleanup.",
+    ],
+    strengths: [
+      "On-call signal quality",
+      "MTTR reduction",
+      "SLI/SLO workflows",
+      "Incident response",
+    ],
+    evidence: [
+      {
+        label: "Full Stack Observability Implementation",
+        href: "/case-studies/fullstack-observability",
+        type: "case-study",
+      },
+      {
+        label: "Observability-as-code toolkit",
+        href: "/case-studies/observability-toolkit",
+        type: "case-study",
+      },
+      {
+        label: "Production debugging vault",
+        href: "/#vault",
+        type: "vault",
+      },
+      {
+        label: "View resume",
+        href: "/documents/Avecena-Basuni-CV.pdf",
+        type: "resume",
+      },
+    ],
+    ctaLabel: "Discuss an SRE role",
+    trackLabel: "Hire CTA SRE",
+  },
+  {
+    id: "observability",
+    title: "Observability Engineer",
+    shortTitle: "Observability Engineer",
+    audience: "For teams standardizing telemetry and alerting",
+    summary:
+      "I can design and implement production observability across New Relic, OpenTelemetry, infrastructure monitoring, dashboards, and alert workflows.",
+    outcomes: [
+      "Unify fragmented telemetry into one workflow for root cause analysis.",
+      "Instrument applications, infrastructure, and network signals with clear ownership.",
+      "Create dashboards and alerts that match the team's real operating model.",
+    ],
+    strengths: [
+      "New Relic rollout",
+      "OpenTelemetry",
+      "NRQL dashboards",
+      "Alert hygiene",
+    ],
+    evidence: [
+      {
+        label: "Full Stack Observability Implementation",
+        href: "/case-studies/fullstack-observability",
+        type: "case-study",
+      },
+      {
+        label: "Full Network Observability in Docker",
+        href: "/case-studies/network-observability-docker",
+        type: "case-study",
+      },
+      {
+        label: "New Relic certifications",
+        href: "/#certifications",
+        type: "certification",
+      },
+      {
+        label: "Writing on observability",
+        href: "/writing",
+        type: "writing",
+      },
+    ],
+    ctaLabel: "Discuss an observability role",
+    trackLabel: "Hire CTA Observability",
+  },
+  {
+    id: "solutions-architect",
+    title: "Reliability-Focused Solutions Architect",
+    shortTitle: "Solutions Architect",
+    audience: "For cloud, platform, and pre-sales teams",
+    summary:
+      "I can translate business constraints into resilient cloud, Kubernetes, and observability architectures that survive enterprise network and rollout constraints.",
+    outcomes: [
+      "Design practical architecture paths for restricted or hybrid environments.",
+      "Validate technical choices before rollout risk becomes delivery risk.",
+      "Package implementation handoffs so engineering teams can operate the result.",
+    ],
+    strengths: [
+      "Architecture tradeoffs",
+      "Cloud infrastructure",
+      "Technical validation",
+      "Enterprise constraints",
+    ],
+    evidence: [
+      {
+        label: "New Relic Squid Proxy",
+        href: "/case-studies/squid-proxy",
+        type: "case-study",
+      },
+      {
+        label: "AWS Solutions Architect credential",
+        href: "/#certifications",
+        type: "certification",
+      },
+      {
+        label: "Observability toolkit",
+        href: "/case-studies/observability-toolkit",
+        type: "case-study",
+      },
+      {
+        label: "View resume",
+        href: "/documents/Avecena-Basuni-CV.pdf",
+        type: "resume",
+      },
+    ],
+    ctaLabel: "Discuss an architecture role",
+    trackLabel: "Hire CTA Solutions Architect",
+  },
 ];
 
 export const caseStudies: CaseStudy[] = [

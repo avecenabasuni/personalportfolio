@@ -25,6 +25,7 @@ const footerLinks = [
   {
     heading: "Profile",
     links: [
+      { label: "Hire", href: "/hire" },
       { label: "About", href: "#about" },
       { label: "Experience", href: "#experience" },
       { label: "Education", href: "#education" },

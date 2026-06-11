@@ -9,7 +9,7 @@
 
 ### Testing
 - [x] Add Playwright E2E smoke tests for hash navigation and modal keyboard flow.
-- [ ] Add unit tests for writing feed formatting helpers.
+- [x] Add unit tests for writing feed formatting helpers.
 
 ### SEO & Structured Data
 - [x] Add `Project` JSON-LD to case study detail pages.
@@ -56,8 +56,32 @@
 
 ### Monitoring
 - [x] Add client-side timing event for `/api/writing` fetches.
-- [ ] Add uptime check in New Relic Synthetics for the production URL.
 - [x] Add scheduled external link health report.
 
+---
+
+## Phase 7 - Hiring Conversion
+
+### Recruiter Surface
+- [x] Add `/hire` as a recruiter-facing landing page for SRE, Observability Engineer, and reliability-focused Solutions Architect roles.
+- [x] Add shared `HiringProfile` data for role fit, outcomes, strengths, proof links, and CTA labels.
+- [x] Route homepage role cards to `/hire` anchors.
+- [x] Add recruiter proof strip before the main case study flow.
+
+### Contact Funnel
+- [x] Add structured role context fields to role-oriented contact CTAs.
+- [x] Track contact form submit, success, and error states.
+- [x] Keep EmailJS and mailto fallback behavior backward-compatible.
+
+### Validation
+- [x] Add Playwright coverage for `/hire` anchors and role-specific contact modal context.
+
+---
+
+## Phase 8 - Production Operations Follow-up
+
+### Monitoring
+- [ ] Add uptime check in New Relic Synthetics for the production URL.
+
 ### Asset Hygiene
-- [ ] Run orphan-file cleanup pass in `public/` after content is frozen.
+- [ ] Run orphan-file cleanup pass in `public/` after `/hire` content stabilizes.
