@@ -66,7 +66,6 @@
 - [x] Add `/hire` as a recruiter-facing landing page for SRE, Observability Engineer, and reliability-focused Solutions Architect roles.
 - [x] Add shared `HiringProfile` data for role fit, outcomes, strengths, proof links, and CTA labels.
 - [x] Route homepage role cards to `/hire` anchors.
-- [x] Add recruiter proof strip before the main case study flow.
 
 ### Contact Funnel
 - [x] Add structured role context fields to role-oriented contact CTAs.
